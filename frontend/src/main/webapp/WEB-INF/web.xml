@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+    id="WebApp_ID" version="3.0">
+    <!-- SyncCMS는 Servlet3을 사용합니다.0기술, Web.xml은 더 이상 전체 프로젝트 인 config.initializer의 입구가 아닙니다.*Initializer는 config.spring 프로젝트의 엔트리 클래스입니다.*구성은 Spring 구성입니다 .-->
+    <!--SyncCMS uses Servlet3.0 technology, Web.xml is no longer the entrance of the entire project, config.initializer.*Initializer is the project's entry class, config.spring.*Config is configured for Spring. -->
+    <display-name>SyncCMS</display-name>
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/error/500.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error/500.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error/404.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/error/403.jsp</location>
+    </error-page>
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+    <session-config>
+        <session-timeout>20</session-timeout>
+    </session-config>
+    <distributable />
+</web-app>

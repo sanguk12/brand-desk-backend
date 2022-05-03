@@ -1,0 +1,119 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.synccms</groupId>
+    <artifactId>synccms-starter-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>4.0.0-SNAPSHOT</version>
+
+    <parent>
+        <groupId>com.synccms</groupId>
+        <artifactId>synccms-dependencies</artifactId>
+        <version>4.0.0-SNAPSHOT</version>
+    </parent>
+
+    <modules>
+        <module>biz-core</module>
+        <module>frontend</module>
+    </modules>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+        <docker.image.prefix>sync</docker.image.prefix>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <version.synccms>4.0.0-SNAPSHOT</version.synccms>
+    </properties>
+
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.synccms</groupId>
+                <artifactId>synccms-core</artifactId>
+                <version>${version.synccms}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.synccms</groupId>
+                <artifactId>synccms-oauth</artifactId>
+                <version>${version.synccms}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.synccms</groupId>
+                <artifactId>synccms-redis</artifactId>
+                <version>${version.synccms}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.synccms</groupId>
+                <artifactId>synccms-analyzer</artifactId>
+                <version>${version.synccms}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+    <build>
+        <defaultGoal>compile</defaultGoal>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                    <encoding>UTF-8</encoding>
+                    <compilerArguments>
+                        <extdirs>src\main\webapp\WEB-INF\lib</extdirs>
+                    </compilerArguments>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <profiles.active>dev</profiles.active>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>uat</id>
+            <properties>
+                <profiles.active>uat</profiles.active>
+            </properties>
+        </profile>
+        <profile>
+            <id>pro</id>
+            <properties>
+                <profiles.active>pro</profiles.active>
+            </properties>
+        </profile>
+    </profiles>
+</project>
+
