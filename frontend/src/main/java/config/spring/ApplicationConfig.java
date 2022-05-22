@@ -73,10 +73,10 @@ import config.initializer.InitializationInitializer;
  */
 @Configuration
 @ComponentScan(
-        basePackages = {"com.synccms", "com.skmagic"},
+        basePackages = {"com.synccms", "com.samsung.ds"},
         excludeFilters = { @ComponentScan.Filter(value = { Controller.class }) }
 )
-@MapperScan(basePackages = {"com.synccms.logic.mapper", "com.skmagic.logic.mapper"})
+@MapperScan(basePackages = {"com.synccms.logic.mapper", "com.samsung.ds.logic.mapper"})
 @PropertySource({
    "classpath:" + CommonConstants.CMS_CONFIG_FILE,
 })

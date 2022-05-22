@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.*;
 
 import com.synccms.common.handler.FullBeanNameGenerator;
@@ -21,11 +22,12 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 @Configuration
 @ComponentScan(
         basePackages = {
-                "com.synccms.controller.api"
+                "com.synccms.controller.api",
+                "com.samsung.ds.controller.api"
         },
         useDefaultFilters = false,
         includeFilters = {
-            @ComponentScan.Filter(value = { Controller.class })
+            @ComponentScan.Filter(value = { RestController.class })
         },
         nameGenerator = FullBeanNameGenerator.class)
 public class ApiConfig extends WebMvcConfigurationSupport {

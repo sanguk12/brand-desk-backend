@@ -46,7 +46,9 @@ import com.synccms.logic.component.template.TemplateComponent;
 @EnableWebMvc
 @ComponentScan(
         basePackages = {
-                "com.synccms.controller.web"
+                "com.synccms.controller.web",
+                "com.samsung.ds.controller.web"
+
         },
         useDefaultFilters = false,
         includeFilters = {
