@@ -7,14 +7,14 @@
     <packaging>war</packaging>
 
     <parent>
-        <groupId>com.synccms</groupId>
-        <artifactId>synccms-starter-parent</artifactId>
+        <groupId>com.samsung.ds</groupId>
+        <artifactId>samsung-ds-brand-desk</artifactId>
         <version>4.0.0-SNAPSHOT</version>
     </parent>
 
     <dependencies>
         <dependency>
-            <groupId>com.synccms</groupId>
+            <groupId>com.samsung.ds</groupId>
             <artifactId>biz-core</artifactId>
             <version>${project.version}</version>
         </dependency>

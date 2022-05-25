@@ -2,16 +2,15 @@ package com.samsung.ds.logic.service.impl;
 
 
 
+import com.synccms.logic.service.sys.SysUserService;
 import com.samsung.ds.logic.service.LoginService;
 import com.samsung.ds.tools.MessageUtils;
 import com.synccms.common.api.Config;
 import com.synccms.common.constants.CommonConstants;
-import com.synccms.common.constants.Constants;
 import com.synccms.common.tools.*;
 import com.synccms.controller.web.event.LoginEvent;
 import com.synccms.controller.web.event.LogoutEvent;
 import com.synccms.entities.log.LogLogin;
-import com.synccms.entities.sys.SysAppClient;
 import com.synccms.entities.sys.SysSite;
 import com.synccms.entities.sys.SysUser;
 import com.synccms.entities.sys.SysUserToken;
@@ -20,9 +19,7 @@ import com.synccms.logic.component.config.LoginConfigComponent;
 import com.synccms.logic.service.cms.CmsDictionaryDataService;
 import com.synccms.logic.service.log.LogLoginService;
 import com.synccms.logic.service.sys.SysLoginService;
-import com.synccms.logic.service.sys.SysUserService;
 import com.synccms.logic.service.sys.SysUserTokenService;
-import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.commons.logging.Log;
@@ -30,14 +27,11 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.core.env.Environment;
-import org.springframework.core.env.Profiles;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -192,7 +186,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public Map<String, Object> loginStatus(HttpSession session, SysSite site) {
-        SysUser user = ControllerUtils.getUserFromSession(session);
+        SysUser user = (SysUser)ControllerUtils.getUserFromSession(session);
         Map<String, Object> result = new HashMap<>();
         if (null != user) {
             result.put("id", user.getId());
@@ -221,7 +215,7 @@ public class LoginServiceImpl implements LoginService {
             HttpServletRequest request,
             HttpServletResponse response) {
         Map<String, String> config = configComponent.getConfigData(site.getId(), Config.CONFIG_CODE_SITE);
-        SysUser user = ControllerUtils.getUserFromSession(request.getSession());
+        SysUser user = (SysUser)ControllerUtils.getUserFromSession(request.getSession());
         if (null != userId && null != user && userId.equals(user.getId())) {
             Cookie userCookie = RequestUtils.getCookie(request.getCookies(), CommonConstants.getCookiesUser());
             if (null != userCookie && CommonUtils.notEmpty(userCookie.getValue())) {

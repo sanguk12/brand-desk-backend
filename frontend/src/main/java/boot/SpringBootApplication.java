@@ -24,6 +24,7 @@ import org.springframework.boot.web.servlet.server.AbstractServletWebServerFacto
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
 
 import com.synccms.common.constants.CommonConstants;
@@ -44,6 +45,7 @@ import java.util.Locale;
 @Configuration
 @ServletComponentScan
 @Import({CmsConfig.class})
+@EnableAspectJAutoProxy(proxyTargetClass = true)
 public class SpringBootApplication {
     @Autowired(required = false)
     private Environment env;
