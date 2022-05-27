@@ -45,16 +45,14 @@ public class LoginController {
             ModelMap model) {
 
         try {
-            String authToken = loginService.login(
+            return AjaxResponse.success(loginService.login(
                     site,
                     login.getUsername(),
                     login.getPassword(),
                     login.getRememberMe(),
                     request,
                     response
-            );
-
-            return AjaxResponse.success(authToken);
+            ));
         }catch(ResponseStatusException rse)
         {
             return AjaxResponse.error(rse, "error");
@@ -65,10 +63,10 @@ public class LoginController {
      * @param session
      * @return result
      */
-    @RequestMapping("loginStatus")
+    @RequestMapping("currentUser")
     @ResponseBody
-    public Map<String, Object> loginStatus(HttpSession session, @RequestAttribute SysSite site) {
-        return loginService.loginStatus(session, site);
+    public AjaxResponse currentUser(HttpSession session, @RequestAttribute SysSite site) {
+        return AjaxResponse.success(loginService.currentUser(session, site));
     }
 
     /**

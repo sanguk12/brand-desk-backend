@@ -5,7 +5,7 @@ import lombok.*;
 @Data
 @Builder
 @RequiredArgsConstructor(staticName = "of")
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class LoginData {
     private String username;
     private String password;

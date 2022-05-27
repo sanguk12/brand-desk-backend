@@ -1,5 +1,6 @@
 package com.samsung.ds.logic.service;
 
+import com.samsung.ds.pojo.result.UserData;
 import com.synccms.entities.sys.SysSite;
 import com.synccms.entities.sys.SysUser;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ import java.util.Map;
 
 @Service
 public interface LoginService {
-    String login(
+    UserData login(
             SysSite site,
             String username,
             String password,
@@ -20,7 +21,7 @@ public interface LoginService {
             HttpServletRequest request,
             HttpServletResponse response);
 
-    Map<String, Object> loginStatus(HttpSession session, SysSite site);
+    UserData currentUser(HttpSession session, SysSite site);
 
     void logout(
             SysSite site,

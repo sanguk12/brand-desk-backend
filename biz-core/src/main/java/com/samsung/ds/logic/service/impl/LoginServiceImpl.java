@@ -2,7 +2,10 @@ package com.samsung.ds.logic.service.impl;
 
 
 
-import com.synccms.logic.service.sys.SysUserService;
+import com.samsung.ds.pojo.result.RoleInfo;
+import com.samsung.ds.pojo.result.UserData;
+import com.synccms.entities.sys.SysRoleUser;
+import com.synccms.logic.service.sys.*;
 import com.samsung.ds.logic.service.LoginService;
 import com.samsung.ds.tools.MessageUtils;
 import com.synccms.common.api.Config;
@@ -18,8 +21,7 @@ import com.synccms.logic.component.config.ConfigComponent;
 import com.synccms.logic.component.config.LoginConfigComponent;
 import com.synccms.logic.service.cms.CmsDictionaryDataService;
 import com.synccms.logic.service.log.LogLoginService;
-import com.synccms.logic.service.sys.SysLoginService;
-import com.synccms.logic.service.sys.SysUserTokenService;
+import com.synccms.views.pojo.query.SysRoleUserQuery;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.commons.logging.Log;
@@ -37,24 +39,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class LoginServiceImpl implements LoginService {
     protected static final Log log = LogFactory.getLog(LoginServiceImpl.class);
 
     @Autowired protected ConfigComponent configComponent;
-    @Autowired protected SysLoginService sysLoginService;
-    @Autowired protected SysUserTokenService sysUserTokenService;
-    @Autowired private CmsDictionaryDataService dictionaryDataService;
-    @Autowired
-    private LogLoginService logLoginService;
-    @Autowired
-    private SysUserService service;
-
-    @Autowired
-    private Environment env;
-
-
+    @Autowired protected SysLoginService loginService;
+    @Autowired protected SysRoleUserService roleUserService;
+    @Autowired protected SysRoleService roleService;
+    @Autowired protected SysUserTokenService userTokenService;
+    @Autowired private LogLoginService logLoginService;
+    @Autowired private SysUserService service;
+    @Autowired private Environment env;
 
     protected static ApplicationEventPublisher eventPublisher;
 
@@ -65,7 +63,7 @@ public class LoginServiceImpl implements LoginService {
 
 
     @Override
-    public String login(
+    public UserData login(
             SysSite site,
             String username,
             String password,
@@ -75,10 +73,6 @@ public class LoginServiceImpl implements LoginService {
         ModelMap model = new ModelMap();
 
         Map<String, String> config = configComponent.getConfigData(site.getId(), Config.CONFIG_CODE_SITE);
-        String loginPath = config.get(LoginConfigComponent.CONFIG_LOGIN_PATH);
-        if (CommonUtils.empty(loginPath)) {
-            loginPath = site.getDynamicPath();
-        }
 
         username = StringUtils.trim(username);
         password = StringUtils.trim(password);
@@ -128,8 +122,8 @@ public class LoginServiceImpl implements LoginService {
                 String authToken = UUID.randomUUID().toString();
                 int expiryMinutes = ConfigComponent.getInt(config.get(LoginConfigComponent.CONFIG_EXPIRY_MINUTES_WEB),
                         LoginConfigComponent.DEFAULT_EXPIRY_MINUTES);
-                addLoginStatus(user, authToken, request, response, expiryMinutes);
-                sysUserTokenService.save(
+                String token = addLoginStatus(user, authToken, request, response, expiryMinutes);
+                userTokenService.save(
                         SysUserToken
                                 .builder()
                                 .authToken(authToken)
@@ -142,7 +136,6 @@ public class LoginServiceImpl implements LoginService {
                                 .build()
 
                 );
-
 
                 logLoginService.save(
                         LogLogin
@@ -157,12 +150,23 @@ public class LoginServiceImpl implements LoginService {
                                 .build()
                 );
 
-                return authToken;
+                List<SysRoleUser> roleList =  roleUserService.getList(SysRoleUserQuery.builder().userId(user.getId()).build());
+                List<RoleInfo> roles = roleService.getEntitys(
+                        roleList.stream().map(ru -> ru.getId().getRoleId()).collect(Collectors.toList()).toArray(new Integer[0])
+                ).stream().map(r-> RoleInfo.builder().id(r.getId()).name(r.getName()).build()).collect(Collectors.toList());
+
+                return UserData.builder()
+                        .id(user.getId())
+                        .token(token)
+                        .email(user.getEmail())
+                        .nickname(user.getNickname())
+                        .roles(roles)
+                        .build();
             }
         }
     }
 
-    public static void addLoginStatus(
+    public static String addLoginStatus(
             SysUser user,
             String authToken,
             HttpServletRequest request,
@@ -181,30 +185,31 @@ public class LoginServiceImpl implements LoginService {
         {
             eventPublisher.publishEvent(new LoginEvent(user, request, response));
         }
+
+        return userCookieValue;
     }
 
 
     @Override
-    public Map<String, Object> loginStatus(HttpSession session, SysSite site) {
+    public UserData currentUser(HttpSession session, SysSite site) {
         SysUser user = (SysUser)ControllerUtils.getUserFromSession(session);
-        Map<String, Object> result = new HashMap<>();
-        if (null != user) {
-            result.put("id", user.getId());
-            result.put("username", user.getUsername());
-            result.put("nickname", user.getNickname());
-            result.put("weakPassword", user.isWeakPassword());
-            result.put("email", user.getEmail());
-            result.put("emailVerified", user.isEmailVerified());
-            result.put("isAdmin", user.isAdmin());
-        }
-        return result;
+        List<SysRoleUser> roleList =  roleUserService.getList(SysRoleUserQuery.builder().userId(user.getId()).build());
+        List<RoleInfo> roles = roleService.getEntitys(
+                roleList.stream().map(ru -> ru.getId().getRoleId()).collect(Collectors.toList()).toArray(new Integer[0])
+        ).stream().map(r-> RoleInfo.builder().id(r.getId()).name(r.getName()).build()).collect(Collectors.toList());
+
+        return UserData.builder()
+                .id(user.getId())
+                .nickname(user.getNickname())
+                .email(user.getEmail())
+                .roles(roles)
+                .build();
     }
 
 
     /**
      * @param site
      * @param userId
-     * @param returnUrl
      * @param request
      * @param response
      * @return view name
@@ -223,7 +228,7 @@ public class LoginServiceImpl implements LoginService {
                 if (null != value) {
                     String[] userData = value.split(CommonConstants.getCookiesUserSplit());
                     if (userData.length > 1) {
-                        sysUserTokenService.delete(userData[1]);
+                        userTokenService.delete(userData[1]);
                     }
                 }
             }
@@ -253,9 +258,6 @@ public class LoginServiceImpl implements LoginService {
      * @param site
      * @param entity
      * @param repassword
-     * @param returnUrl
-     * @param clientId
-     * @param uuid
      * @param request
      * @param response
      * @param model
@@ -308,7 +310,7 @@ public class LoginServiceImpl implements LoginService {
             String authToken = UUID.randomUUID().toString();
             Date expiryDate = DateUtils.addMinutes(now, expiryMinutes);
             addLoginStatus(entity, authToken, request, response, expiryMinutes);
-            sysUserTokenService.save(
+            userTokenService.save(
                     SysUserToken
                             .builder()
                             .authToken(authToken)
