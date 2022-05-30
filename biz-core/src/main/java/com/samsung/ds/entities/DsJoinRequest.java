@@ -49,27 +49,27 @@ public class DsJoinRequest extends BaseEntity {
     @GeneratorColumn(title = "사용자 이름", condition = true, like = true, or = true, name = "name")
     private String nickname;
 
-    @Column(name = "company", nullable = false, length = 50)
+    @Column(name = "company",  length = 50)
     @GeneratorColumn(title = "회사명", condition = true, like = true, or = true, name = "company")
     private String company;
 
-    @Column(name = "dept", nullable = false, length = 50)
+    @Column(name = "dept",  length = 50)
     @GeneratorColumn(title = "부서명", condition = true, like = true, or = true, name = "dept")
     private String dept;
 
-    @Column(name = "role", nullable = false, length = 50)
+    @Column(name = "role", length = 50)
     @GeneratorColumn(title = "관련업무", condition = true, like = true, or = true, name = "role")
     private String role;
 
-    @Column(name = "phone", nullable = false, length = 50)
+    @Column(name = "phone",  length = 50)
     @GeneratorColumn(title = "휴대폰 번호", condition = true, like = true, or = true, name = "phone")
     private String phone;
 
-    @Column(name = "staff", nullable = false, length = 50)
+    @Column(name = "staff", length = 50)
     @GeneratorColumn(title = "담당 임직원", condition = true, like = true, or = true, name = "staff")
     private Long staff;
 
-    @Column(name = "download", nullable = false, length = 50)
+    @Column(name = "download", length = 50)
     @GeneratorColumn(title = "다운로드 권한 요청 여부", condition = true, like = true, or = true, name = "download")
     private Boolean download;
 }

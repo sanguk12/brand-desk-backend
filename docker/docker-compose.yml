@@ -1,0 +1,141 @@
+version: '3'
+services:
+  gitlab:
+    image: gitlab/gitlab-ce:14.0.6-ce.0
+    ports:
+      - "8060:80"
+      - "2222:22"
+    volumes:
+      - ${GITLAB_VOLUME_CONFIG:-gitlab-volume-config}:/etc/gitlab
+      - ${GITLAB_VOLUME_DATA:-gitlab-volume-data}:/var/opt/gitlab
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://ebook-git.${DOMAIN}'
+        nginx['listen_https'] = false
+        nginx['listen_port'] = 80
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.gitlab.rule=Host(`ebook-git.${DOMAIN}`)"
+      - "traefik.http.routers.gitlab.entrypoints=web"
+      - "traefik.http.services.gitlab.loadbalancer.server.port=80"
+
+  jenkins:
+    image: jenkins/jenkins:lts
+    ports:
+      - "8082:8080"
+      - "50000:50000"
+    extra_hosts:
+      - "ebook-regi.skmagic.com:10.119.96.48"
+      - "ebook-git.skmagic.com:10.119.96.48"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /usr/bin/docker:/usr/bin/docker:ro
+      - /usr/local/bin/docker-compose:/usr/bin/docker-compose:ro
+      - ${JENKINS_VOLUME_HOME:-jenkins-volume-home}:/var/jenkins_home:Z
+    environment:
+      - JAVA_OPTS=${JENKINS_JAVAOPTS}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.jenkins.rule=Host(`ebook-ci.${DOMAIN}`)"
+      - "traefik.http.routers.jenkins.entrypoints=web"
+      - "traefik.http.routers.jenkins-secure.rule=Host(`ebook-ci.${DOMAIN}`)"
+      - "traefik.http.routers.jenkins-secure.entrypoints=web-secure"
+      - "traefik.http.routers.jenkins-secure.tls=false"
+
+  nexus:
+    image: sonatype/nexus3:3.32.0
+    ports:
+      - "8090:8081"
+      - "5000:5000"
+    volumes:
+      - ${NEXUS_VOLUME_DATA:-nexus-volume-data}:/nexus-data:Z
+    environment:
+      - INSTALL4J_ADD_VM_PARAMS
+    labels:
+      - "traefik.enable=true"
+      # Routers
+      # Nexus
+      - "traefik.http.routers.nexus.rule=Host(`ebook-repo.${DOMAIN}`)"
+      - "traefik.http.routers.nexus.service=nexus"
+      - "traefik.http.routers.nexus.entrypoints=web"
+      # Docker Registry
+      - "traefik.http.routers.nexusDocker.rule=Host(`ebook-regi.${DOMAIN}`)"
+      - "traefik.http.routers.nexusDocker.service=nexusDocker"
+      - "traefik.http.routers.nexusDocker.entrypoints=web"
+      # Services
+      # Nexus
+      - "traefik.http.services.nexus.loadbalancer.server.port=8081"
+      # Docker Registry
+      - "traefik.http.services.nexusDocker.loadbalancer.server.port=5000"
+
+      # Nexus
+      - "traefik.http.routers.nexus-secure.rule=Host(`ebook-repo.${DOMAIN}`)"
+      - "traefik.http.routers.nexus-secure.service=nexus-secure"
+      - "traefik.http.routers.nexus-secure.entrypoints=web-secure"
+      - "traefik.http.routers.nexus-secure.tls=true"
+      # Docker Registry
+      - "traefik.http.routers.nexusDocker-secure.rule=Host(`ebook-regi.${DOMAIN}`)"
+      - "traefik.http.routers.nexusDocker-secure.service=nexusDocker-secure"
+      - "traefik.http.routers.nexusDocker-secure.entrypoints=web-secure"
+      - "traefik.http.routers.nexusDocker-secure.tls=true"
+      # Services
+      # Nexus
+      - "traefik.http.services.nexus-secure.loadbalancer.server.port=8081"
+      # Docker Registry
+      - "traefik.http.services.nexusDocker-secure.loadbalancer.server.port=5000"
+
+  portainer:
+    image: portainer/portainer-ce:2.6.1
+    command: -H unix:///var/run/docker.sock
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${PORTAINER_VOLUME_HOME:-portainer-volume-home}:/data
+    labels:
+      # Frontend
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend.rule=Host(`ebook-portainer.${DOMAIN}`)"
+      - "traefik.http.routers.frontend.entrypoints=web"
+      - "traefik.http.services.frontend.loadbalancer.server.port=9000"
+      - "traefik.http.routers.frontend.service=frontend"
+
+      # Frontend secure
+      - "traefik.http.routers.frontend-secure.rule=Host(`ebook-portainer.${DOMAIN}`)"
+      - "traefik.http.routers.frontend-secure.entrypoints=web-secure"
+      - "traefik.http.services.frontend-secure.loadbalancer.server.port=9000"
+      - "traefik.http.routers.frontend-secure.service=frontend-secure"
+
+      # Edge
+      - "traefik.http.routers.edge.rule=Host(`ebook-edge.${DOMAIN}`)"
+      - "traefik.http.routers.edge.entrypoints=web"
+      - "traefik.http.services.edge.loadbalancer.server.port=8000"
+
+  ingress:
+    image: traefik:v2.4.11
+    command:
+      - "--log.level=DEBUG"  # disable on prod
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.web-secure.address=:443"
+      - "--log.filePath=/var/log/traefik.log"  # disable on prod
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8050:8080"
+    depends_on:
+      - gitlab
+      - nexus
+      - jenkins
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+volumes:
+  gitlab-volume-config:
+  gitlab-volume-logs:
+  gitlab-volume-data:
+  jenkins-volume-home:
+  nexus-volume-data:
+  portainer-volume-data:
+

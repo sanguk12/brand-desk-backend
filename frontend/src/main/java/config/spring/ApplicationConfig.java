@@ -253,7 +253,7 @@ public class ApplicationConfig {
     ) throws PropertyVetoException, IOException {
         LocalSessionFactoryBean bean = new LocalSessionFactoryBean();
         bean.setDataSource(dataSource);
-        bean.setPackagesToScan("com.synccms.entities");
+        bean.setPackagesToScan("com.synccms.entities", "com.samsung.ds.entities");
 
         MultiTokenizerFactory.init(env.getProperty("cms.tokenizerFactory"), getMap(env.getProperty("cms.tokenizerFactory.parameters")));
 

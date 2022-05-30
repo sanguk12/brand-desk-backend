@@ -41,7 +41,7 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-@Controller
+@RestController
 @RequestMapping("join")
 public class JoinRequestController {
     protected final Log log = LogFactory.getLog(getClass());
