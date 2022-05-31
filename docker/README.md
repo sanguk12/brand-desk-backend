@@ -10,4 +10,4 @@ chown -R 200:200 ${NEXUS_VOLUME_DATA}
 chown -R 1000:1000 ${JENKINS_VOLUME_HOME}
 
 docker-compose -f docker-compose.yml up -d
-docker-compose -f docker-compose-full.yml up -d
+docker-compose -f docker-compose.full.yml up -d

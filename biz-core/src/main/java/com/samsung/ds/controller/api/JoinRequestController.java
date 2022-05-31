@@ -21,6 +21,7 @@ import com.synccms.logic.service.cms.CmsCategoryService;
 import com.synccms.logic.service.cms.CmsContentService;
 import com.synccms.logic.service.log.LogLoginService;
 import com.synccms.logic.service.log.LogOperateService;
+import com.synccms.logic.service.sys.SysUserService;
 import com.synccms.views.pojo.model.CmsCategoryParameters;
 import freemarker.template.TemplateException;
 import org.apache.commons.lang3.StringUtils;
@@ -48,6 +49,10 @@ public class JoinRequestController {
     @Autowired
     private DsJoinRequestService service;
 
+    @Autowired
+    private SysUserService userService;
+
+
     /**
      * @param site
      * @param param
@@ -74,6 +79,23 @@ public class JoinRequestController {
 
         return AjaxResponse.success(entity.getId());
 
+    }
+
+
+
+    /**
+     * @param site
+     * @param request
+     * @param model
+     * @return view name
+     */
+    @RequestMapping("adminList")
+    public AjaxResponse adminList(
+            @RequestAttribute SysSite site,
+            HttpServletRequest request,
+            ModelMap model) {
+
+        return AjaxResponse.success(userService.getAdminList(site));
     }
 
 }
