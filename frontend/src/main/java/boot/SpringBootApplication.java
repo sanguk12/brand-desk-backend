@@ -2,6 +2,7 @@ package boot;
 
 
 import com.synccms.common.constants.Constants;
+import com.yidan.tus.server.config.TusConfiguration;
 import config.initializer.*;
 import org.apache.catalina.connector.Connector;
 import org.apache.catalina.valves.AccessLogValve;
@@ -16,8 +17,6 @@ import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactor
 import org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory;
 import org.springframework.boot.web.server.ErrorPage;
 import org.springframework.boot.web.server.Ssl;
-import org.springframework.boot.web.server.WebServerFactory;
-import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.boot.web.servlet.server.AbstractServletWebServerFactory;
@@ -31,11 +30,8 @@ import com.synccms.common.constants.CommonConstants;
 
 import config.spring.CmsConfig;
 import org.springframework.core.env.Environment;
-import org.springframework.core.env.Profiles;
 import org.springframework.http.HttpStatus;
 
-import java.time.Duration;
-import java.util.Locale;
 
 /**
  *

@@ -5866,11 +5866,11 @@ INSERT INTO tsherpa_address (sd_nm,sgg_nm,umd_nm) VALUES
 
 
 
-INSERT INTO sys_user(id, site_id, name, password, salt, weak_password, nick_name, dept_id, owns_all_content, roles, email, email_checked, superuser_access, disabled, last_login_date, last_login_ip, login_count, registered_date)
+INSERT INTO sys_user(id, site_id, name, password, salt, weak_password, nickname, dept_id, owns_all_content, roles, email, email_checked, superuser_access, disabled, last_login_date, last_login_ip, login_count, registered_date)
 VALUES(1, 1, 'admin', '14b7a3e68b6d921ef762b76dfdc75288569cb967b6057e5e38546082e44516cb796c79dbe7c3ba2d9a2c91ba307cb55635f9c9069c1a307a195ae2b7000921c9', '7442801408', 1, 'admin', 1, 1, '1', 'qudansdl@gmail.com', 0, 1, 0, '2021-02-04 17:48:59.000', '127.0.0.1', 405, '2019-01-01 00:00:00.000');
-INSERT INTO sys_user(id, site_id, name, password, salt, weak_password, nick_name, dept_id, owns_all_content, roles, email, email_checked, superuser_access, disabled, last_login_date, last_login_ip, login_count, registered_date)
+INSERT INTO sys_user(id, site_id, name, password, salt, weak_password, nickname, dept_id, owns_all_content, roles, email, email_checked, superuser_access, disabled, last_login_date, last_login_ip, login_count, registered_date)
 VALUES(2, 2, 'admin', 'da0d042212882db59c6c0725939472b38055a002bb818b32ec8303d7c5030884efe95e6ce7b630659e7e33a97be3e9894bf6bf73450b2d967b3624fa2ed5457b', '6021608377', 1, '관리자', 2, 1, '2', '', 0, 1, 0, '2021-02-04 18:06:45.000', '192.168.1.53', 1488, '2020-01-01 00:00:00.000');
-INSERT INTO sys_user(id, site_id, name, password, salt, weak_password, nick_name, dept_id, owns_all_content, roles, email, email_checked, superuser_access, disabled, last_login_date, last_login_ip, login_count, registered_date)
+INSERT INTO sys_user(id, site_id, name, password, salt, weak_password, nickname, dept_id, owns_all_content, roles, email, email_checked, superuser_access, disabled, last_login_date, last_login_ip, login_count, registered_date)
 VALUES(3, 3, 'admin', '74340d04700e0b8b1eeed19be8e9b56b3c5e11f71e90ed233289d0db00da5f55d4849b9b3c2dff53a366fcfd0c4eb71abde2361a26dd21c7e9b25a2458a875ba', '8181310335', 1, 'admin', 3, 1, '3', '', 0, 1, 0, '2021-02-04 17:57:02.000', '127.0.0.1', 248, '2020-01-01 00:00:00.000');
 
 
@@ -7026,541 +7026,541 @@ VALUES('word_list', 'ko', '검색어 관리');
 
 
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('app_add', 'sysApp/add', 'sysApp/save', NULL, 'app_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('app_client_disable', NULL, 'sysAppClient/disable', NULL, 'app_client_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('app_client_enable', NULL, 'sysAppClient/enable', NULL, 'app_client_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('app_client_list', 'sysAppClient/list', NULL, 'icon-coffee', 'user_menu', 1, 4);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('app_delete', NULL, 'sysApp/delete', NULL, 'app_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('app_issue', 'sysApp/issueParameters', 'sysAppToken/issue', NULL, 'app_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('app_list', 'sysApp/list', NULL, 'icon-linux', 'system_menu', 1, 5);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('category', NULL, NULL, 'icon-folder-open-alt', NULL, 1, 5);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('category_add', 'cmsCategory/add', 'cmsCategory/addMore,cmsCategory/verify,cmsTemplate/lookup,cmsCategory/categoryPath,cmsCategory/contentPath,file/doUpload,cmsCategory/save', '', 'category_menu', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('category_delete', NULL, 'cmsCategory/delete', '', 'category_menu', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('category_extend', NULL, NULL, 'icon-road', 'category', 1, 2);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('category_menu', 'cmsCategory/list', NULL, 'icon-folder-open', 'category', 1, 1);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('category_move', 'cmsCategory/moveParameters', 'cmsCategory/move,cmsCategory/lookup', '', 'category_menu', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('category_publish', 'cmsCategory/publishParameters', 'cmsCategory/publish', '', 'category_menu', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('category_push', 'cmsCategory/push_page', 'cmsPlace/push,cmsPlace/add,cmsPlace/save', '', 'category_menu', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('category_type_add', 'cmsCategoryType/add', 'cmsCategoryType/save', NULL, 'category_type_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('category_type_change', 'cmsCategory/changeTypeParameters', 'cmsCategory/changeType', '', 'category_menu', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('category_type_delete', NULL, 'cmsCategoryType/delete', NULL, 'category_type_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('category_type_list', 'cmsCategoryType/list', NULL, 'icon-road', 'category_extend', 1, 1);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('clearcache', NULL, 'clearCache', '', NULL, 0, 10);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('comment_check', NULL, 'cmsComment/check', NULL, 'comment_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('comment_delete', NULL, 'cmsComment/delete', NULL, 'comment_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('comment_edit', 'cmsComment/edit', 'cmsComment/save', NULL, 'comment_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('comment_list', 'cmsComment/list', 'sysUser/lookup', 'icon-comment', 'content_extend', 1, 4);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('comment_reply', 'cmsComment/reply', 'cmsComment/save', NULL, 'comment_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('comment_uncheck', NULL, 'cmsComment/uncheck', NULL, 'comment_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('config_add', 'sysConfig/add', 'sysConfig/save', NULL, 'config_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('config_data_delete', NULL, 'sysConfigData/delete', NULL, 'config_data_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('config_data_edit', NULL, 'sysConfigData/save,sysConfigData/edit', NULL, 'config_data_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('config_data_list', 'sysConfigData/list', NULL, 'icon-cog', 'system_menu', 1, 1);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('config_delete', NULL, 'sysConfig/delete', NULL, 'config_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('config_list', 'sysConfig/list', NULL, 'icon-cogs', 'config_menu', 1, 2);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('config_list_data_dictionary', 'cmsDictionary/lookup', NULL, NULL, 'config_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('config_menu', NULL, NULL, 'icon-gear', 'develop', 1, 2);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('content', NULL, NULL, 'icon-file-text-alt', NULL, 1, 2);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('content_add', 'cmsContent/add', 'cmsContent/addMore,file/doUpload,cmsContent/lookup,cmsContent/lookup_list,cmsContent/save,ueditor,ckeditor/upload,kindeditor/upload,file/doBatchUpload', '', 'content_menu', 1, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('content_check', NULL, 'cmsContent/check,cmsContent/reject', '', 'content_menu', 1, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('content_delete', NULL, 'cmsContent/delete', '', 'content_menu', 1, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('content_export', NULL, 'cmsContent/export', '', 'content_menu', 1, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('content_extend', NULL, NULL, 'icon-road', 'content', 1, 1);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('content_menu', 'cmsContent/list', 'sysUser/lookup', 'icon-book', 'content', 1, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('content_move', 'cmsContent/moveParameters', 'cmsContent/move', '', 'content_menu', 1, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('content_publish', NULL, 'cmsContent/publish', '', 'content_menu', 1, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('content_push', 'cmsContent/push', 'cmsContent/push_content,cmsContent/push_content_list,cmsContent/push_to_content,cmsContent/push_page,cmsContent/push_page_list,cmsPlace/add,cmsPlace/save,cmsContent/related,cmsContent/unrelated,cmsPlace/delete', '', 'content_menu', 1, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('content_recycle_delete', NULL, 'cmsContent/realDelete', NULL, 'content_recycle_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('content_recycle_list', 'cmsRecycleContent/list', 'sysUser/lookup', 'icon-trash', 'content_extend', 1, 3);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('content_recycle_recycle', NULL, 'cmsContent/recycle', NULL, 'content_recycle_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('content_refresh', NULL, 'cmsContent/refresh', '', 'content_menu', 1, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('content_select_category', 'cmsCategory/lookupByModelId', NULL, NULL, 'content_add', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('content_select_category_type', 'cmsCategoryType/lookup', NULL, NULL, 'content_add', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('content_select_content', 'cmsContent/lookup', 'cmsContent/lookup_list', NULL, 'content_add', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('content_select_tag', 'cmsTag/lookup', NULL, NULL, 'content_add', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('content_select_tag_type', 'cmsTagType/lookup', NULL, NULL, 'content_add', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('content_select_template', 'cmsTemplate/lookup', NULL, NULL, 'content_add', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('content_select_user', 'sysUser/lookup', NULL, NULL, 'content_add', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('content_select_vote', 'cmsVote/lookup', NULL, NULL, 'content_add', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('content_sort', 'cmsContent/sortParameters', 'cmsContent/sort', '', 'content_menu', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('content_uncheck', NULL, 'cmsContent/uncheck', '', 'content_menu', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('content_view', 'cmsContent/view', NULL, '', 'content_menu', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('content_vote', 'cmsVote/list', NULL, 'icon-ticket', 'content_extend', 1, 4);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('content_vote_add', 'cmsVote/add', 'cmsVote/save', NULL, 'content_vote', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('content_vote_delete', NULL, 'cmsVote/delete', NULL, 'content_vote', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('content_vote_view', 'cmsVote/view', NULL, NULL, 'content_vote', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('dept_add', 'sysDept/add', 'sysDept/lookup,sysUser/lookup,sysDept/save', NULL, 'dept_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('dept_delete', NULL, 'sysDept/delete', NULL, 'dept_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('dept_list', 'sysDept/list', 'sysDept/lookup,sysUser/lookup', 'icon-group', 'user_menu', 1, 2);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('dept_user_list', 'sysDept/userList', 'sysDept/addUser,sysDept/saveUser,sysDept/enableUser,sysDept/disableUser', NULL, 'dept_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('develop', NULL, NULL, 'icon-puzzle-piece', NULL, 1, 7);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('dictionary_add', 'cmsDictionary/add', 'cmsDictionary/save,cmsDictionary/verify', NULL, 'dictionary_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('dictionary_delete', NULL, 'cmsDictionary/delete', NULL, 'dictionary_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('dictionary_list', 'cmsDictionary/list', NULL, 'icon-book', 'system_menu', 1, 4);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('domain_config', 'sysDomain/config', 'sysDomain/saveConfig,cmsTemplate/directoryLookup,cmsTemplate/lookup', NULL, 'domain_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('domain_list', 'sysDomain/domainList', NULL, 'icon-qrcode', 'config_menu', 1, 3);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('file_menu', NULL, NULL, 'icon-folder-close-alt', 'develop', 1, 1);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('log_login', 'log/login', 'sysUser/lookup', 'icon-signin', 'log_menu', 1, 3);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('log_login_delete', NULL, 'logLogin/delete', NULL, 'log_login', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('log_menu', NULL, NULL, 'icon-list-alt', 'maintenance', 1, 3);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('log_operate', 'log/operate', 'sysUser/lookup', 'icon-list-alt', 'log_menu', 1, 2);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('log_operate_delete', NULL, 'logOperate/delete', NULL, 'log_operate', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('log_operate_view', 'log/operateView', NULL, NULL, 'log_operate', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('log_task', 'log/task', 'sysUser/lookup', 'icon-time', 'log_menu', 1, 4);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('log_task_delete', NULL, 'logTask/delete', NULL, 'log_task', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('log_task_view', 'log/taskView', NULL, NULL, 'log_task', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('log_upload', 'log/upload', 'sysUser/lookup', 'icon-list-alt', 'log_menu', 1, 1);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('maintenance', NULL, NULL, 'icon-cogs', NULL, 1, 6);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('model_add', 'cmsModel/add', 'cmsModel/save,cmsTemplate/lookup', NULL, 'model_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('model_delete', NULL, 'cmsModel/delete', NULL, 'model_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('model_list', 'cmsModel/list', NULL, 'icon-th-large', 'config_menu', 1, 1);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('myself', NULL, NULL, 'icon-key', NULL, 1, 1);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('myself_content', 'myself/contentList', NULL, 'icon-book', 'myself_menu', 1, 1);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('myself_content_add', 'cmsContent/add', 'cmsContent/addMore,file/doUpload,cmsContent/lookup,cmsContent/lookup_list,cmsContent/save,ueditor,ckeditor/upload,kindeditor/upload', NULL, 'myself_content', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('myself_content_delete', NULL, 'cmsContent/delete', NULL, 'myself_content', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('myself_content_publish', NULL, 'cmsContent/publish', NULL, 'myself_content', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('myself_content_push', 'cmsContent/push', 'cmsContent/push_content,cmsContent/push_content_list,cmsContent/push_to_content,cmsContent/push_page,cmsContent/push_page_list,cmsContent/push_to_place,cmsContent/related', NULL, 'myself_content', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('myself_content_refresh', NULL, 'cmsContent/refresh', NULL, 'myself_content', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('myself_device', 'myself/userDeviceList', 'sysAppClient/enable,sysAppClient/disable', 'icon-linux', 'myself_menu', 1, 5);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('myself_log_login', 'myself/logLogin', NULL, 'icon-signin', 'myself_menu', 1, 4);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('myself_log_operate', 'myself/logOperate', NULL, 'icon-list-alt', 'myself_menu', 1, 3);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('myself_menu', NULL, NULL, 'icon-user', 'myself', 1, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('myself_password', 'myself/password', 'changePassword', 'icon-key', 'myself_menu', 1, 2);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('myself_token', 'myself/userTokenList', 'sysUserToken/delete', 'icon-unlock-alt', 'myself_menu', 1, 5);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('page', NULL, NULL, 'icon-tablet', NULL, 1, 3);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('page_list', 'cmsPage/list', 'cmsPage/metadata,sysUser/lookup,cmsContent/lookup,cmsContent/lookup_list,cmsCategory/lookup', 'icon-globe', 'page_menu', 1, 1);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('page_menu', NULL, NULL, 'icon-globe', 'page', 1, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('page_metadata', 'cmsPage/metadata', 'cmsPage/save', NULL, 'page_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('page_publish', NULL, 'cmsTemplate/publish', NULL, 'page_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('page_save', NULL, 'cmsPage/save,file/doUpload,cmsPage/clearCache', NULL, 'page_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('page_select_category', 'cmsCategory/lookup', NULL, NULL, 'page_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('page_select_category_type', 'cmsCategoryType/lookup', NULL, NULL, 'page_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('page_select_content', 'cmsContent/lookup', 'cmsContent/lookup_list', NULL, 'page_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('page_select_tag_type', 'cmsTagType/lookup', NULL, NULL, 'page_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('page_select_template', 'cmsTemplate/lookup', NULL, NULL, 'page_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('page_select_user', 'sysUser/lookup', NULL, NULL, 'page_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('place_add', 'cmsPlace/add', 'cmsContent/lookup,cmsPlace/lookup,cmsPlace/lookup_content_list,file/doUpload,cmsPlace/save', NULL, 'place_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('place_check', NULL, 'cmsPlace/check,cmsPlace/uncheck', NULL, 'place_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('place_clear', NULL, 'cmsPlace/clear', NULL, 'place_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('place_data_list', 'cmsPlace/dataList', 'cmsPlace/export', NULL, 'place_list', 0, 1);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('place_delete', NULL, 'cmsPlace/delete', NULL, 'place_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('place_list', 'cmsPlace/list', 'sysUser/lookup', 'icon-list-alt', 'page_menu', 1, 1);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('place_publish', 'cmsPlace/publish_place', 'cmsTemplate/publishPlace', NULL, 'place_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('place_refresh', NULL, 'cmsPlace/refresh', NULL, 'place_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('place_template_content', 'placeTemplate/content', 'cmsTemplate/help,cmsTemplate/savePlace,cmsTemplate/chipLookup,cmsWebFile/lookup,cmsWebFile/contentForm,placeTemplate/form', NULL, 'place_template_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('place_template_data_dictionary', 'cmsDictionary/lookup', NULL, NULL, 'place_template_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('place_template_fragment', 'cmsTemplate/ftlLookup', NULL, NULL, 'place_template_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('place_template_help', 'cmsTemplate/help', NULL, NULL, 'place_template_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('place_template_list', 'placeTemplate/list', NULL, 'icon-list-alt', 'file_menu', 1, 2);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('place_template_metadata', 'placeTemplate/metadata', 'cmsTemplate/savePlaceMetaData', NULL, 'place_template_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('place_template_place', 'placeTemplate/lookup', NULL, NULL, 'place_template_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('place_template_webfile', 'cmsWebFile/lookup', NULL, NULL, 'place_template_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('place_view', 'cmsPlace/view', NULL, NULL, 'place_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('report_user', 'report/user', NULL, 'icon-male', 'user_menu', 1, 5);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('role_add', 'sysRole/add', 'sysRole/save', NULL, 'role_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('role_delete', NULL, 'sysRole/delete', NULL, 'role_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('role_list', 'sysRole/list', NULL, 'icon-user-md', 'user_menu', 1, 3);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('system_menu', NULL, NULL, 'icon-cogs', 'maintenance', 1, 2);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('tag_add', 'cmsTag/add', 'cmsTagType/lookup,cmsTag/save', NULL, 'tag_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('tag_delete', NULL, 'cmsTag/delete', NULL, 'tag_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('tag_list', 'cmsTag/list', 'cmsTagType/lookup', 'icon-tag', 'content_extend', 1, 1);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('tag_type_delete', NULL, 'cmsTagType/delete', NULL, 'tag_type_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('tag_type_list', 'cmsTagType/list', NULL, 'icon-tags', 'category_extend', 1, 2);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('tag_type_save', 'cmsTagType/add', 'cmsTagType/save', NULL, 'tag_type_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('task_add', 'sysTask/add', 'sysTask/save,sysTask/example,taskTemplate/lookup', NULL, 'task_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('task_delete', NULL, 'sysTask/delete', NULL, 'task_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('task_list', 'sysTask/list', NULL, 'icon-time', 'system_menu', 1, 2);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('task_pause', NULL, 'sysTask/pause', NULL, 'task_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('task_recreate', NULL, 'sysTask/recreate', NULL, 'task_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('task_resume', NULL, 'sysTask/resume', NULL, 'task_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('task_runonce', NULL, 'sysTask/runOnce', NULL, 'task_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('task_template_content', 'taskTemplate/content', 'taskTemplate/save,taskTemplate/chipLookup,cmsTemplate/help,placeTemplate/form,cmsWebFile/contentForm', NULL, 'task_template_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('task_template_delete', NULL, 'taskTemplate/delete', NULL, 'task_template_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('task_template_fragment', 'taskTemplate/chipLookup', NULL, NULL, 'task_template_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('task_template_help', 'cmsTemplate/help', NULL, NULL, 'task_template_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('task_template_list', 'taskTemplate/list', NULL, 'icon-time', 'file_menu', 1, 3);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('template_content', 'cmsTemplate/content', 'cmsTemplate/save,cmsTemplate/chipLookup,cmsWebFile/lookup,placeTemplate/form,cmsWebFile/contentForm,cmsTemplate/demo,cmsTemplate/help,cmsTemplate/upload,cmsTemplate/doUpload', NULL, 'template_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('template_content_form', 'cmsTemplate/contentForm', NULL, NULL, 'template_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('template_content-type', 'cmsTemplate/contentTypeLookup', NULL, NULL, 'template_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('template_data_dictionary', 'cmsDictionary/lookup', NULL, NULL, 'template_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('template_delete', NULL, 'cmsTemplate/delete', NULL, 'template_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('template_demo', 'cmsTemplate/demo', NULL, NULL, 'template_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('template_fragment', 'cmsTemplate/ftlLookup', NULL, NULL, 'template_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('template_help', 'cmsTemplate/help', NULL, NULL, 'template_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('template_list', 'cmsTemplate/list', 'cmsTemplate/directory', 'icon-code', 'file_menu', 1, 1);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('template_metadata', 'cmsTemplate/metadata', 'cmsTemplate/saveMetadata', NULL, 'template_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('template_place', 'placeTemplate/lookup', NULL, NULL, 'template_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('template_place_form', 'placeTemplate/form', NULL, NULL, 'template_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('template_upload', 'cmsTemplate/upload', 'cmsTemplate/doUpload', NULL, 'template_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('template_website_file', 'cmsWebFile/lookup', NULL, NULL, 'template_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('user_add', 'sysUser/add', 'sysDept/lookup,sysUser/save', NULL, 'user_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('user_disable', NULL, 'sysUser/disable', NULL, 'user_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('user_enable', NULL, 'sysUser/enable', NULL, 'user_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('user_list', 'sysUser/list', NULL, 'icon-user', 'user_menu', 1, 1);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('user_menu', NULL, NULL, 'icon-user', 'maintenance', 1, 1);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('webfile_content', 'cmsWebFile/content', 'cmsWebFile/save', NULL, 'webfile_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('webfile_directory', 'cmsWebFile/directory', 'cmsWebFile/createDirectory', NULL, 'webfile_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('webfile_list', 'cmsWebFile/list', NULL, 'icon-globe', 'file_menu', 1, 4);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('webfile_unzip', 'cmsWebFile/unzipParameters', 'cmsWebFile/unzip', NULL, 'webfile_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('webfile_upload', 'cmsWebFile/upload', 'cmsWebFile/doUpload,cmsWebFile/check', NULL, 'webfile_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('webfile_zip', NULL, 'cmsWebFile/zip', NULL, 'webfile_list', 0, 0);
 INSERT INTO sys_module
-(id, url, authorized_url, attached, parent_id, menu, sort)
+(id, url, authorized_url, icon, parent_id, menu, sort)
 VALUES('word_list', 'cmsWord/list', NULL, 'icon-search', 'content_extend', 1, 2);
 
 

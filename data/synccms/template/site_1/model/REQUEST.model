@@ -1,0 +1,49 @@
+{
+  "id" : "REQUEST",
+  "parentId" : null,
+  "name" : "요청 모델",
+  "description" : null,
+  "templatePath" : null,
+  "editorType" : null,
+  "hasChild" : false,
+  "onlyUrl" : false,
+  "hasImages" : false,
+  "hasFiles" : true,
+  "searchable" : false,
+  "fieldList" : null,
+  "requiredFieldList" : null,
+  "fieldTextMap" : {
+    "title" : "제"
+  },
+  "extendList" : [ {
+    "createDate" : null,
+    "updateDate" : null,
+    "id" : {
+      "code" : "type"
+    },
+    "required" : false,
+    "searchable" : false,
+    "maxlength" : null,
+    "name" : "유형",
+    "description" : "",
+    "inputType" : "dictionary",
+    "defaultValue" : "",
+    "dictionaryId" : "6",
+    "sort" : 0
+  }, {
+    "createDate" : null,
+    "updateDate" : null,
+    "id" : {
+      "code" : "content"
+    },
+    "required" : false,
+    "searchable" : false,
+    "maxlength" : null,
+    "name" : "내용",
+    "description" : "",
+    "inputType" : "textarea",
+    "defaultValue" : "",
+    "dictionaryId" : "6",
+    "sort" : 0
+  } ]
+}

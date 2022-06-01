@@ -1,0 +1,34 @@
+{
+  "id" : "GUIDELINE",
+  "parentId" : null,
+  "name" : "Guideline",
+  "description" : "Guideline Content",
+  "templatePath" : null,
+  "editorType" : null,
+  "hasChild" : false,
+  "onlyUrl" : false,
+  "hasImages" : false,
+  "hasFiles" : false,
+  "searchable" : false,
+  "fieldList" : null,
+  "requiredFieldList" : null,
+  "fieldTextMap" : {
+    "title" : "Title"
+  },
+  "extendList" : [ {
+    "createDate" : null,
+    "updateDate" : null,
+    "id" : {
+      "code" : "content"
+    },
+    "required" : true,
+    "searchable" : true,
+    "maxlength" : null,
+    "name" : "Content",
+    "description" : null,
+    "inputType" : "editor",
+    "defaultValue" : null,
+    "dictionaryId" : null,
+    "sort" : 1
+  } ]
+}

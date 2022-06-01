@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.samsung.ds</groupId>
+        <artifactId>samsung-ds-brand-desk</artifactId>
+        <version>4.0.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.sync.tus</groupId>
+    <artifactId>spring-tus-starter</artifactId>
+    <version>4.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>spring-tus-starter</name>
+    <description>Spring Boot plug-in for resuming file transfer of Tus protocol file</description>
+
+    <developers>
+        <developer>
+            <name>wuxuan.chai</name>
+            <email>wuxuan.chai@gmail.com</email>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>Apache 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <!--TUS protocol dependency-->
+        <dependency>
+            <groupId>me.desair.tus</groupId>
+            <artifactId>tus-java-server</artifactId>
+            <version>1.0.0-2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.tus.java.client</groupId>
+            <artifactId>tus-java-client</artifactId>
+            <version>0.4.0</version>
+        </dependency>
+
+        <!-- Automatic configuration dependencies, custom starter core dependencies-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-parent</artifactId>
+            <version>${version.springBoot}</version>
+            <type>pom</type>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+            <version>${version.springBoot}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>${version.springBoot}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>${version.springBoot}</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+    </dependencies>
+</project>

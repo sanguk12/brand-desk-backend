@@ -3,6 +3,7 @@ package config.spring;
 import com.synccms.common.servlet.WebFileHttpRequestHandler;
 import com.synccms.logic.component.config.CorsConfigComponent;
 import com.synccms.logic.component.site.SiteComponent;
+import com.yidan.tus.server.config.TusConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.HttpRequestHandler;

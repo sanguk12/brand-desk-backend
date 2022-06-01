@@ -1,3 +1,15 @@
 spring:
   main:
     allow-circular-references: true
+
+# Upload interface
+com.yidan.tus:
+  upload-URI: /api/upload/
+  # tus chunk file storage location
+  tus-upload-directory: D:/temp_image/tus
+  # The location where the file was finally uploaded
+  app-upload-directory: D:/temp_image
+  # Whether to open the lock file of regularly cleaning tus, the default is false
+  enable-clean: true
+  # Timing period
+  expire-time: 1MINUTES

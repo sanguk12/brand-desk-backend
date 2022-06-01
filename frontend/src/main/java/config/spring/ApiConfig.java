@@ -2,10 +2,12 @@ package config.spring;
 
 import com.synccms.common.interceptor.CsrfInterceptor;
 import com.synccms.common.interceptor.WebContextInterceptor;
+import com.yidan.tus.server.config.TusConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.*;
@@ -30,6 +32,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
             @ComponentScan.Filter(value = { RestController.class })
         },
         nameGenerator = FullBeanNameGenerator.class)
+@Import({TusConfiguration.class})
 public class ApiConfig extends WebMvcConfigurationSupport {
     @Autowired
     private CorsInterceptor corsInterceptor;

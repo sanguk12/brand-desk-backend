@@ -19,7 +19,6 @@ import com.synccms.entities.sys.SysUser;
 import com.synccms.entities.sys.SysUserToken;
 import com.synccms.logic.component.config.ConfigComponent;
 import com.synccms.logic.component.config.LoginConfigComponent;
-import com.synccms.logic.service.cms.CmsDictionaryDataService;
 import com.synccms.logic.service.log.LogLoginService;
 import com.synccms.views.pojo.query.SysRoleUserQuery;
 import org.apache.commons.lang3.StringUtils;
