@@ -77,7 +77,7 @@ public class LoginServiceImpl implements LoginService {
         password = StringUtils.trim(password);
         if (ControllerUtils.verifyNotEmpty("username", username, model)
                 || ControllerUtils.verifyNotEmpty("password", password, model)) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, MessageUtils.getMessage((String)model.get(CommonConstants.ERROR), request));
+            throw new ResponseStatusException(HttpStatus.OK, MessageUtils.getMessage((String)model.get(CommonConstants.ERROR), request));
         } else {
             SysUser user;
             if (ControllerUtils.verifyNotEMail(username)) {
@@ -107,7 +107,7 @@ public class LoginServiceImpl implements LoginService {
                                 .errorPassword(password)
                                 .build()
                 );
-                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, MessageUtils.getMessage((String)model.get(CommonConstants.ERROR), request));
+                throw new ResponseStatusException(HttpStatus.OK, MessageUtils.getMessage((String)model.get(CommonConstants.ERROR), request));
             } else {
                 if (UserPasswordUtils.needUpdate(user.getSalt())) {
                     String salt = UserPasswordUtils.getSalt();

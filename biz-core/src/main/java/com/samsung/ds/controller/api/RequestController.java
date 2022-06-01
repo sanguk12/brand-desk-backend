@@ -1,9 +1,6 @@
 package com.samsung.ds.controller.api;
 
-import com.samsung.ds.logic.service.LoginService;
-import com.samsung.ds.pojo.entity.LoginData;
-import com.samsung.ds.tools.MessageUtils;
-import com.synccms.common.constants.CommonConstants;
+import com.samsung.ds.views.pojo.model.ReviewRequest;
 import com.synccms.common.handler.PageHandler;
 import com.synccms.common.pojo.AjaxResponse;
 import com.synccms.entities.cms.CmsCategory;
@@ -19,13 +16,8 @@ import com.synccms.views.pojo.query.CmsContentQuery;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,7 +31,6 @@ public class RequestController {
     protected static final Log log = LogFactory.getLog(RequestController.class);
     @Autowired private CmsContentService service;
     @Autowired private CmsCategoryService categoryService;
-
 
     @Autowired private CmsDictionaryService dictionaryService;
     @Autowired private CmsDictionaryItemService dictionaryItemService;
@@ -70,7 +61,7 @@ public class RequestController {
      * @return view name
      */
     @RequestMapping(value = "write", method = RequestMethod.POST)
-    public AjaxResponse write(@RequestAttribute SysSite site) {
+    public AjaxResponse write(@RequestAttribute SysSite site, @RequestBody ReviewRequest req) {
         return AjaxResponse.success();
     }
 
@@ -88,8 +79,12 @@ public class RequestController {
         {
             dict = dictionaryService.getDictionaryByParent(dict.getId(), parentData, site.getId());
         }
+        if(dict != null)
+        {
+            List<CmsDictionaryItem> list =  dictionaryItemService.getList(site.getId(), dict.getId());
+            return AjaxResponse.success(list);
+        }
+        return AjaxResponse.success(new ArrayList<>());
 
-        List<CmsDictionaryItem> list =  dictionaryItemService.getList(site.getId(), dict.getId());
-        return AjaxResponse.success(list);
     }
 }

@@ -6,9 +6,9 @@ spring:
 com.yidan.tus:
   upload-URI: /api/upload/
   # tus chunk file storage location
-  tus-upload-directory: D:/temp_image/tus
+  tus-upload-directory: ${tus.filePath}/
   # The location where the file was finally uploaded
-  app-upload-directory: D:/temp_image
+  app-upload-directory: ${cms.filePath}/web/upload
   # Whether to open the lock file of regularly cleaning tus, the default is false
   enable-clean: true
   # Timing period
