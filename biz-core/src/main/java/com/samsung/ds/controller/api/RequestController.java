@@ -7,10 +7,14 @@ import com.synccms.common.constants.CommonConstants;
 import com.synccms.common.handler.PageHandler;
 import com.synccms.common.pojo.AjaxResponse;
 import com.synccms.entities.cms.CmsCategory;
+import com.synccms.entities.cms.CmsDictionary;
+import com.synccms.entities.cms.CmsDictionaryItem;
 import com.synccms.entities.sys.SysSite;
 import com.synccms.entities.sys.SysUser;
 import com.synccms.logic.service.cms.CmsCategoryService;
 import com.synccms.logic.service.cms.CmsContentService;
+import com.synccms.logic.service.cms.CmsDictionaryItemService;
+import com.synccms.logic.service.cms.CmsDictionaryService;
 import com.synccms.views.pojo.query.CmsContentQuery;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -22,6 +26,7 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
@@ -35,6 +40,9 @@ public class RequestController {
     @Autowired private CmsContentService service;
     @Autowired private CmsCategoryService categoryService;
 
+
+    @Autowired private CmsDictionaryService dictionaryService;
+    @Autowired private CmsDictionaryItemService dictionaryItemService;
 
     /**
      * @param site
@@ -59,15 +67,29 @@ public class RequestController {
 
     /**
      * @param site
-     * @param entity
-     * @param request
-     * @param response
-     * @param model
      * @return view name
      */
     @RequestMapping(value = "write", method = RequestMethod.POST)
-    public AjaxResponse write(@RequestAttribute SysSite site, SysUser entity,
-                           HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+    public AjaxResponse write(@RequestAttribute SysSite site) {
         return AjaxResponse.success();
+    }
+
+
+    /**
+     * @param site
+     * @return view name
+     */
+    @RequestMapping(value = "typeList")
+    public AjaxResponse typeList(
+            @RequestAttribute SysSite site,
+            @RequestParam(value = "parentData", required = false) Long parentData) {
+        CmsDictionary dict = dictionaryService.getByCode(site.getId(), "REQUEST_TYPE");
+        if(parentData != null)
+        {
+            dict = dictionaryService.getDictionaryByParent(dict.getId(), parentData, site.getId());
+        }
+
+        List<CmsDictionaryItem> list =  dictionaryItemService.getList(site.getId(), dict.getId());
+        return AjaxResponse.success(list);
     }
 }
