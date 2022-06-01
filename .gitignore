@@ -18,3 +18,4 @@ node_modules/
 /synccms-front/backend/src/main/resources/public/
 /synccms-admin/backend/src/main/resources/public/
 /spy.log
+/data/synccms/web/content/
