@@ -95,6 +95,31 @@
         </plugins>
     </build>
 
+    <repositories>
+        <repository>
+            <id>sync.snapshot</id>
+            <name>Sync Snapshot Repository</name>
+            <url>https://nexus.basicit.co.kr/repository/maven-snapshots/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>sync.release</id>
+            <name>Sync Release Repository</name>
+            <url>https://nexus.basicit.co.kr/repository/maven-releases/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+    </repositories>
+
     <profiles>
         <profile>
             <id>dev</id>

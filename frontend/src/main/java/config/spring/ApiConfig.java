@@ -1,5 +1,6 @@
 package config.spring;
 
+import com.samsung.ds.advice.CustomRequestMappingHandlerAdapter;
 import com.synccms.common.interceptor.CsrfInterceptor;
 import com.synccms.common.interceptor.WebContextInterceptor;
 import com.yidan.tus.server.config.TusConfiguration;
@@ -60,4 +61,10 @@ public class ApiConfig extends WebMvcConfigurationSupport {
         registry.addInterceptor(corsInterceptor);
     }
 
+
+    @Override
+    protected RequestMappingHandlerAdapter createRequestMappingHandlerAdapter() {
+        RequestMappingHandlerAdapter adapter =  new CustomRequestMappingHandlerAdapter();
+        return adapter;
+    }
 }
