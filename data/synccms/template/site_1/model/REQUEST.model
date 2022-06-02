@@ -13,23 +13,38 @@
   "fieldList" : null,
   "requiredFieldList" : null,
   "fieldTextMap" : {
-    "title" : "제"
+    "title" : "제목"
   },
   "extendList" : [ {
+    "createDate" : null,
+    "updateDate" : null,
+    "id" : {
+      "code" : "status"
+    },
+    "required" : false,
+    "searchable" : false,
+    "maxlength" : null,
+    "name" : "상태",
+    "description" : "",
+    "inputType" : "dictionary",
+    "defaultValue" : "",
+    "dictionaryId" : "2",
+    "sort" : 1
+  }, {
     "createDate" : null,
     "updateDate" : null,
     "id" : {
       "code" : "type"
     },
     "required" : false,
-    "searchable" : false,
+    "searchable" : true,
     "maxlength" : null,
     "name" : "유형",
     "description" : "",
     "inputType" : "dictionary",
     "defaultValue" : "",
     "dictionaryId" : "6",
-    "sort" : 0
+    "sort" : 2
   }, {
     "createDate" : null,
     "updateDate" : null,
@@ -37,13 +52,13 @@
       "code" : "content"
     },
     "required" : false,
-    "searchable" : false,
+    "searchable" : true,
     "maxlength" : null,
     "name" : "내용",
     "description" : "",
     "inputType" : "textarea",
     "defaultValue" : "",
-    "dictionaryId" : "6",
-    "sort" : 0
+    "dictionaryId" : "",
+    "sort" : 3
   } ]
 }
