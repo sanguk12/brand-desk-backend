@@ -89,7 +89,7 @@ public class RequestController {
         Map<String, String> map = new HashMap<>();
         map.put("type", req.getType1() + "," + req.getType2());
         map.put("content", req.getContent());
-        map.put("status", req.isTemp() ? "TEMPORARY" : "REQUEST");
+        map.put("status", req.isTemp() ? "SAVED" : "REQUEST");
 
         attribute.setData(ExtendUtils.getExtendString(map));
 
