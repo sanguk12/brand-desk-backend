@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+<head>
+    <title>Interface testing</title>
+    <meta charset="utf-8">
+    <link href="${base}/resource/interface/code-formatter.css" rel="stylesheet"/>
+    <script src="${base}/resource/interface/code-formatter.js"></script>
+    <script src="${base}/resource/interface/json2.js"></script>
+    <script src="${base}/resource/js/jquery-1.9.1.min.js"></script>
+<style>
+#rawJson{width:100%; height: 50px;}
+#interfaes{overflow: hidden;}
+#interfaes a{padding: 0 5px;}
+</style>
+<script>
+var i=0;
+var sitePath = '${base}/';
+var apiArray=['api/directive/','api/method/','api/']
+var apisArray=['api/directives','api/methods','api/apis'];
+var supportShowParametersArray=[true,false,true];
+
+function invoke(){
+    $('#rawJson').val('loading...');
+    $.ajax({
+        url: $('#sendData').val(),
+        type: 'GET',
+        contentType:'application/json; charset=UTF-8',
+        success: function (data) {
+            $('#rawJson').val(JSON.stringify(data));
+            process(JSON.stringify(data),$('.code-canvas'));
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            console.log(XMLHttpRequest);
+            console.log(errorThrown);
+            $('#rawJson').val('http code:'+XMLHttpRequest.status+',error:'+textStatus);
+        }
+    });
+}
+function getSymbol(value){
+    if(value.charAt(value.length-1)=='&'||value.charAt(value.length-1)=='?'){
+        return '';
+    }else{
+        if(value&&value.indexOf('?')>0){
+            return '&';
+        }else{
+            return '?';
+        }
+    }
+}
+function use(action,needAppToken,needUserToken,minParameters){
+    $('#sendData').val(sitePath+apiArray[i]+action);
+    if('true'==needAppToken){
+        $('#sendData').val($('#sendData').val()+getSymbol($('#sendData').val())+'appToken=_AppToken_');
+    }
+    if('true'==needUserToken){
+        $('#sendData').val($('#sendData').val()+getSymbol($('#sendData').val())+'authToken=_UserToken_&authUserId=_UserID_');
+    }
+    if(minParameters != 'undefined'){
+        for (var j = 1; j <= minParameters; j++) {
+            $('#sendData').val($('#sendData').val() + getSymbol($('#sendData').val()) + 'parameters=_value' + j+'_');
+        }
+    }else if($('input[name=showParameters]').is(':checked')&&$('input[name=showParameters]').is(':visible')){
+        $('#sendData').val($('#sendData').val()+getSymbol($('#sendData').val())+'showParameters=true');
+    }
+    $('#buttons').show();
+    return false;
+}
+function init(){
+    i=$('input:radio[name=api]:checked').val();
+    if(supportShowParametersArray[i]){
+        $('input[name=showParameters]').parent().show();
+    }else{
+        $('input[name=showParameters]').parent().hide();
+    }
+    $('#interfaes').empty();
+    $.ajax({
+        url:apisArray[i],type: 'GET',
+        contentType:'application/json; charset=UTF-8',
+        dataType: 'json',
+        success: function (dataList) {
+            $(dataList).each(function(index,data){
+                var style='';
+                if('true'==data.needAppToken){
+                    style+='color:#f00;';
+                }
+                if('true'==data.needUserToken){
+                    style+='border:1px solid #0f0;';
+                }
+                $('#interfaes').append(' <a href="javascript:;" style="'+style+'" onclick="return use(\''+data.name+'\',\''+data.needAppToken+'\',\''+data.needUserToken+'\',\''+data.minParameters+'\');">'+data.name+'</a> ');
+            });
+        }
+    });
+}
+$(function(){
+    $('input[name=showParameters]').click(function(){
+        if($(this).is(':checked')){
+            $('#sendData').val($('#sendData').val()+getSymbol($('#sendData').val())+'showParameters=true');
+        }else{
+            $('#sendData').val($('#sendData').val().replace('&showParameters=true','').replace('?showParameters=true&','?').replace('?showParameters=true',''));
+        }
+    });
+    $('input:radio[name=api]').eq(0).click();
+    $('input[name=api]').click(function(){
+        init();
+    });
+    init();
+    $('#siteList').on('change',function(){
+        $('#sendData').val($('#sendData').val().replace(sitePath,$(this).val()));
+        sitePath=$(this).val();
+    });
+});
+</script>
+</head>
+<body>
+    <fieldset>
+        <legend>Interface testing</legend>
+        <p>
+            <label>URL：</label>
+            <textarea cols="100" rows="2" id="sendData"></textarea>
+            <label><input name="showParameters" type="checkbox" checked="checked"/>Show Parameters</label>
+        </p>
+        <p id="buttons" style="display:none"><input type="button" value="Send" onclick="invoke()"/></p>
+        <p>
+            <label>Site switch
+                <select id="siteList">
+            <@_sysSiteList pageSize=500>
+                <#list page.list as a>
+                    <option value ="${a.dynamicPath!}" <#if site.id=a.id>selected="selected"</#if>>${a.name!}<#if site.id=a.id>[Current site]</#if></option>
+                </#list>
+            </@_sysSiteList>
+                </select>
+            </label>
+            <label><input type="radio" name="api" value="0"/>Directive interface</label>
+            <label><input type="radio" name="api" value="1"/>Function interface</label>
+            <label><input type="radio" name="api" value="2"/>Custom interface</label>
+        </p>
+        <p class="description"><em>빨간색 인터페이스는 AppToken을 사용해야합니다. 관리화면에서 애플리케이션 추가후 appKey/appSecret을 사용하여 Custom interface의 appToken로 appToken을 생성해야합니다.</em></p>
+        <p class="description"><em>녹색 인터페이스는 로그인 정보(authToken/authUserId)가 필요하며 로그인을 통해 생성해야합니다.</em></p>
+        <p id="interfaes"></p>
+        <p>
+            <a href="javascript:;" onclick="$(this).hide().next().show();$('#interfaes').css('height','20px');$('.description').show();return false;">↑↑↑↑</a>
+            <a href="javascript:;" style="display:none;" onclick="$(this).hide().prev().show();$('#interfaes').css('height','auto');$('.description').hide();return false;">↓↓↓↓</a>
+        </p>
+    </fieldset>
+    <fieldset>
+        <legend>Result</legend>
+        <textarea id="rawJson"></textarea>
+        <p><input type="button" value="Format" onclick="process($('#rawJson').val(),$('.code-canvas'))"/></p>
+        <div class="code-canvas"></div>
+    </fieldset>
+</body>
+</html>

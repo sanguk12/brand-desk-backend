@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
  * @created 2021/11/18 4:33 AM
  **/
 @Configuration
-@EnableAutoConfiguration
+//@EnableAutoConfiguration
 @EnableConfigurationProperties(TusProperties.class)
 @ConditionalOnProperty(prefix = "com.yidan.tus", name = "enable", havingValue = "true", matchIfMissing = true)
 public class TusConfiguration {

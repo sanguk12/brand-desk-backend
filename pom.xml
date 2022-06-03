@@ -16,7 +16,8 @@
     <modules>
         <module>spring-tus-starter</module>
         <module>biz-core</module>
-        <module>frontend</module>
+        <module>web</module>
+        <module>admin</module>
     </modules>
 
     <properties>

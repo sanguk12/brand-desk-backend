@@ -34,6 +34,21 @@
     "createDate" : null,
     "updateDate" : null,
     "id" : {
+      "code" : "admin_status"
+    },
+    "required" : false,
+    "searchable" : false,
+    "maxlength" : null,
+    "name" : "검수중 상태",
+    "description" : "",
+    "inputType" : "dictionary",
+    "defaultValue" : "",
+    "dictionaryId" : "11",
+    "sort" : 2
+  },{
+    "createDate" : null,
+    "updateDate" : null,
+    "id" : {
       "code" : "type"
     },
     "required" : false,
@@ -44,7 +59,7 @@
     "inputType" : "dictionary",
     "defaultValue" : "",
     "dictionaryId" : "6",
-    "sort" : 2
+    "sort" : 3
   }, {
     "createDate" : null,
     "updateDate" : null,
@@ -59,6 +74,6 @@
     "inputType" : "textarea",
     "defaultValue" : "",
     "dictionaryId" : "",
-    "sort" : 3
+    "sort" : 4
   } ]
 }

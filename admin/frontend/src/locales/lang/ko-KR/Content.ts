@@ -1,0 +1,188 @@
+export default {
+  cate: {
+    list: 'Category List',
+
+    id: 'ID',
+    name: 'Name',
+    code: 'Code',
+    type: 'Type',
+    sort: 'Sort',
+    hidden: 'Hidden',
+    model: 'Model',
+    show: 'Show',
+    allowContribute: 'Allow to User write content',
+
+    search: 'Search Word',
+
+    add: 'Add Category',
+    edit: 'Edit Category',
+    delete: 'Delete Category',
+    delete_confirm: 'Are you sure to delete this category?',
+  },
+  cateType: {
+    list: 'Category Type List',
+
+    id: 'ID',
+    name: 'Name',
+    code: 'Code',
+    sort: 'Sort',
+
+    extend: 'Extend',
+    field_list: 'Extend Field List',
+    field_list_desc: 'Field Extension',
+
+    search: 'Search Word',
+    saving: 'Saving Category Type...',
+    saved: 'Category Type Saved',
+    save_failed: 'Failed to save Category Type',
+    field_invalid: 'Please input valid value',
+
+    add: 'Add Category Type',
+    save: 'Save',
+    cancel: 'Cancel',
+    edit: 'Edit',
+    delete: 'Delete',
+    deleted: 'Category Type Deleted!',
+    cancel_confirm: 'Are you sure to cancel?',
+    delete_confirm: 'Are you sure to delete this category type?',
+
+    add_field: 'Add Field',
+
+    field: {
+      code: 'Code',
+      type: 'Type',
+      name: 'Name',
+      required: 'Required',
+      default_value: 'Default Value',
+      max_length: 'Max Length',
+      dict: 'Dictionary',
+      desc: 'Description',
+      searchable: 'Searchable',
+      sort: 'Sort',
+    },
+  },
+  contentModel: {
+    list: 'Content Model List',
+
+    id: 'ID',
+    name: 'Name',
+    parent: 'Parent',
+    description: 'Description',
+    hasChild: 'Has Child',
+    hasImages: 'Has Images',
+    hasFiles: 'Has Files',
+
+    field_list: 'Extend Field List',
+    field_list_desc: 'Field Extension',
+
+    search: 'Search Word',
+    saving: 'Saving Content Model...',
+    saved: 'Content Model Saved',
+    save_failed: 'Failed to save Content Model',
+    field_invalid: 'Please input valid value',
+
+    add: 'Add Content Model',
+    save: 'Save',
+    cancel: 'Cancel',
+    edit: 'Edit',
+    delete: 'Delete',
+    cancel_confirm: 'Are you sure to cancel?',
+    delete_confirm: 'Are you sure to delete this content model?',
+
+    add_field: 'Add Field',
+
+    field: {
+      type: 'Type',
+      name: 'Name',
+      code: 'Code',
+      required: 'Required',
+      description: 'Description',
+      default_value: 'Default Value',
+      max_length: 'Max Length',
+      dict: 'Dictionary',
+      desc: 'Description',
+      searchable: 'Searchable',
+      useCover: 'Use Cover',
+      useTitle: 'Use Title',
+      useDescription: 'Use Description',
+
+      cover_label: 'Enter cover label',
+      title_label: 'Enter title label',
+      description_label: 'Enter description label',
+
+      sort: 'Sort',
+    },
+  },
+  content: {
+    list: 'Content List',
+    cate_list: 'Category List',
+
+    id: 'ID',
+    title: 'Title',
+    cate: 'Category',
+    model: 'Model',
+    status: 'Status',
+    cover: 'Thumbnail',
+    description: 'Description',
+    sort: 'Sort',
+
+    file_path: 'File Path',
+    file_name: 'File Name',
+    file_type: 'Type',
+    file_size: 'Size',
+    file_width: 'Width',
+    file_height: 'Height',
+
+    publish_date: 'Publish Date',
+    expiry_date: 'Expire Date',
+    create_date: 'Create Date',
+
+    files: 'File List',
+    images: 'Image List',
+
+    search: 'Search Word',
+    select_model: 'Select Model',
+
+    add: 'Add Content',
+    detail: 'View Content',
+    edit: 'Edit Content',
+    delete: 'Delete Content',
+    delete_confirm: 'Are you sure to delete this content?',
+  },
+  file: {
+    list: 'File List',
+    add: 'Add File',
+    go_parent: 'Return to Parent',
+    name: 'Name',
+    create_date: 'Create Date',
+    update_date: 'Update Date',
+    size: 'Size',
+    deleted: 'File Deleted',
+  },
+
+  dict: {
+    list: 'Dictionary List',
+
+    id: 'ID',
+    name: 'Name',
+    code: 'Code',
+    parentId: 'Parent Dictionary',
+    parentData: 'Parent Data',
+    multiple: 'Multiple',
+    hasChild: 'Has Child',
+    search: 'Search Word',
+    createDate: 'Create Date',
+    add_row: 'Add Row',
+    add: 'Add Dictionary',
+    edit: 'Edit Dictionary',
+    delete: 'Delete Dictionary',
+    delete_confirm: 'Are you sure to delete this dictionary?',
+    item_list: 'Item List',
+    item_list_desc: 'Item List',
+    item: {
+      value: 'Value',
+      text: 'Text',
+      sort: 'Sort',
+    },
+  },
+};
