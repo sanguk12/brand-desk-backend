@@ -125,6 +125,9 @@ export function useTable(tableProps?: Props): [
     deleteTableDataRecord: (rowKey: string | number | string[] | number[]) => {
       return getTableInstance().deleteTableDataRecord(rowKey);
     },
+    deleteTableDataRecordByQuery: (query: any) => {
+      return getTableInstance().deleteTableDataRecordByQuery(query);
+    },
     insertTableDataRecord: (record: Recordable | Recordable[], index?: number) => {
       return getTableInstance().insertTableDataRecord(record, index);
     },

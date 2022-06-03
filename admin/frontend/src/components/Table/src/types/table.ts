@@ -96,6 +96,7 @@ export interface TableActionType {
   setTableData: <T = Recordable>(values: T[]) => void;
   updateTableDataRecord: (rowKey: string | number, record: Recordable) => Recordable | void;
   deleteTableDataRecord: (rowKey: string | number | string[] | number[]) => void;
+  deleteTableDataRecordByQuery: (query: any) => void;
   insertTableDataRecord: (record: Recordable, index?: number) => Recordable | void;
   findTableDataRecord: (rowKey: string | number) => Recordable | void;
   getColumns: (opt?: GetColumnsParams) => BasicColumn[];

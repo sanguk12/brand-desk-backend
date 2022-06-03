@@ -195,6 +195,27 @@ export function useDataSource(
     });
   }
 
+  function deleteTableDataRecordByQuery(query: any) {
+    if (!dataSourceRef.value || dataSourceRef.value.length == 0) return;
+    dataSourceRef.value = dataSourceRef.value.filter( data => {
+      let match = true;
+      for (let key of Object.keys(query)) {
+        let queryVal = query[key];
+        let dataVal = data[key];
+        if(queryVal !== dataVal)
+        {
+          match = false;
+          break;
+        }
+      }
+      return !match;
+    });
+
+    setPagination({
+      total: unref(propsRef).dataSource?.length,
+    });
+  }
+
   function insertTableDataRecord(record: Recordable, index: number): Recordable | undefined {
     // if (!dataSourceRef.value || dataSourceRef.value.length == 0) return;
     index = index ?? dataSourceRef.value?.length;
@@ -367,6 +388,7 @@ export function useDataSource(
     updateTableData,
     updateTableDataRecord,
     deleteTableDataRecord,
+    deleteTableDataRecordByQuery,
     insertTableDataRecord,
     findTableDataRecord,
     handleTableChange,

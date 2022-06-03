@@ -24,14 +24,15 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, PropType, watch, ref, unref, nextTick } from 'vue';
+  import { defineComponent, PropType, ref, unref } from 'vue';
   import { BasicTable, TableActionType, TableAction, useTable } from '/@/components/Table';
 
   import { useI18n } from '/@/hooks/web/useI18n';
   import { extendFields } from './content.model.data';
   import { ExtendFieldItem } from '/@/api/cms/model/model';
   import { InputTypeEnum } from '/@/enums/inputTypeEnum';
-  import { v4 as uuidv4 } from 'uuid';
+  import { v4 as uuid } from 'uuid';
+  import { cloneDeep } from 'lodash-es';
 
   export default defineComponent({
     components: { BasicTable, TableAction },
@@ -41,22 +42,19 @@
     setup(props) {
       const { t } = useI18n();
 
-      const extendFieldList = ref<ExtendFieldItem[]>(props.value!);
+      const extendFieldList = ref<ExtendFieldItem[]>([]);
       const extendFieldTableRef = ref<Nullable<TableActionType>>(null);
 
-      watch(
-        () => props.value,
-        (fieldList: ExtendFieldItem[]) => {
-          const newFieldList = fieldList ? fieldList : ([] as any[]);
-          newFieldList.map((f) => {
-            f.inputType = f.inputType ? f.inputType : InputTypeEnum.TEXT;
-            f.editRow = true;
-            f.editable = true;
-            f.uuid = uuidv4();
-          });
-          extendFieldList.value = newFieldList;
-        },
-      );
+      const fieldList = cloneDeep(props.value);
+      const newFieldList = fieldList ? fieldList : ([] as any[]);
+      newFieldList.map((f) => {
+        f.inputType = f.inputType ? f.inputType : InputTypeEnum.TEXT;
+        f.editRow = true;
+        f.editable = true;
+        f.uuid = uuid();
+      });
+      extendFieldList.value = newFieldList;
+
       const [registerTable] = useTable({
         title: t('Content.contentModel.field_list'),
         titleHelpMessage: [t('Content.contentModel.field_list_desc')],
@@ -65,7 +63,6 @@
         showIndexColumn: false,
         showTableSetting: false,
         tableSetting: { fullScreen: true },
-        rowKey: 'uuid',
         actionColumn: {
           width: 100,
           title: t('common.action'),
@@ -88,19 +85,12 @@
           editRow: true,
           editable: true,
           inputType: InputTypeEnum.TEXT,
-          uuid: uuidv4(),
-        });
-        nextTick(() => {
-          setTimeout(() => {
-            const ds = getTableAction().getDataSource();
-            ds[ds.length - 1].onEdit(true);
-          }, 1000);
-
+          uuid: uuid(),
         });
       }
 
       function handleDelete(record: Recordable) {
-        getTableAction().deleteTableDataRecord(record.uuid);
+        getTableAction().deleteTableDataRecordByQuery({uuid: record.uuid});
       }
 
       function validate() {

@@ -24,14 +24,15 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, PropType, watch, ref, unref, nextTick } from 'vue';
+  import {defineComponent, PropType, ref, unref, nextTick, onMounted} from 'vue';
   import { BasicTable, TableActionType, TableAction, useTable } from '/@/components/Table';
 
   import { useI18n } from '/@/hooks/web/useI18n';
   import { extendFields } from './cate.type.data';
   import { ExtendFieldItem } from '/@/api/cms/model/model';
   import { InputTypeEnum } from '/@/enums/inputTypeEnum';
-  import { v4 as uuidv4 } from 'uuid';
+  import { v4 as uuid } from 'uuid';
+  import {cloneDeep} from "lodash-es";
 
   export default defineComponent({
     components: { BasicTable, TableAction },
@@ -45,20 +46,6 @@
       const extendFieldList = ref<ExtendFieldItem[]>(props.value!);
       const extendFieldTableRef = ref<Nullable<TableActionType>>(null);
 
-      watch(
-        () => props.value,
-        (fieldList: ExtendFieldItem[]) => {
-          const newFieldList = fieldList ? fieldList : ([] as any[]);
-          newFieldList.map((f) => {
-            f.inputType = f.inputType ? f.inputType : InputTypeEnum.TEXT;
-            f.editRow = true;
-            f.editable = true;
-            f.uuid = uuidv4();
-          });
-          extendFieldList.value = newFieldList;
-        },
-      );
-
       const [registerTable] = useTable({
         title: t('Content.cateType.field_list'),
         titleHelpMessage: [t('Content.cateType.field_list_desc')],
@@ -67,7 +54,6 @@
         showIndexColumn: false,
         showTableSetting: false,
         tableSetting: { fullScreen: true },
-        rowKey: 'uuid',
         actionColumn: {
           width: 100,
           title: t('common.action'),
@@ -90,7 +76,7 @@
           editRow: true,
           editable: true,
           inputType: InputTypeEnum.TEXT,
-          uuid: uuidv4()
+          uuid: uuid()
         });
         nextTick(() => {
           const ds = getTableAction().getDataSource();
@@ -99,7 +85,7 @@
       }
 
       function handleDelete(record: Recordable) {
-        getTableAction().deleteTableDataRecord(record.uuid);
+        getTableAction().deleteTableDataRecordByQuery({uuid: record.uuid});
       }
 
       function validate() {
@@ -111,6 +97,18 @@
 
         return extendFields;
       }
+
+      onMounted(() => {
+        const fieldList = cloneDeep(props.value);
+        const newFieldList = fieldList ? fieldList : ([] as any[]);
+        newFieldList.map((f) => {
+          f.inputType = f.inputType ? f.inputType : InputTypeEnum.TEXT;
+          f.editRow = true;
+          f.editable = true;
+          f.uuid = uuid();
+        });
+        extendFieldList.value = newFieldList;
+      });
 
       return {
         t,

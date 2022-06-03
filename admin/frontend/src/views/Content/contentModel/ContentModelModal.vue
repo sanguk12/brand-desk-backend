@@ -50,13 +50,14 @@
           :model="model"
           :field="field"
           ref="extendFieldTableRef"
+          v-if="showExtendFieldTable"
         />
       </template>
     </BasicForm>
   </BasicModal>
 </template>
 <script lang="ts">
-  import { computed, defineComponent, ref, unref } from 'vue';
+import {computed, defineComponent, nextTick, ref, unref} from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { formSchema } from './content.model.data';
@@ -75,6 +76,7 @@
       const { t } = useI18n();
 
       const modelId = ref('');
+      const showExtendFieldTable = ref(false);
 
       const extendFieldTableRef = ref(null);
       const isUpdate = ref(true);
@@ -89,8 +91,11 @@
       });
 
       const [registerModal, { setModalProps, closeModal }] = useModalInner(async (data) => {
-        await resetFields();
         setModalProps({ confirmLoading: false });
+
+        showExtendFieldTable.value = false;
+
+        await resetFields();
         isUpdate.value = !!data?.isUpdate;
 
         if (unref(isUpdate)) {
@@ -103,6 +108,10 @@
         } else {
           contentModel.value = { extendList: [] };
         }
+
+        await nextTick(() => {
+          showExtendFieldTable.value = true;
+        });
       });
 
       const getTitle = computed(() =>
@@ -139,6 +148,7 @@
       return {
         t,
         extendFieldTableRef,
+        showExtendFieldTable,
         contentModel,
         registerModal,
         registerForm,
