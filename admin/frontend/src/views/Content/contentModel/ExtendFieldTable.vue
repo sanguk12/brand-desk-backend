@@ -91,8 +91,11 @@
           uuid: uuidv4(),
         });
         nextTick(() => {
-          const ds = getTableAction().getDataSource();
-          ds[ds.length - 1].onEdit(true);
+          setTimeout(() => {
+            const ds = getTableAction().getDataSource();
+            ds[ds.length - 1].onEdit(true);
+          }, 1000);
+
         });
       }
 
