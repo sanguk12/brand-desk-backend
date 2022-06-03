@@ -27,6 +27,7 @@ public class RequestData {
 
     private String level;
     private String levelText;
+
     private String elements[];
     private String elementsText[];
 

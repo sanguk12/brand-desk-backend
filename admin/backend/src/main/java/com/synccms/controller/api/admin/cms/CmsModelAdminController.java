@@ -137,8 +137,7 @@ public class CmsModelAdminController {
 
     /**
      * @param site
-     * @param request
-     * @param model
+     * @param admin
      * @return view name
      */
     @RequestMapping("{id}")

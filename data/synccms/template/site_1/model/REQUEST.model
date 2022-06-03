@@ -28,7 +28,7 @@
     "description" : "",
     "inputType" : "dictionary",
     "defaultValue" : "",
-    "dictionaryId" : "2",
+    "dictionaryId" : 2,
     "sort" : 1
   }, {
     "createDate" : null,
@@ -43,7 +43,7 @@
     "description" : "",
     "inputType" : "dictionary",
     "defaultValue" : "",
-    "dictionaryId" : "11",
+    "dictionaryId" : 11,
     "sort" : 2
   },{
     "createDate" : null,
@@ -58,7 +58,7 @@
     "description" : "",
     "inputType" : "dictionary",
     "defaultValue" : "",
-    "dictionaryId" : "6",
+    "dictionaryId" : 6,
     "sort" : 3
   }, {
     "createDate" : null,
@@ -73,7 +73,7 @@
     "description" : "",
     "inputType" : "textarea",
     "defaultValue" : "",
-    "dictionaryId" : "",
+    "dictionaryId" : null,
     "sort" : 4
   } ]
 }

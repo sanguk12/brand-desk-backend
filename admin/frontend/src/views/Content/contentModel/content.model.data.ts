@@ -248,7 +248,7 @@ export const extendFields: BasicColumn[] = [
     align: 'left',
     customRender: ({ record }) => {
       if (record.inputType == InputTypeEnum.DICTIONARY) {
-        return h('ApiSelect', {
+        return h('ApiTreeSelect', {
           api: getDictionaryTree,
           resultField: 'list',
           labelField: 'name',
