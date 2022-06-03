@@ -43,8 +43,18 @@
       const { t } = useI18n();
       // const { createMessage: msg } = useMessage();
 
-      const extendFieldList = ref<ExtendFieldItem[]>(props.value!);
+      const extendFieldList = ref<ExtendFieldItem[]>([]);
       const extendFieldTableRef = ref<Nullable<TableActionType>>(null);
+
+      const fieldList = cloneDeep(props.value);
+      const newFieldList = fieldList ? fieldList : ([] as any[]);
+      newFieldList.map((f) => {
+        f.inputType = f.inputType ? f.inputType : InputTypeEnum.TEXT;
+        f.editRow = true;
+        f.editable = true;
+        f.uuid = uuid();
+      });
+      extendFieldList.value = newFieldList;
 
       const [registerTable] = useTable({
         title: t('Content.cateType.field_list'),
@@ -78,10 +88,6 @@
           inputType: InputTypeEnum.TEXT,
           uuid: uuid()
         });
-        nextTick(() => {
-          const ds = getTableAction().getDataSource();
-          ds[ds.length - 1].onEdit(true);
-        });
       }
 
       function handleDelete(record: Recordable) {
@@ -97,18 +103,6 @@
 
         return extendFields;
       }
-
-      onMounted(() => {
-        const fieldList = cloneDeep(props.value);
-        const newFieldList = fieldList ? fieldList : ([] as any[]);
-        newFieldList.map((f) => {
-          f.inputType = f.inputType ? f.inputType : InputTypeEnum.TEXT;
-          f.editRow = true;
-          f.editable = true;
-          f.uuid = uuid();
-        });
-        extendFieldList.value = newFieldList;
-      });
 
       return {
         t,
