@@ -33,13 +33,14 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, PropType, watch, ref, unref, nextTick } from 'vue';
+import {defineComponent, PropType, ref, unref, watch} from 'vue';
   import { BasicTable, TableActionType, TableAction, useTable } from '/@/components/Table';
 
   import { useI18n } from '/@/hooks/web/useI18n';
-  import { v4 as uuidv4 } from 'uuid';
+  import { v4 as uuid } from 'uuid';
   import { DictionaryItem } from '/@/api/cms/model/dictionary';
   import { itemColumns } from './dict.data';
+  import {cloneDeep} from "lodash-es";
 
   export default defineComponent({
     components: { BasicTable, TableAction },
@@ -54,11 +55,20 @@
     setup(props, { emit }) {
       const { t } = useI18n();
 
-      const itemList = ref<DictionaryItem[]>(props.value!);
+      const itemList = ref<DictionaryItem[]>([]);
       const itemTableRef = ref<Nullable<TableActionType>>(null);
 
+      const dictItemList = cloneDeep(props.value);
 
-      const [registerTable, { reload, setTableData }] = useTable({
+      const newItemList = dictItemList ? dictItemList : ([] as any[]);
+      newItemList.map((f) => {
+        f.editRow = true;
+        f.editable = true;
+        f.uuid = uuid();
+      });
+      itemList.value = newItemList;
+
+      const [ registerTable, { setTableData, reload } ] = useTable({
         title: t('Content.dict.item_list'),
         titleHelpMessage: [t('Content.dict.item_list_desc')],
         dataSource: itemList,
@@ -66,7 +76,7 @@
         showIndexColumn: false,
         showTableSetting: false,
         tableSetting: { fullScreen: true },
-        rowKey: 'uuid',
+        // rowKey: 'uuid',
         actionColumn: {
           width: 100,
           title: t('common.action'),
@@ -75,21 +85,6 @@
           fixed: undefined,
         },
       });
-
-      watch(
-        () => props.value,
-        (dictItemList: DictionaryItem[]) => {
-          const newItemList = dictItemList ? dictItemList : ([] as any[]);
-          newItemList.map((f) => {
-            f.editRow = true;
-            f.editable = true;
-            f.uuid = uuidv4();
-          });
-          itemList.value = newItemList;
-          setTableData(itemList.value);
-          reload();
-        },
-      );
 
       function getTableAction() {
         const tableAction = unref(itemTableRef);
@@ -104,16 +99,12 @@
           id: null,
           editRow: true,
           editable: true,
-          uuid: uuidv4(),
-        });
-        nextTick(() => {
-          const ds = getTableAction().getDataSource();
-          ds[ds.length - 1].onEdit(true);
+          uuid: uuid(),
         });
       }
 
       function handleDelete(record: Recordable) {
-        getTableAction().deleteTableDataRecord(record.uuid);
+        getTableAction().deleteTableDataRecordByQuery({uuid: record.uuid});
       }
 
       function handleAddChild(record: Recordable) {
@@ -128,6 +119,20 @@
         return itemList;
       }
 
+      watch(
+        () => props.value,
+        (dictItemList: DictionaryItem[]) => {
+          const newItemList = dictItemList ? dictItemList : ([] as any[]);
+          newItemList.map((f) => {
+            f.editRow = true;
+            f.editable = true;
+            f.uuid = uuid();
+          });
+          itemList.value = newItemList;
+          setTableData(itemList.value);
+          reload();
+        },
+      );
       return {
         t,
         itemTableRef,

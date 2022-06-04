@@ -16,14 +16,13 @@
           :has-child="dictionary.hasChild"
           @add-child="handleAddChild"
           ref="itemListTableRef"
-          v-if="showItemList"
         />
       </template>
     </BasicForm>
   </BasicModal>
 </template>
 <script lang="ts">
-  import {computed, defineComponent, nextTick, ref, unref} from 'vue';
+  import {computed, defineComponent, ref, unref} from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { getFormCodeSchema, getFormSchema } from './dict.data';
@@ -40,7 +39,6 @@
       const { t } = useI18n();
 
       const isUpdate = ref(true);
-      const showItemList = ref(true);
       const itemListTableRef = ref(null);
 
       const dictionary = ref<Dictionary>({
@@ -76,10 +74,6 @@
           });
 
           await updateSchema(getFormCodeSchema());
-
-          showItemList.value = false;
-          await nextTick();
-          showItemList.value = true;
         }
       }
       const [registerModal, { setModalProps, closeModal }] = useModalInner(async (data) => {
@@ -127,7 +121,6 @@
         registerForm,
         getTitle,
         dictionary,
-        showItemList,
         itemListTableRef,
         handleSubmit,
         handleAddChild,

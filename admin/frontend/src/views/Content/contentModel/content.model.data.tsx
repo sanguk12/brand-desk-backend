@@ -1,13 +1,8 @@
 import { BasicColumn, FormSchema } from '/@/components/Table';
 import { useI18n } from '/@/hooks/web/useI18n';
-import { InputTypeEnum, InputTypeTextMap } from '/@/enums/inputTypeEnum';
+import { InputTypeTextMap } from '/@/enums/inputTypeEnum';
 import { getDictionaryTree } from '/@/api/cms/dictionary';
 import { getContentModelList } from '/@/api/cms/contentModel';
-import { Badge, Switch } from 'ant-design-vue';
-import { h } from 'vue';
-import { useMessage } from '/@/hooks/web/useMessage';
-import { setRoleStatus } from '/@/api/demo/system';
-import { ApiSelect } from '/@/components/Form';
 
 const { t } = useI18n();
 
@@ -246,18 +241,6 @@ export const extendFields: BasicColumn[] = [
     },
     editRow: true,
     align: 'left',
-    customRender: ({ record }) => {
-      if (record.inputType == InputTypeEnum.DICTIONARY) {
-        return h('ApiTreeSelect', {
-          api: getDictionaryTree,
-          resultField: 'list',
-          labelField: 'name',
-          valueField: 'id',
-        });
-      } else {
-        return '';
-      }
-    },
   },
   {
     title: t('Content.contentModel.field.required'),
