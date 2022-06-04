@@ -223,7 +223,7 @@ export const userFormSchema: FormSchema[] = [
   },
   {
     label: t('AccessControl.user.email_verified'),
-    field: 'email',
+    field: 'emailVerified',
     component: 'Checkbox',
     required: true,
     colProps: {
