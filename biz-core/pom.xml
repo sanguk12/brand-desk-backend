@@ -13,6 +13,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.samsung.ds</groupId>
+            <artifactId>samsung-ds-brand-desk-config</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.synccms</groupId>
             <artifactId>synccms-core</artifactId>
         </dependency>

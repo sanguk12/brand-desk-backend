@@ -13,6 +13,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.samsung.ds</groupId>
+            <artifactId>samsung-ds-brand-desk-config</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.synccms</groupId>
             <artifactId>synccms-core</artifactId>
             <version>${project.version}</version>
@@ -145,52 +149,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>buildDocker</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>com.google.cloud.tools</groupId>
-                        <artifactId>jib-maven-plugin</artifactId>
-                        <configuration>
-                            <skip>false</skip>
-                            <from>
-                                <image>amazoncorretto:11-alpine</image>
-                            </from>
-                            <to>
-                                <image>${docker.registry}/${docker.image.prefix}/synccms-admin-${profiles.active}</image>
-                                <tags>
-                                    <tag>${project.version}</tag>
-                                    <tag>latest</tag>
-                                </tags>
-                            </to>
-                            <container>
-                                <appRoot>/app</appRoot>
-                                <entrypoint>
-                                    <entrypoint>java</entrypoint>
-                                    <!-- Start of JVM flags -->
-                                    <entrypoint>-Dspring.profiles.active=${profiles.active}</entrypoint>
-                                    <entrypoint>-Dcms.contextPath=</entrypoint>
-                                    <entrypoint>-Dcms.filePath=/data/synccms</entrypoint>
-                                    <entrypoint>-Dcms.webFilePath=/webfile</entrypoint>
-                                    <entrypoint>-server</entrypoint>
-                                    <entrypoint>-XX:+UnlockExperimentalVMOptions</entrypoint>
-                                    <entrypoint>-XX:+UseCGroupMemoryLimitForHeap</entrypoint>
-
-                                    <!-- End of JVM flags -->
-                                    <entrypoint>-cp</entrypoint>
-                                    <entrypoint>/app:/app/WEB-INF/classes:/app/WEB-INF/lib/*</entrypoint>
-                                    <!-- use your actual main class, not the spring.boot.WarLauncher -->
-                                    <entrypoint>boot.SpringBootApplication</entrypoint>
-                                </entrypoint>
-                            </container>
-                            <allowInsecureRegistries>true</allowInsecureRegistries>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>

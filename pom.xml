@@ -15,6 +15,7 @@
 
     <modules>
         <module>spring-tus-starter</module>
+        <module>config</module>
         <module>biz-core</module>
         <module>web</module>
         <module>admin</module>
@@ -34,6 +35,11 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.samsung.ds</groupId>
+                <artifactId>samsung-ds-brand-desk-config</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.synccms</groupId>
                 <artifactId>synccms-core</artifactId>

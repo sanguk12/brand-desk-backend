@@ -1,8 +1,0 @@
-spring:
-  main:
-    allow-circular-references: true
-
-decorator:
-  datasource:
-    p6spy:
-      enable-logging: false

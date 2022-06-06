@@ -1,1 +1,0 @@
-import{ap as e,a,o as t,h as s}from"./index.f8b6fa94.js";const _=a({}),o={class:"m-10 auth-page"};function n(r,c,p,d,i,u){return t(),s("div",o,"Test role visible")}var f=e(_,[["render",n],["__scopeId","data-v-fae24060"]]);export{f as default};

@@ -22,7 +22,7 @@
       "code" : "status"
     },
     "required" : false,
-    "searchable" : false,
+    "searchable" : true,
     "maxlength" : null,
     "name" : "상태",
     "description" : "",
@@ -37,7 +37,7 @@
       "code" : "admin_status"
     },
     "required" : false,
-    "searchable" : false,
+    "searchable" : true,
     "maxlength" : null,
     "name" : "검수중 상태",
     "description" : "",
@@ -90,5 +90,185 @@
     "defaultValue" : "",
     "dictionaryId" : null,
     "sort" : 5
+  }, {
+    "createDate" : null,
+    "updateDate" : null,
+    "id" : {
+      "code" : "first_reviewer"
+    },
+    "required" : false,
+    "searchable" : false,
+    "maxlength" : null,
+    "name" : "1차 검토자",
+    "description" : "",
+    "inputType" : "text",
+    "defaultValue" : "",
+    "dictionaryId" : null,
+    "sort" : 6
+  }, {
+    "createDate" : null,
+    "updateDate" : null,
+    "id" : {
+      "code" : "first_reviewer_comment1"
+    },
+    "required" : false,
+    "searchable" : false,
+    "maxlength" : null,
+    "name" : "1차 검토자 코멘트1",
+    "description" : "",
+    "inputType" : "text",
+    "defaultValue" : "",
+    "dictionaryId" : null,
+    "sort" : 7
+  }, {
+    "createDate" : null,
+    "updateDate" : null,
+    "id" : {
+      "code" : "first_reviewer_comment2"
+    },
+    "required" : false,
+    "searchable" : false,
+    "maxlength" : null,
+    "name" : "1차 검토자 코멘트2",
+    "description" : "",
+    "inputType" : "text",
+    "defaultValue" : "",
+    "dictionaryId" : null,
+    "sort" : 9
+  }, {
+    "createDate" : null,
+    "updateDate" : null,
+    "id" : {
+      "code" : "first_reviewer_date"
+    },
+    "required" : false,
+    "searchable" : false,
+    "maxlength" : null,
+    "name" : "1차 승인자 작업일",
+    "description" : "",
+    "inputType" : "datetime",
+    "defaultValue" : "",
+    "dictionaryId" : null,
+    "sort" : 9
+  }, {
+    "createDate" : null,
+    "updateDate" : null,
+    "id" : {
+      "code" : "second_reviewer"
+    },
+    "required" : false,
+    "searchable" : false,
+    "maxlength" : null,
+    "name" : "2차 검토자",
+    "description" : "",
+    "inputType" : "text",
+    "defaultValue" : "",
+    "dictionaryId" : null,
+    "sort" : 10
+  }, {
+    "createDate" : null,
+    "updateDate" : null,
+    "id" : {
+      "code" : "second_reviewer_comment1"
+    },
+    "required" : false,
+    "searchable" : false,
+    "maxlength" : null,
+    "name" : "2차 검토자 코멘트1",
+    "description" : "",
+    "inputType" : "text",
+    "defaultValue" : "",
+    "dictionaryId" : null,
+    "sort" : 11
+  }, {
+    "createDate" : null,
+    "updateDate" : null,
+    "id" : {
+      "code" : "second_reviewer_comment2"
+    },
+    "required" : false,
+    "searchable" : false,
+    "maxlength" : null,
+    "name" : "2차 검토자 코멘트2",
+    "description" : "",
+    "inputType" : "text",
+    "defaultValue" : "",
+    "dictionaryId" : null,
+    "sort" : 12
+  }, {
+    "createDate" : null,
+    "updateDate" : null,
+    "id" : {
+      "code" : "second_reviewer_date"
+    },
+    "required" : false,
+    "searchable" : false,
+    "maxlength" : null,
+    "name" : "2차 검토자 작업일",
+    "description" : "",
+    "inputType" : "text",
+    "defaultValue" : "",
+    "dictionaryId" : null,
+    "sort" : 13
+  }, {
+    "createDate" : null,
+    "updateDate" : null,
+    "id" : {
+      "code" : "survey"
+    },
+    "required" : false,
+    "searchable" : false,
+    "maxlength" : null,
+    "name" : "만족도",
+    "description" : "",
+    "inputType" : "number",
+    "defaultValue" : "",
+    "dictionaryId" : null,
+    "sort" : 14
+  }, {
+    "createDate" : null,
+    "updateDate" : null,
+    "id" : {
+      "code" : "survey_comment"
+    },
+    "required" : false,
+    "searchable" : false,
+    "maxlength" : null,
+    "name" : "만족도 코멘트",
+    "description" : "",
+    "inputType" : "text",
+    "defaultValue" : "",
+    "dictionaryId" : null,
+    "sort" : 15
+  }, {
+    "createDate" : null,
+    "updateDate" : null,
+    "id" : {
+      "code" : "level"
+    },
+    "required" : false,
+    "searchable" : false,
+    "maxlength" : null,
+    "name" : "검수 난이도",
+    "description" : "",
+    "inputType" : "dictionary",
+    "defaultValue" : "",
+    "dictionaryId" : 13,
+    "sort" : 16
+  }, {
+    "createDate" : null,
+    "updateDate" : null,
+    "id" : {
+      "code" : "elements"
+    },
+    "required" : false,
+    "searchable" : false,
+    "maxlength" : null,
+    "name" : "Elements",
+    "description" : "",
+    "inputType" : "dictionary",
+    "defaultValue" : "",
+    "dictionaryId" : 14,
+    "sort" : 17
   } ]
 }
