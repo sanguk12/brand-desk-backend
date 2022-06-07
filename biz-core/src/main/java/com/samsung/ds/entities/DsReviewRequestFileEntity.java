@@ -14,7 +14,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ds_review_request")
+@Table(name = "ds_review_request_file")
 @DynamicUpdate
 @Data
 @SuperBuilder
@@ -27,22 +27,22 @@ public class DsReviewRequestFileEntity extends BaseEntity {
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
-    @Column(name = "review_id", length = 50)
+    @Column(name = "review_id")
     private Long reviewId;
 
-    @Column(name = "user_id", length = 50)
+    @Column(name = "user_id")
     private Long userId;
 
     @Column(name = "file_path", nullable = false)
     private String filePath;
 
-    @Column(name = "file_type", nullable = false, length = 45)
+    @Column(name = "file_type")
     private String fileType;
 
-    @Column(name = "file_size", nullable = false, length = 45)
+    @Column(name = "file_size")
     private Long fileSize;
 
-    @Column(name = "sort", nullable = false, length = 45)
+    @Column(name = "sort")
     private Integer sort;
 
 }

@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ReviewRequestQuery {
+    private Long userId;
     private String text;
     private Integer status;
-    private Boolean download;
 
 }

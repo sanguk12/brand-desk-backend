@@ -12,6 +12,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "ds_review_request")
@@ -28,19 +29,19 @@ public class DsReviewRequestEntity extends BaseEntity {
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
-    @Column(name = "copy", length = 50)
+    @Column(name = "copy")
     private Long copy;
 
-    @Column(name = "user_id", length = 50)
+    @Column(name = "user_id")
     private Long userId;
 
-    @Column(name = "title", nullable = false)
+    @Column(name = "title")
     private String title;
 
-    @Column(name = "type1", nullable = false, length = 45)
+    @Column(name = "type1")
     private String type1;
 
-    @Column(name = "type2", nullable = false, length = 45)
+    @Column(name = "type2")
     private String type2;
 
     @Column(name = "content", nullable = false)
@@ -50,77 +51,77 @@ public class DsReviewRequestEntity extends BaseEntity {
     @GeneratorColumn(title = "상태")
     private Integer status;
 
-    @Column(name = "survey", nullable = false)
+    @Column(name = "survey")
     @GeneratorColumn(title = " 만족도")
     private Integer survey;
 
-    @Column(name = "survey_comment", nullable = false, length = 45)
+    @Column(name = "survey_comment")
     @GeneratorColumn(title = "만족도 코멘트")
     private String surveyComment;
 
-    @Column(name = "level", nullable = false, length = 45)
+    @Column(name = "level")
     @GeneratorColumn(title = "Level")
     private String level;
 
-    @Column(name = "lettermark", length = 50)
+    @Column(name = "lettermark")
     @GeneratorColumn(title = "lettermark")
     private Boolean lettermark;
 
-    @Column(name = "color", length = 50)
+    @Column(name = "color")
     @GeneratorColumn(title = "color")
     private Boolean color;
 
-    @Column(name = "naming", length = 50)
+    @Column(name = "naming")
     @GeneratorColumn(title = "naming")
     private Boolean naming;
 
-    @Column(name = "typography", length = 50)
+    @Column(name = "typography")
     @GeneratorColumn(title = "typography")
     private Boolean typography;
 
-    @Column(name = "imagery", length = 50)
+    @Column(name = "imagery")
     @GeneratorColumn(title = "imagery")
     private Boolean imagery;
 
-    @Column(name = "illustration", length = 50)
+    @Column(name = "illustration")
     @GeneratorColumn(title = "illustration")
     private Boolean illustration;
 
 
-    @Column(name = "review_1st", nullable = false, length = 45)
+    @Column(name = "review_1st")
     @GeneratorColumn(title = "1차 검토자")
     private String review1st;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "review_1st_date", nullable = false, length = 19)
+    @Column(name = "review_1st_date")
     @GeneratorColumn(title = "1차 승인일")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private String review1stDate;
+    private Date review1stDate;
 
-    @Column(name = "review_comment1_1st", nullable = false, length = 45)
+    @Column(name = "review_comment1_1st")
     @GeneratorColumn(title = "1차 승인 코멘트1")
     private String reviewComment11st;
 
-    @Column(name = "review_comment1_2st", nullable = false, length = 45)
+    @Column(name = "review_comment2_1st")
     @GeneratorColumn(title = "1차 승인 코멘트2")
     private String reviewComment21st;
 
 
-    @Column(name = "review_2st", nullable = false, length = 45)
+    @Column(name = "review_2st")
     @GeneratorColumn(title = "2차 검토자")
     private String review2st;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "review_2st_date", nullable = false, length = 19)
+    @Column(name = "review_2st_date")
     @GeneratorColumn(title = "1차 승인일")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private String review2stDate;
+    private Date review2stDate;
 
-    @Column(name = "review_comment1_2st", nullable = false, length = 45)
+    @Column(name = "review_comment1_2st")
     @GeneratorColumn(title = "2차 승인 코멘트1")
     private String reviewComment12st;
 
-    @Column(name = "review_comment1_2st", nullable = false, length = 45)
+    @Column(name = "review_comment2_2st")
     @GeneratorColumn(title = "2차 승인 코멘트1")
     private String reviewComment22st;
 }

@@ -1,25 +1,29 @@
 package com.synccms.controller.api.admin.ds;
 
 import com.samsung.ds.entities.DsJoinRequestEntity;
+import com.samsung.ds.entities.DsReviewRequestEntity;
 import com.samsung.ds.logic.query.JoinRequestQuery;
+import com.samsung.ds.logic.query.ReviewRequestQuery;
 import com.samsung.ds.logic.service.DsJoinRequestService;
+import com.samsung.ds.logic.service.DsReviewRequestService;
 import com.synccms.common.annotation.Csrf;
 import com.synccms.common.handler.PageHandler;
 import com.synccms.common.pojo.AjaxResponse;
 import com.synccms.entities.sys.SysSite;
 import com.synccms.logic.service.sys.SysUserService;
 import com.synccms.views.entity.DsJoinRequestData;
+import com.synccms.views.entity.DsReviewRequestData;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("join")
+@RequestMapping("review")
 public class ReviewRequestController {
     protected final Log log = LogFactory.getLog(getClass());
     @Autowired
-    private DsJoinRequestService service;
+    private DsReviewRequestService service;
 
     @Autowired
     private SysUserService userService;
@@ -35,7 +39,7 @@ public class ReviewRequestController {
     @RequestMapping("list")
     public AjaxResponse list(
             @RequestAttribute SysSite site,
-            @RequestBody JoinRequestQuery query,
+            @RequestBody ReviewRequestQuery query,
             @RequestParam(value = "pageIndex", required = false, defaultValue = "0") Integer pageIndex,
             @RequestParam(value = "pageSize", required = false, defaultValue = "" + PageHandler.DEFAULT_PAGE_SIZE) Integer pageSize) {
 
@@ -54,9 +58,9 @@ public class ReviewRequestController {
     public AjaxResponse detail(
             @RequestAttribute SysSite site,
             @PathVariable Long id) {
-        DsJoinRequestEntity req = service.getEntity(id);
+        DsReviewRequestEntity req = service.getEntity(id);
 
-        return AjaxResponse.success(new DsJoinRequestData(req , req.getStaff() == null ? null : userService.getEntity(req .getStaff())));
+        return AjaxResponse.success(new DsReviewRequestData(req));
 
     }
 

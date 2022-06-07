@@ -1,6 +1,7 @@
 package com.samsung.ds.logic.dao;
 
 import com.samsung.ds.entities.DsJoinRequestEntity;
+import com.samsung.ds.entities.DsReviewRequestEntity;
 import com.samsung.ds.logic.query.JoinRequestQuery;
 import com.samsung.ds.logic.query.ReviewRequestQuery;
 import com.synccms.common.base.BaseDao;
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Repository;
  *
  */
 @Repository
-public class DsReviewRequestDao extends BaseDao<DsJoinRequestEntity> {
+public class DsReviewRequestDao extends BaseDao<DsReviewRequestEntity> {
 
     /**
      * @param query
@@ -24,33 +25,30 @@ public class DsReviewRequestDao extends BaseDao<DsJoinRequestEntity> {
      * @return results page
      */
     public PageHandler getPage(ReviewRequestQuery query, Integer pageIndex, Integer pageSize) {
-        QueryHandler queryHandler = getQueryHandler("from DsJoinRequestEntity bean");
+        QueryHandler queryHandler = getQueryHandler("from DsReviewRequestEntity bean");
 
         if (CommonUtils.notEmpty(query.getText())) {
-            queryHandler.condition("( (lower(bean.email) like lower(:text)) " +
-                    " or (lower(bean.nickname) like lower(:text))" +
-                    " or (lower(bean.company) like lower(:text))" +
-                    " or (lower(bean.dept) like lower(:text))" +
-                    " or (lower(bean.role) like lower(:text))" +
+            queryHandler.condition("( (lower(bean.title) like lower(:text)) " +
+                    " or (lower(bean.content) like lower(:text))" +
                     " )").setParameter("text", like(query.getText()));
         }
 
+        if(CommonUtils.notEmpty(query.getUserId()))
+        {
+            queryHandler.condition("bean.userId = :userId").setParameter("userId", query.getUserId());
+        }
 
         if(CommonUtils.notEmpty(query.getStatus()))
         {
             queryHandler.condition("bean.status = :status").setParameter("status", query.getStatus());
         }
 
-        if(query.getDownload() != null)
-        {
-            queryHandler.condition("bean.download = :download").setParameter("download", query.getDownload());
-        }
         queryHandler.order("bean.id desc");
         return getPage(queryHandler, pageIndex, pageSize);
     }
 
     @Override
-    protected DsJoinRequestEntity init(DsJoinRequestEntity entity) {
+    protected DsReviewRequestEntity init(DsReviewRequestEntity entity) {
         return entity;
     }
 

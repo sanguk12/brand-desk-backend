@@ -45,10 +45,15 @@ public class ReviewRequestController {
     @RequestMapping(value = "list")
     public AjaxResponse list(@RequestAttribute SysSite site,
                              @SessionAttribute SysUser user,
-                             @RequestBody ReviewRequestQuery query,
+                             @RequestBody(required = false) ReviewRequestQuery query,
                              @RequestParam(value = "pageIndex", required = false, defaultValue = "0") Integer pageIndex,
                              @RequestParam(value = "pageSize", required = false, defaultValue = "" + PageHandler.DEFAULT_PAGE_SIZE) Integer pageSize) {
 
+        if(query == null)
+        {
+            query = new ReviewRequestQuery();
+        }
+        query.setUserId(user.getId());
         PageHandler page = service.getPage(query, pageIndex, pageSize);
 
         return AjaxResponse.success(page);
@@ -66,6 +71,7 @@ public class ReviewRequestController {
 
         DsReviewRequestEntity entity = req.toEntity();
         entity.setStatus(DsReviewRequestService.STATUS_REQUESTED);
+        entity.setUserId(user.getId());
 
         service.save(entity);
 
