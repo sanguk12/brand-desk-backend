@@ -3,6 +3,7 @@ package com.samsung.ds.pojo.result;
 import com.samsung.ds.entities.DsJoinRequestEntity;
 import com.samsung.ds.entities.DsReviewRequestEntity;
 import com.samsung.ds.entities.DsReviewRequestFileEntity;
+import com.synccms.entities.cms.CmsDictionaryItem;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -44,10 +45,23 @@ public class ReviewRequestData {
     private String reviewComment12st;
     private String reviewComment22st;
 
+
+    private String statusValue;
+    private String statusText;
+
+    private String type1Value;
+    private String type2Value;
+    private String type1Text;
+    private String type2Text;
     private List<DsReviewRequestFileEntity> files;
 
 
-    public ReviewRequestData(DsReviewRequestEntity entity, List<DsReviewRequestFileEntity> files)
+    public ReviewRequestData(
+            DsReviewRequestEntity entity,
+            List<DsReviewRequestFileEntity> files,
+            CmsDictionaryItem status,
+            CmsDictionaryItem type1,
+            CmsDictionaryItem type2)
     {
         try {
             BeanUtils.copyProperties(this, entity);
@@ -55,6 +69,22 @@ public class ReviewRequestData {
             //Ignore
         }
 
+        if(status != null)
+        {
+            this.statusValue = status.getValue();
+            this.statusText = status.getText();
+        }
+
+        if(type1 != null)
+        {
+            this.type1Value = type1.getValue();
+            this.type1Text = type1.getText();
+        }
+        if(type2 != null)
+        {
+            this.type2Value = type2.getValue();
+            this.type2Text = type2.getText();
+        }
         this.files = files;
     }
 }

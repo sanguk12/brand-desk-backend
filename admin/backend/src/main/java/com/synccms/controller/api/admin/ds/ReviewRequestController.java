@@ -75,7 +75,7 @@ public class ReviewRequestController {
     public AjaxResponse reject(
             @RequestAttribute SysSite site,
             @PathVariable Long id) {
-        service.reject(id);
+        service.reject(site, id);
         return AjaxResponse.success(id);
 
     }

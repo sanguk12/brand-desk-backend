@@ -39,17 +39,17 @@ public class DsReviewRequestEntity extends BaseEntity {
     private String title;
 
     @Column(name = "type1")
-    private String type1;
+    private Long type1;
 
     @Column(name = "type2")
-    private String type2;
+    private Long type2;
 
     @Column(name = "content", nullable = false)
     private String content;
 
     @Column(name = "status", nullable = false)
     @GeneratorColumn(title = "상태")
-    private Integer status;
+    private Long status;
 
     @Column(name = "survey")
     @GeneratorColumn(title = " 만족도")

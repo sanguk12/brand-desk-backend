@@ -62,8 +62,20 @@ public class ReviewRequestController {
         PageHandler page = service.getPage(query, pageIndex, pageSize);
         List<DsReviewRequestEntity> reqList = (List<DsReviewRequestEntity>)page.getList();
 
+        List<Long> statusIdList  = reqList.stream().map(r -> r.getStatus()).collect(Collectors.toList());
+        List<Long> type1IdList  = reqList.stream().map(r -> r.getType1()).collect(Collectors.toList());
+        List<Long> type2IdList  = reqList.stream().map(r -> r.getType2()).collect(Collectors.toList());
+
+        List<CmsDictionaryItem> statusItemList = dictionaryItemService.getEntitys(type1IdList.toArray(new Long[0]));
+
+        List<CmsDictionaryItem> type1ItemList = dictionaryItemService.getEntitys(type1IdList.toArray(new Long[0]));
+        List<CmsDictionaryItem> type2ItemList = dictionaryItemService.getEntitys(type2IdList.toArray(new Long[0]));
+
         page.setList(reqList.stream().map(r -> new ReviewRequestData(r,
-                fileService.getList(ReviewRequestFileQuery.builder().reviewId(r.getId()).build())
+                fileService.getList(ReviewRequestFileQuery.builder().reviewId(r.getId()).build()),
+                statusItemList.stream().filter(t -> t.getId().equals(r.getStatus())).findFirst().orElse(null),
+                type1ItemList.stream().filter(t -> t.getId().equals(r.getType1())).findFirst().orElse(null),
+                type2ItemList.stream().filter(t -> t.getId().equals(r.getType2())).findFirst().orElse(null)
         )).collect(Collectors.toList()));
 
         return AjaxResponse.success(page);
@@ -80,7 +92,11 @@ public class ReviewRequestController {
             @RequestBody ReviewRequest req) {
 
         DsReviewRequestEntity entity = req.toEntity();
-        entity.setStatus(DsReviewRequestService.STATUS_REQUESTED);
+
+        CmsDictionary statusDict = dictionaryService.getByCode(site.getId(), DsReviewRequestService.REQUEST_STATUS_DICTIONARY);
+        CmsDictionaryItem item = dictionaryItemService.getByDictionaryAndDataValue(site.getId(), statusDict.getId(), DsReviewRequestService.STATUS_REQUESTED);
+
+        entity.setStatus(item.getId());
         entity.setUserId(user.getId());
 
         service.save(entity);

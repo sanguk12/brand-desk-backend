@@ -1,17 +1,15 @@
 package com.samsung.ds.logic.service;
 
-import com.samsung.ds.entities.DsJoinRequestEntity;
 import com.samsung.ds.entities.DsReviewRequestEntity;
-import com.samsung.ds.logic.dao.DsJoinRequestDao;
 import com.samsung.ds.logic.dao.DsReviewRequestDao;
-import com.samsung.ds.logic.query.JoinRequestQuery;
 import com.samsung.ds.logic.query.ReviewRequestQuery;
 import com.synccms.common.base.BaseService;
 import com.synccms.common.handler.PageHandler;
+import com.synccms.entities.cms.CmsDictionary;
+import com.synccms.entities.cms.CmsDictionaryItem;
 import com.synccms.entities.sys.SysSite;
-import com.synccms.entities.sys.SysUser;
-import com.synccms.logic.service.sys.SysUserService;
-import org.apache.commons.beanutils.BeanUtils;
+import com.synccms.logic.service.cms.CmsDictionaryItemService;
+import com.synccms.logic.service.cms.CmsDictionaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,12 +23,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class DsReviewRequestService extends BaseService<DsReviewRequestEntity> {
 
-    public static final int STATUS_REQUESTED = 1;
-    public static final int STATUS_APROVED = 2;
-    public static final int STATUS_REJECTED = 3;
-    @Autowired
-    private DsReviewRequestDao dao;
+    public static final String REQUEST_STATUS_DICTIONARY = "REQUEST_STATUS";
 
+    public static final String STATUS_REQUESTED = "REQUEST";
+    public static final String STATUS_APPROVED = "APPROVED";
+    public static final String STATUS_REJECTED = "REJECT";
+    @Autowired private DsReviewRequestDao dao;
+    @Autowired private CmsDictionaryService dictionaryService;
+    @Autowired private CmsDictionaryItemService dictionaryItemService;
 
     /**
      * @param query
@@ -44,16 +44,21 @@ public class DsReviewRequestService extends BaseService<DsReviewRequestEntity> {
     }
 
     @Transactional
-    public void approve(SysSite site, Long id, Boolean download) {
+    public void approve(SysSite site, Long id) {
         DsReviewRequestEntity req = getEntity(id);
-        req.setStatus(DsReviewRequestService.STATUS_APROVED);
+
+        CmsDictionary statusDict = dictionaryService.getByCode(site.getId(), REQUEST_STATUS_DICTIONARY);
+        CmsDictionaryItem item = dictionaryItemService.getByDictionaryAndDataValue(site.getId(), statusDict.getId(), STATUS_APPROVED);
+        req.setStatus(item.getId());
         update(req.getId(), req);
     }
 
     @Transactional
-    public void reject(Long id) {
+    public void reject(SysSite site, Long id) {
         DsReviewRequestEntity req = getEntity(id);
-        req.setStatus(DsReviewRequestService.STATUS_REJECTED);
+        CmsDictionary statusDict = dictionaryService.getByCode(site.getId(), REQUEST_STATUS_DICTIONARY);
+        CmsDictionaryItem item = dictionaryItemService.getByDictionaryAndDataValue(site.getId(), statusDict.getId(), STATUS_REJECTED);
+        req.setStatus(item.getId());
         update(req.getId(), req);
     }
 
