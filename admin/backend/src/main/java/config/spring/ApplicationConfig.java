@@ -61,10 +61,10 @@ import java.util.Properties;
  */
 @Configuration
 @ComponentScan(
-        basePackages = {"com.synccms", "config.spring.advice"},
+        basePackages = {"com.synccms", "config.spring.advice", "com.samsung.ds"},
         excludeFilters = { @ComponentScan.Filter(value = { Controller.class }) }
 )
-@MapperScan(basePackages = {"com.synccms.logic.mapper", "com.skmagic.logic.mapper"})
+@MapperScan(basePackages = {"com.synccms.logic.mapper", "com.samsung.ds.logic.mapper"})
 @PropertySource({
    "classpath:" + CommonConstants.CMS_CONFIG_FILE,
 })
@@ -175,7 +175,7 @@ public class ApplicationConfig {
     public FactoryBean<SessionFactory> hibernateSessionFactory(DataSource dataSource) throws PropertyVetoException, IOException {
         LocalSessionFactoryBean bean = new LocalSessionFactoryBean();
         bean.setDataSource(dataSource);
-        bean.setPackagesToScan("com.synccms.entities");
+        bean.setPackagesToScan("com.synccms.entities", "com.samsung.ds.entities");
         Properties properties = null;
 
 

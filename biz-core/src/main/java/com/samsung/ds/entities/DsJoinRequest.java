@@ -11,6 +11,9 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.search.engine.backend.types.Searchable;
+import org.hibernate.search.engine.backend.types.Sortable;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.GenericField;
 
 import javax.persistence.*;
 
@@ -72,4 +75,9 @@ public class DsJoinRequest extends BaseEntity {
     @Column(name = "download", length = 50)
     @GeneratorColumn(title = "다운로드 권한 요청 여부", condition = true, like = true, or = true, name = "download")
     private Boolean download;
+
+    @Column(name = "status", nullable = false)
+    @GeneratorColumn(title = "상태", condition = true)
+    @GenericField(sortable= Sortable.YES, searchable = Searchable.YES)
+    private int status;
 }

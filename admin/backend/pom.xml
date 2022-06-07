@@ -14,6 +14,12 @@
     <dependencies>
         <dependency>
             <groupId>com.samsung.ds</groupId>
+            <artifactId>biz-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.samsung.ds</groupId>
             <artifactId>samsung-ds-brand-desk-config</artifactId>
         </dependency>
         <dependency>

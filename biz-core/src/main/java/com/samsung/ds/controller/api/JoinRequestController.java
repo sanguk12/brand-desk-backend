@@ -1,10 +1,12 @@
 package com.samsung.ds.controller.api;
 
 import com.samsung.ds.entities.DsJoinRequest;
+import com.samsung.ds.logic.query.JoinRequestQuery;
 import com.samsung.ds.logic.service.DsJoinRequestService;
 import com.samsung.ds.views.pojo.model.JoinRequestParam;
 import com.synccms.common.annotation.Csrf;
 import com.synccms.common.constants.CommonConstants;
+import com.synccms.common.handler.PageHandler;
 import com.synccms.common.pojo.AjaxResponse;
 import com.synccms.common.tools.*;
 import com.synccms.entities.cms.CmsCategory;
@@ -74,6 +76,7 @@ public class JoinRequestController {
         String encryptedPassword = UserPasswordUtils.passwordEncode(entity.getPassword(), salt);
         entity.setSalt(salt);
         entity.setPassword(encryptedPassword);
+        entity.setStatus(DsJoinRequestService.STATUS_REQUESTED);
 
         service.save(entity);
 
