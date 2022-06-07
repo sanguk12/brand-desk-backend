@@ -1,12 +1,16 @@
 package com.samsung.ds.controller.api;
 
+import com.samsung.ds.entities.DsReviewRequestEntity;
+import com.samsung.ds.entities.DsReviewRequestFileEntity;
+import com.samsung.ds.logic.dao.DsReviewRequestFileDao;
+import com.samsung.ds.logic.query.ReviewRequestQuery;
+import com.samsung.ds.logic.service.DsReviewRequestFileService;
+import com.samsung.ds.logic.service.DsReviewRequestService;
 import com.samsung.ds.views.pojo.model.ReviewRequest;
-import com.synccms.common.constants.CommonConstants;
 import com.synccms.common.handler.PageHandler;
 import com.synccms.common.pojo.AjaxResponse;
 import com.synccms.common.tools.CmsFileUtils;
 import com.synccms.common.tools.ExtendUtils;
-import com.synccms.common.tools.RequestUtils;
 import com.synccms.entities.cms.*;
 import com.synccms.entities.sys.SysSite;
 import com.synccms.entities.sys.SysUser;
@@ -21,17 +25,15 @@ import java.util.*;
 
 /**
  *
- * RequestController
+ * ReviewRequestController
  *
  */
 @RestController
-@RequestMapping("request")
-public class RequestController {
-    protected static final Log log = LogFactory.getLog(RequestController.class);
-    @Autowired private CmsContentService service;
-    @Autowired private CmsContentFileService fileService;
-    @Autowired private CmsContentAttributeService attributeService;
-    @Autowired private CmsCategoryService categoryService;
+@RequestMapping("review")
+public class ReviewRequestController {
+    protected static final Log log = LogFactory.getLog(ReviewRequestController.class);
+    @Autowired private DsReviewRequestService service;
+    @Autowired private DsReviewRequestFileService fileService;
 
     @Autowired private CmsDictionaryService dictionaryService;
     @Autowired private CmsDictionaryItemService dictionaryItemService;
@@ -43,68 +45,40 @@ public class RequestController {
     @RequestMapping(value = "list")
     public AjaxResponse list(@RequestAttribute SysSite site,
                              @SessionAttribute SysUser user,
+                             @RequestBody ReviewRequestQuery query,
                              @RequestParam(value = "pageIndex", required = false, defaultValue = "0") Integer pageIndex,
                              @RequestParam(value = "pageSize", required = false, defaultValue = "" + PageHandler.DEFAULT_PAGE_SIZE) Integer pageSize) {
-        CmsCategory cate = categoryService.getEntityByCode(site.getId(), "REQUEST");
-        CmsContentQuery query = CmsContentQuery.builder()
-                .siteId(site.getId())
-                .categoryIds(new Integer[]{cate.getId()})
-                .userId(user.getId())
-                .disabled(false)
-                .build();
 
+        PageHandler page = service.getPage(query, pageIndex, pageSize);
 
-        return AjaxResponse.success(service.getPage(query, pageIndex, pageSize));
+        return AjaxResponse.success(page);
     }
 
     /**
      * @param site
      * @return view name
      */
-    @RequestMapping(value = "write", method = RequestMethod.POST)
-    public AjaxResponse write(
+    @RequestMapping(value = "save", method = RequestMethod.POST)
+    public AjaxResponse save(
             @RequestAttribute SysSite site,
             @SessionAttribute SysUser user,
             @RequestBody ReviewRequest req) {
-        CmsCategory cate = categoryService.getEntityByCode(site.getId(), "REQUEST");
 
-        CmsContent entity = new CmsContent();
-        entity.setSiteId(site.getId());
-        entity.setUserId(user.getId());
-        entity.setModelId("REQUEST");
-        entity.setTitle(req.getTitle());
-        entity.setCategoryId(cate.getId());
-        entity.setHasFiles(true);
-        entity.setPublishDate(new Date());
-        entity.setCheckDate(new Date());
-        entity.setSort(0);
-
-        entity.setStatus(CmsContentService.STATUS_NORMAL);
+        DsReviewRequestEntity entity = req.toEntity();
+        entity.setStatus(DsReviewRequestService.STATUS_REQUESTED);
 
         service.save(entity);
-
-        CmsContentAttribute attribute = new CmsContentAttribute();
-        attribute.setContentId(entity.getId());
-
-        Map<String, String> map = new HashMap<>();
-        map.put("type", req.getType1() + "," + req.getType2());
-        map.put("content", req.getContent());
-        map.put("status", req.isTemp() ? "SAVED" : "REQUEST");
-
-        attribute.setData(ExtendUtils.getExtendString(map));
-
-        attributeService.save(attribute);
 
         for(int i = 0; i < req.getFiles().length; i++)
         {
             String filePath = req.getFiles()[i];
-            CmsContentFile file = new CmsContentFile();
+            DsReviewRequestFileEntity file = new DsReviewRequestFileEntity();
 
             file.setFilePath(filePath);
             file.setFileType(CmsFileUtils.FILE_TYPE_OTHER);
             file.setSort(i);
             file.setUserId(user.getId());
-            file.setContentId(entity.getId());
+            file.setReviewId(entity.getId());
 
             fileService.save(file);
         }

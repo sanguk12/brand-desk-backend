@@ -1,11 +1,9 @@
 package com.samsung.ds.views.pojo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.samsung.ds.entities.DsJoinRequest;
+import com.samsung.ds.entities.DsJoinRequestEntity;
 import lombok.*;
 import org.apache.commons.beanutils.BeanUtils;
-
-import java.lang.reflect.InvocationTargetException;
 
 @Data
 @Builder
@@ -25,9 +23,9 @@ public class JoinRequestParam {
     private Long staff;
     private Boolean download;
 
-    public DsJoinRequest toEntity()
+    public DsJoinRequestEntity toEntity()
     {
-        DsJoinRequest req = new DsJoinRequest();
+        DsJoinRequestEntity req = new DsJoinRequestEntity();
         try {
             BeanUtils.copyProperties(req, this);
         } catch (Exception e) {

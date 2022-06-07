@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("join")
-public class JoinRequestController {
+public class ReviewRequestController {
     protected final Log log = LogFactory.getLog(getClass());
     @Autowired
     private DsJoinRequestService service;

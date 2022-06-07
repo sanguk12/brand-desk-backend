@@ -2,6 +2,7 @@ package com.samsung.ds.logic.dao;
 
 import com.samsung.ds.entities.DsJoinRequestEntity;
 import com.samsung.ds.logic.query.JoinRequestQuery;
+import com.samsung.ds.logic.query.ReviewRequestQuery;
 import com.synccms.common.base.BaseDao;
 import com.synccms.common.handler.PageHandler;
 import com.synccms.common.handler.QueryHandler;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Repository;
  *
  */
 @Repository
-public class DsJoinRequestDao extends BaseDao<DsJoinRequestEntity> {
+public class DsReviewRequestDao extends BaseDao<DsJoinRequestEntity> {
 
     /**
      * @param query
@@ -22,7 +23,7 @@ public class DsJoinRequestDao extends BaseDao<DsJoinRequestEntity> {
      * @param pageSize
      * @return results page
      */
-    public PageHandler getPage(JoinRequestQuery query, Integer pageIndex, Integer pageSize) {
+    public PageHandler getPage(ReviewRequestQuery query, Integer pageIndex, Integer pageSize) {
         QueryHandler queryHandler = getQueryHandler("from DsJoinRequestEntity bean");
 
         if (CommonUtils.notEmpty(query.getText())) {

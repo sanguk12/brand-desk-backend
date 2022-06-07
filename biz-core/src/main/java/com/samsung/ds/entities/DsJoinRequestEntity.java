@@ -24,7 +24,7 @@ import javax.persistence.*;
 @SuperBuilder
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor
-public class DsJoinRequest extends BaseEntity {
+public class DsJoinRequestEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(generator = "cmsGenerator")
@@ -49,35 +49,35 @@ public class DsJoinRequest extends BaseEntity {
     private String salt;
 
     @Column(name = "nickname", nullable = false, length = 45)
-    @GeneratorColumn(title = "사용자 이름", condition = true, like = true, or = true, name = "name")
+    @GeneratorColumn(title = "사용자 이름")
     private String nickname;
 
     @Column(name = "company",  length = 50)
-    @GeneratorColumn(title = "회사명", condition = true, like = true, or = true, name = "company")
+    @GeneratorColumn(title = "회사명")
     private String company;
 
     @Column(name = "dept",  length = 50)
-    @GeneratorColumn(title = "부서명", condition = true, like = true, or = true, name = "dept")
+    @GeneratorColumn(title = "부서명")
     private String dept;
 
     @Column(name = "role", length = 50)
-    @GeneratorColumn(title = "관련업무", condition = true, like = true, or = true, name = "role")
+    @GeneratorColumn(title = "관련업무")
     private String role;
 
     @Column(name = "phone",  length = 50)
-    @GeneratorColumn(title = "휴대폰 번호", condition = true, like = true, or = true, name = "phone")
+    @GeneratorColumn(title = "휴대폰 번호")
     private String phone;
 
     @Column(name = "staff", length = 50)
-    @GeneratorColumn(title = "담당 임직원", condition = true, like = true, or = true, name = "staff")
+    @GeneratorColumn(title = "담당 임직원")
     private Long staff;
 
     @Column(name = "download", length = 50)
-    @GeneratorColumn(title = "다운로드 권한 요청 여부", condition = true, like = true, or = true, name = "download")
+    @GeneratorColumn(title = "다운로드 권한 요청 여부")
     private Boolean download;
 
     @Column(name = "status", nullable = false)
-    @GeneratorColumn(title = "상태", condition = true)
+    @GeneratorColumn(title = "상태")
     @GenericField(sortable= Sortable.YES, searchable = Searchable.YES)
     private int status;
 }

@@ -1,6 +1,6 @@
 package com.synccms.views.entity;
 
-import com.samsung.ds.entities.DsJoinRequest;
+import com.samsung.ds.entities.DsJoinRequestEntity;
 import com.synccms.entities.sys.SysUser;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,7 +25,7 @@ public class DsJoinRequestData {
     private Boolean download;
     private int status;
 
-    public DsJoinRequestData(DsJoinRequest entity, SysUser staff)
+    public DsJoinRequestData(DsJoinRequestEntity entity, SysUser staff)
     {
         try {
             PropertyUtils.copyProperties(this, entity);
