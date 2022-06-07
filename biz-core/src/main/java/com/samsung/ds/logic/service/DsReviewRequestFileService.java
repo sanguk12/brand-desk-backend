@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  *
  * DsReviewRequestService
@@ -35,6 +37,10 @@ public class DsReviewRequestFileService extends BaseService<DsReviewRequestFileE
     @Transactional(readOnly = true)
     public PageHandler getPage(ReviewRequestFileQuery query, Integer pageIndex, Integer pageSize) {
         return dao.getPage(query, pageIndex, pageSize);
+    }
+
+    public List<DsReviewRequestFileEntity> getList(ReviewRequestFileQuery query) {
+        return (List<DsReviewRequestFileEntity>)dao.getPage(query, null, null).getList();
     }
 
     /**

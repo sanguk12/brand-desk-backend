@@ -3,15 +3,19 @@ package com.samsung.ds.controller.api;
 import com.samsung.ds.entities.DsReviewRequestEntity;
 import com.samsung.ds.entities.DsReviewRequestFileEntity;
 import com.samsung.ds.logic.dao.DsReviewRequestFileDao;
+import com.samsung.ds.logic.query.ReviewRequestFileQuery;
 import com.samsung.ds.logic.query.ReviewRequestQuery;
 import com.samsung.ds.logic.service.DsReviewRequestFileService;
 import com.samsung.ds.logic.service.DsReviewRequestService;
+import com.samsung.ds.pojo.result.ReviewRequestData;
 import com.samsung.ds.views.pojo.model.ReviewRequest;
 import com.synccms.common.handler.PageHandler;
 import com.synccms.common.pojo.AjaxResponse;
 import com.synccms.common.tools.CmsFileUtils;
 import com.synccms.common.tools.ExtendUtils;
 import com.synccms.entities.cms.*;
+import com.synccms.entities.sys.BaseSysUser;
+import com.synccms.entities.sys.SysDept;
 import com.synccms.entities.sys.SysSite;
 import com.synccms.entities.sys.SysUser;
 import com.synccms.logic.service.cms.*;
@@ -22,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -55,6 +60,11 @@ public class ReviewRequestController {
         }
         query.setUserId(user.getId());
         PageHandler page = service.getPage(query, pageIndex, pageSize);
+        List<DsReviewRequestEntity> reqList = (List<DsReviewRequestEntity>)page.getList();
+
+        page.setList(reqList.stream().map(r -> new ReviewRequestData(r,
+                fileService.getList(ReviewRequestFileQuery.builder().reviewId(r.getId()).build())
+        )).collect(Collectors.toList()));
 
         return AjaxResponse.success(page);
     }
