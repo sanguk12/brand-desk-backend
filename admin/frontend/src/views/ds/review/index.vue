@@ -34,25 +34,32 @@
 
   import { useModal } from '/@/components/Modal';
 
-  import { columns, searchFormSchema } from './review.data';
-    import {useGo} from "/@/hooks/web/usePage";
+  import {columns, getSearchFormSchema } from './review.data';
+  import {useGo} from "/@/hooks/web/usePage";
   import {getReviewList} from "/@/api/ds/review";
+  import moment from "moment";
 
   export default defineComponent({
     name: 'ReviewRequestManagement',
     components: { BasicTable, TableAction },
-    setup() {
-      const { t } = useI18n();
+    setup: function () {
+      const {t} = useI18n();
       const go = useGo();
 
       const searchInfo = reactive<Recordable>({
-        text: null,
+        createDate: [
+          moment().format('YYYY-MM-DD HH:mm:ss'),
+          moment().subtract(30, 'days').format('YYYY-MM-DD HH:mm:ss'),
+        ],
+        type1: null,
+        type2: null,
         status: null,
-        download: null,
+        searchType: null,
+        text: null,
       });
 
-      const [registerModal, { openModal }] = useModal();
-      const [registerTable, { reload, expandAll, collapseAll }] = useTable({
+      const [registerModal, {openModal}] = useModal();
+      const [registerTable, {reload, expandAll, collapseAll}] = useTable({
         title: '요청 목록',
         isTreeTable: false,
         api: getReviewList,
@@ -65,7 +72,8 @@
         columns,
         formConfig: {
           labelWidth: 120,
-          schemas: searchFormSchema,
+          schemas: getSearchFormSchema(),
+          model: searchInfo,
         },
         pagination: false,
         striped: false,
@@ -79,7 +87,7 @@
           width: 100,
           title: t('common.action'),
           dataIndex: 'action',
-          slots: { customRender: 'action' },
+          slots: {customRender: 'action'},
           fixed: undefined,
         },
       });
@@ -102,7 +110,7 @@
       }
 
       function handleView(record: Recordable) {
-        go('/ds/review/detail/' + record.id);
+        go('/ds/reviewDetail/' + record.id);
       }
 
 

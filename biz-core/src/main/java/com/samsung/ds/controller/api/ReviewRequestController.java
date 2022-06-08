@@ -66,7 +66,7 @@ public class ReviewRequestController {
         List<Long> type1IdList  = reqList.stream().map(r -> r.getType1()).collect(Collectors.toList());
         List<Long> type2IdList  = reqList.stream().map(r -> r.getType2()).collect(Collectors.toList());
 
-        List<CmsDictionaryItem> statusItemList = dictionaryItemService.getEntitys(type1IdList.toArray(new Long[0]));
+        List<CmsDictionaryItem> statusItemList = dictionaryItemService.getEntitys(statusIdList.toArray(new Long[0]));
 
         List<CmsDictionaryItem> type1ItemList = dictionaryItemService.getEntitys(type1IdList.toArray(new Long[0]));
         List<CmsDictionaryItem> type2ItemList = dictionaryItemService.getEntitys(type2IdList.toArray(new Long[0]));
@@ -75,7 +75,8 @@ public class ReviewRequestController {
                 fileService.getList(ReviewRequestFileQuery.builder().reviewId(r.getId()).build()),
                 statusItemList.stream().filter(t -> t.getId().equals(r.getStatus())).findFirst().orElse(null),
                 type1ItemList.stream().filter(t -> t.getId().equals(r.getType1())).findFirst().orElse(null),
-                type2ItemList.stream().filter(t -> t.getId().equals(r.getType2())).findFirst().orElse(null)
+                type2ItemList.stream().filter(t -> t.getId().equals(r.getType2())).findFirst().orElse(null),
+                null
         )).collect(Collectors.toList()));
 
         return AjaxResponse.success(page);

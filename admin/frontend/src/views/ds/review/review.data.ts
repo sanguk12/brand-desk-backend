@@ -1,12 +1,38 @@
 import { BasicColumn, FormSchema } from '/@/components/Table';
-import { h } from 'vue';
-import { Tag } from 'ant-design-vue';
-import {DescItem} from "/@/components/Description";
+import { DescItem } from '/@/components/Description';
+import { h } from "vue";
+import { ApiSelect } from '/@/components/Form';
+import {Input, Space} from 'ant-design-vue';
+import { getStatusList, getType2List, getTypeList } from '/@/api/ds/review';
 export const columns: BasicColumn[] = [
   {
     title: '아이디',
     dataIndex: 'id',
-    width: 50,
+    width: 150,
+  },
+  {
+    title: '유형1',
+    dataIndex: 'type1Text',
+    width: 150,
+    align: 'left',
+  },
+  {
+    title: '유형2',
+    dataIndex: 'type2Text',
+    width: 150,
+    align: 'left',
+  },
+  {
+    title: '제목',
+    dataIndex: 'title',
+    width: 150,
+    align: 'left',
+  },
+  {
+    title: '신청자',
+    dataIndex: 'nickname',
+    width: 150,
+    align: 'left',
   },
   {
     title: '이메일',
@@ -15,101 +41,152 @@ export const columns: BasicColumn[] = [
     align: 'left',
   },
   {
-    title: '이름',
-    dataIndex: 'nickname',
-    width: 150,
-    align: 'left',
-  },
-  {
-    title: '회사명',
-    dataIndex: 'company',
-    width: 150,
-    align: 'left',
-  },
-  {
-    title: '부서명',
-    dataIndex: 'dept',
-    width: 150,
-    align: 'left',
-  },
-  {
-    title: '역할',
-    dataIndex: 'role',
-    width: 150,
-    align: 'left',
-  },
-  {
-    title: '전화번호',
-    dataIndex: 'phone',
-    width: 150,
-    align: 'left',
-  },
-  {
-    title: '다운로드 요청',
-    dataIndex: 'download',
-    width: 120,
-    customRender: ({ record }) => {
-      const download = record.download;
-      return ~~download === 1 ? 'Y' : 'N';
-    },
-  },
-  {
-    title: '상태',
-    dataIndex: 'status',
-    customRender: ({ record }) => {
-      const approved = record.status == 2;
-      const rejected = record.status == 3;
-
-      let color = '';
-      let text = '요청';
-
-      if(approved) {
-        text = '승인';
-        color =  'green';
-      }
-      if(rejected) {
-        text = '반려';
-        color =  'red';
-      }
-
-      return h(Tag, { color: color }, () => text);
-    },
-  },
-  {
-    title: '가입 신청일',
+    title: '요청일시',
     dataIndex: 'createDate',
     format: 'date|YYYY-MM-DD HH:mm:ss',
     width: 180,
   },
+  {
+    title: '검수 완료 예정일',
+    dataIndex: 'createDate',
+    format: 'date|YYYY-MM-DD HH:mm:ss',
+    width: 180,
+  },
+  {
+    title: '검수 상태',
+    dataIndex: 'statusText',
+    width: 180,
+  },
+  {
+    title: '만족도',
+    dataIndex: 'survey',
+    width: 150,
+    align: 'left',
+  },
 ];
 
-export const searchFormSchema: FormSchema[] = [
-  {
-    field: 'text',
-    label: '검색어',
-    component: 'Input',
-    colProps: { span: 8 },
-  },
-  {
-    field: 'status',
-    label: '상태',
-    component: 'Select',
-    componentProps: {
-      options: [
-        { label: '요청', value: 1 },
-        { label: '승인', value: 2 },
-        { label: '반려', value: 3 },
-      ],
+export function getSearchFormSchema() {
+
+  const searchFormSchema: FormSchema[] = [
+    {
+      field: 'createDate',
+      label: '요청기간',
+      component: 'RangePicker',
+      colProps: {span: 8},
+      componentProps: {
+        format: 'YYYY-MM-DD',
+      }
     },
-    colProps: { span: 8 },
-  },
-  {
-    field: 'download',
-    label: '다운로드 여부',
-    component: 'Checkbox',
-    colProps: { span: 8 },
-  },
-];
+    {
+      field: 'type1',
+      component: 'Select',
+      label: '유형',
+      colProps: {
+        span: 8,
+      },
+      render: ({ model, field }) => {
+        return h(Space, {},
+          () => [h( ApiSelect, {
+          placeholder: '유형 1',
+          api: getTypeList,
+          labelField: 'text',
+          valueField: 'id',
+          params: null,
+          allowClear: true,
+          style: {
+            width: "200px"
+          },
+          onChange: async (value) => {
+            model[field] = value;
+          },
+        }),
+          h( ApiSelect, {
+            placeholder: '유형 2',
+            api: getType2List,
+            labelField: 'text',
+            valueField: 'id',
+            alwaysLoad: true,
+            params: { parentData: model['type1']},
+            allowClear: true,
+            style: {
+              width: "200px"
+            },
+            onChange: (value) => {
+              model['type2'] = value;
+            },
+          })]);
+      },
+    },
+    {
+      field: 'type2',
+      component: 'Input',
+      label: '유형 2',
+      show: false,
+    },
+    {
+      field: 'status',
+      component: 'ApiSelect',
+      componentProps: {
+        placeholder: '검수 상태',
+        api: getStatusList,
+        labelField: 'text',
+        valueField: 'id',
+      },
+      label: '검수 상태',
+      colProps: {
+        span: 8,
+      },
+    },
+    {
+      field: 'searchType',
+      component: 'Select',
+      label: '검색어',
+      colProps: {
+        span: 8,
+      },
+      render: ({ model, field }) => {
+        return h(Space, {},
+          () => [h( ApiSelect, {
+            placeholder: '검색 유형',
+            api: () => {
+              return new Promise((resolve) => {
+                resolve([
+                  {label: '전체', value:''},
+                  {label: '제목', value:'title'},
+                  {label: '신청자', value:'user'},
+                  {label: '이메일', value:'email'},
+                ]);
+              })
+
+            },
+            style: {
+              width: "200px"
+            },
+            onChange: async (value) => {
+              model[field] = value;
+            },
+          }),
+            h( Input, {
+              placeholder: '검색어',
+              allowClear: true,
+              style: {
+                width: "200px"
+              },
+              onChange: (e) => {
+                model['text'] = e.target.value;
+              },
+            })]);
+      },
+    },
+    {
+      field: 'text',
+      component: 'Input',
+      label: ' 검색어',
+      show: false,
+    },
+  ];
+  return searchFormSchema;
+}
 
 export const baseSchema: DescItem[] = [
   {

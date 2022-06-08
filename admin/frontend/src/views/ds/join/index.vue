@@ -104,7 +104,7 @@
       }
 
       function handleView(record: Recordable) {
-        go('/ds/join/detail/' + record.id);
+        go('/ds/request/joinDetail/' + record.id);
       }
 
 

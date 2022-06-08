@@ -1,30 +1,17 @@
 package com.synccms.views.entity;
 
-import com.samsung.ds.entities.DsJoinRequestEntity;
 import com.samsung.ds.entities.DsReviewRequestEntity;
-import com.synccms.common.database.CmsUpgrader;
-import com.synccms.common.generator.annotation.GeneratorColumn;
-import com.synccms.entities.sys.SysUser;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.commons.beanutils.PropertyUtils;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.persistence.*;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class DsReviewRequestData {
-
-    @Id
-    @GeneratedValue(generator = "cmsGenerator")
-    @GenericGenerator(name = "cmsGenerator", strategy = CmsUpgrader.IDENTIFIER_GENERATOR)
-    @Column(name = "id", unique = true, nullable = false)
     private Long id;
     private Long copy;
     private Long userId;
@@ -32,6 +19,7 @@ public class DsReviewRequestData {
     private String type1;
     private String type2;
     private String content;
+    private Integer step;
     private Integer status;
     private Integer survey;
     private String surveyComment;

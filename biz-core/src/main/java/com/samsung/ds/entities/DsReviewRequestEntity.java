@@ -51,6 +51,10 @@ public class DsReviewRequestEntity extends BaseEntity {
     @GeneratorColumn(title = "상태")
     private Long status;
 
+    @Column(name = "admin_status", nullable = false)
+    @GeneratorColumn(title = "상태")
+    private Long adminStatus;
+
     @Column(name = "survey")
     @GeneratorColumn(title = " 만족도")
     private Integer survey;

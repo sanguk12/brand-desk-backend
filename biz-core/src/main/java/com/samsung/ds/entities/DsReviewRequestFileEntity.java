@@ -33,6 +33,9 @@ public class DsReviewRequestFileEntity extends BaseEntity {
     @Column(name = "user_id")
     private Long userId;
 
+    @Column(name = "step")
+    private Integer step;
+
     @Column(name = "file_path", nullable = false)
     private String filePath;
 
