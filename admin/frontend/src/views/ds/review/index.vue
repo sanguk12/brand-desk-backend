@@ -110,7 +110,7 @@
       }
 
       function handleView(record: Recordable) {
-        go('/ds/reviewDetail/' + record.id);
+        go('/ds/request/reviewDetail/' + record.id);
       }
 
 

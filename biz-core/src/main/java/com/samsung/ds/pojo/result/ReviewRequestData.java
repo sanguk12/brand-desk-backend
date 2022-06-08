@@ -29,10 +29,11 @@ public class ReviewRequestData {
     private Long copy;
     private Long userId;
     private String title;
-    private String type1;
-    private String type2;
+    private Long type1;
+    private Long type2;
     private String content;
     private Integer status;
+    private Integer adminStatus;
     private Integer survey;
     private String surveyComment;
     private String level;
@@ -61,6 +62,11 @@ public class ReviewRequestData {
 
     private String statusValue;
     private String statusText;
+
+
+    private String adminStatusValue;
+    private String adminStatusText;
+
 
     private String type1Value;
     private String type2Value;
@@ -107,5 +113,28 @@ public class ReviewRequestData {
             this.email = user.getEmail();
         }
         this.files = files;
+    }
+
+    public ReviewRequestData(
+            DsReviewRequestEntity entity,
+            List<DsReviewRequestFileEntity> files,
+            CmsDictionaryItem status,
+            CmsDictionaryItem adminStatus,
+            CmsDictionaryItem type1,
+            CmsDictionaryItem type2,
+            SysUser user)
+    {
+        this( entity,
+                files,
+                status,
+                type1,
+                type2,
+                user);
+
+        if(adminStatus != null)
+        {
+            this.adminStatusValue = adminStatus.getValue();
+            this.adminStatusText = adminStatus.getText();
+        }
     }
 }

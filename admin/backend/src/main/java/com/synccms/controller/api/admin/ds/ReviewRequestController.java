@@ -98,7 +98,16 @@ public class ReviewRequestController {
             @PathVariable Long id) {
         DsReviewRequestEntity req = service.getEntity(id);
 
-        return AjaxResponse.success(new DsReviewRequestData(req));
+        ReviewRequestData data = new ReviewRequestData(req,
+                fileService.getList(ReviewRequestFileQuery.builder().reviewId(req.getId()).build()),
+                dictionaryItemService.getEntity(req.getStatus()),
+                dictionaryItemService.getEntity(req.getAdminStatus()),
+                dictionaryItemService.getEntity(req.getType1()),
+                dictionaryItemService.getEntity(req.getType2()),
+                userService.getEntity(req.getUserId())
+        );
+
+        return AjaxResponse.success(data);
 
     }
 
