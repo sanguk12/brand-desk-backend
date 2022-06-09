@@ -328,7 +328,7 @@ public class SysUserAdminController {
 
         List<SysRoleUser> userRoleList = roleUserService.getList(SysRoleUserQuery.builder().userId(admin.getId()).build());
 
-        return roleService.getEntitys(userRoleList.stream().map(ur -> ur.getId().getRoleId()).collect(Collectors.toList()).toArray(new Integer[0])).stream().map(r->r.getName()).collect(Collectors.toList());
+        return roleService.getEntitys(userRoleList.stream().map(ur -> ur.getId().getRoleId()).collect(Collectors.toList()).toArray(new Integer[0])).stream().map(r->r.getCode()).collect(Collectors.toList());
     }
 
 

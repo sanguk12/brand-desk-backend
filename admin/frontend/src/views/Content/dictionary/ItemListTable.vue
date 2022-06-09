@@ -33,14 +33,14 @@
   </div>
 </template>
 <script lang="ts">
-import {defineComponent, PropType, ref, unref, watch} from 'vue';
+  import { defineComponent, PropType, ref, unref, watch } from 'vue';
   import { BasicTable, TableActionType, TableAction, useTable } from '/@/components/Table';
 
   import { useI18n } from '/@/hooks/web/useI18n';
   import { v4 as uuid } from 'uuid';
   import { DictionaryItem } from '/@/api/cms/model/dictionary';
   import { itemColumns } from './dict.data';
-  import {cloneDeep} from "lodash-es";
+  import { cloneDeep } from 'lodash-es';
 
   export default defineComponent({
     components: { BasicTable, TableAction },
@@ -68,7 +68,7 @@ import {defineComponent, PropType, ref, unref, watch} from 'vue';
       });
       itemList.value = newItemList;
 
-      const [ registerTable, { setTableData, reload } ] = useTable({
+      const [registerTable, { setTableData, reload }] = useTable({
         title: t('Content.dict.item_list'),
         titleHelpMessage: [t('Content.dict.item_list_desc')],
         dataSource: itemList,
@@ -104,7 +104,7 @@ import {defineComponent, PropType, ref, unref, watch} from 'vue';
       }
 
       function handleDelete(record: Recordable) {
-        getTableAction().deleteTableDataRecordByQuery({uuid: record.uuid});
+        getTableAction().deleteTableDataRecordByQuery({ uuid: record.uuid });
       }
 
       function handleAddChild(record: Recordable) {

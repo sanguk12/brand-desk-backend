@@ -24,7 +24,7 @@
   </div>
 </template>
 <script lang="ts">
-  import {defineComponent, PropType, ref, unref, nextTick, onMounted} from 'vue';
+  import { defineComponent, PropType, ref, unref, nextTick, onMounted } from 'vue';
   import { BasicTable, TableActionType, TableAction, useTable } from '/@/components/Table';
 
   import { useI18n } from '/@/hooks/web/useI18n';
@@ -32,7 +32,7 @@
   import { ExtendFieldItem } from '/@/api/cms/model/model';
   import { InputTypeEnum } from '/@/enums/inputTypeEnum';
   import { v4 as uuid } from 'uuid';
-  import {cloneDeep} from "lodash-es";
+  import { cloneDeep } from 'lodash-es';
 
   export default defineComponent({
     components: { BasicTable, TableAction },
@@ -86,12 +86,12 @@
           editRow: true,
           editable: true,
           inputType: InputTypeEnum.TEXT,
-          uuid: uuid()
+          uuid: uuid(),
         });
       }
 
       function handleDelete(record: Recordable) {
-        getTableAction().deleteTableDataRecordByQuery({uuid: record.uuid});
+        getTableAction().deleteTableDataRecordByQuery({ uuid: record.uuid });
       }
 
       function validate() {

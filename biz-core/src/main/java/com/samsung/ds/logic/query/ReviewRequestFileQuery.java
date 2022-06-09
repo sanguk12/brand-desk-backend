@@ -13,4 +13,5 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ReviewRequestFileQuery {
     private Long reviewId;
+    private Integer step;
 }

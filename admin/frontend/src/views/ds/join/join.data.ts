@@ -1,7 +1,7 @@
 import { BasicColumn, FormSchema } from '/@/components/Table';
 import { h } from 'vue';
 import { Tag } from 'ant-design-vue';
-import {DescItem} from "/@/components/Description";
+import { DescItem } from '/@/components/Description';
 export const columns: BasicColumn[] = [
   {
     title: '아이디',
@@ -63,13 +63,13 @@ export const columns: BasicColumn[] = [
       let color = '';
       let text = '요청';
 
-      if(approved) {
+      if (approved) {
         text = '승인';
-        color =  'green';
+        color = 'green';
       }
-      if(rejected) {
+      if (rejected) {
         text = '반려';
-        color =  'red';
+        color = 'red';
       }
 
       return h(Tag, { color: color }, () => text);
@@ -121,7 +121,6 @@ export const baseSchema: DescItem[] = [
     label: ' 이름',
   },
 ];
-
 
 export const detailSchema: DescItem[] = [
   {

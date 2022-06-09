@@ -50,10 +50,10 @@
 
   import { columns, searchFormSchema } from './module.data';
   import { deleteModule, getModuleList } from '/@/api/sys/module';
-  import {CategoryListGetResultModel} from "/@/api/cms/model/category";
-  import {getCategoryList} from "/@/api/cms/category";
-  import {isEmpty} from "lodash-es";
-  import {ModuleListGetResultModel} from "/@/api/sys/model/module";
+  import { CategoryListGetResultModel } from '/@/api/cms/model/category';
+  import { getCategoryList } from '/@/api/cms/category';
+  import { isEmpty } from 'lodash-es';
+  import { ModuleListGetResultModel } from '/@/api/sys/model/module';
 
   export default defineComponent({
     name: 'ModuleManagement',

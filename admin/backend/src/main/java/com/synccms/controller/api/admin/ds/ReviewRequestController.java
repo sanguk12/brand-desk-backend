@@ -1,15 +1,13 @@
 package com.synccms.controller.api.admin.ds;
 
-import com.google.common.collect.Iterables;
-import com.samsung.ds.entities.DsJoinRequestEntity;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.samsung.ds.entities.DsReviewRequestEntity;
-import com.samsung.ds.logic.query.JoinRequestQuery;
 import com.samsung.ds.logic.query.ReviewRequestFileQuery;
 import com.samsung.ds.logic.query.ReviewRequestQuery;
-import com.samsung.ds.logic.service.DsJoinRequestService;
 import com.samsung.ds.logic.service.DsReviewRequestFileService;
 import com.samsung.ds.logic.service.DsReviewRequestService;
 import com.samsung.ds.pojo.result.ReviewRequestData;
+import com.samsung.ds.views.pojo.model.ReviewRequestParam;
 import com.synccms.common.annotation.Csrf;
 import com.synccms.common.handler.PageHandler;
 import com.synccms.common.pojo.AjaxResponse;
@@ -20,13 +18,12 @@ import com.synccms.entities.sys.SysUser;
 import com.synccms.logic.service.cms.CmsDictionaryItemService;
 import com.synccms.logic.service.cms.CmsDictionaryService;
 import com.synccms.logic.service.sys.SysUserService;
-import com.synccms.views.entity.DsJoinRequestData;
-import com.synccms.views.entity.DsReviewRequestData;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -74,11 +71,15 @@ public class ReviewRequestController {
         List<CmsDictionaryItem> type2ItemList = dictionaryItemService.getEntitys(type2IdList.toArray(new Long[0]));
 
         page.setList(reqList.stream().map(r -> new ReviewRequestData(r,
-                fileService.getList(ReviewRequestFileQuery.builder().reviewId(r.getId()).build()),
+                fileService.getList(ReviewRequestFileQuery.builder().reviewId(r.getId()).step(1).build()),
+                null,
+                null,
                 statusItemList.stream().filter(t -> t.getId().equals(r.getStatus())).findFirst().orElse(null),
                 type1ItemList.stream().filter(t -> t.getId().equals(r.getType1())).findFirst().orElse(null),
                 type2ItemList.stream().filter(t -> t.getId().equals(r.getType2())).findFirst().orElse(null),
-                userList.stream().filter(t -> t.getId().equals(r.getUserId())).findFirst().orElse(null)
+                userList.stream().filter(t -> t.getId().equals(r.getUserId())).findFirst().orElse(null),
+                null,
+                null
         )).collect(Collectors.toList()));
 
         return AjaxResponse.success(page);
@@ -99,12 +100,15 @@ public class ReviewRequestController {
         DsReviewRequestEntity req = service.getEntity(id);
 
         ReviewRequestData data = new ReviewRequestData(req,
-                fileService.getList(ReviewRequestFileQuery.builder().reviewId(req.getId()).build()),
+                fileService.getList(ReviewRequestFileQuery.builder().reviewId(req.getId()).step(1).build()),
+                fileService.getList(ReviewRequestFileQuery.builder().reviewId(req.getId()).step(2).build()),
+                fileService.getList(ReviewRequestFileQuery.builder().reviewId(req.getId()).step(3).build()),
                 dictionaryItemService.getEntity(req.getStatus()),
-                dictionaryItemService.getEntity(req.getAdminStatus()),
                 dictionaryItemService.getEntity(req.getType1()),
                 dictionaryItemService.getEntity(req.getType2()),
-                userService.getEntity(req.getUserId())
+                userService.getEntity(req.getUserId()),
+                userService.getEntity(req.getReview1st()),
+                userService.getEntity(req.getReview2st())
         );
 
         return AjaxResponse.success(data);
@@ -134,14 +138,53 @@ public class ReviewRequestController {
      * @return view name
      */
     @Csrf
-    @RequestMapping("approve/{id}")
-    public AjaxResponse approve(
+    @RequestMapping("accept/{id}")
+    public AjaxResponse accept(
             @RequestAttribute SysSite site,
-            @RequestParam("download") Boolean download,
-            @PathVariable Long id) {
+            @SessionAttribute SysUser admin,
+            @RequestBody ReviewRequestParam param,
+            @PathVariable Long id,
+            HttpServletRequest request) throws JsonProcessingException {
+        service.accept(request, site, admin, id, param);
         return AjaxResponse.success(id);
     }
 
+
+
+    /**
+     * @param site
+     * @param id
+     * @return view name
+     */
+    @Csrf
+    @RequestMapping("1st/{id}")
+    public AjaxResponse first(
+            @RequestAttribute SysSite site,
+            @SessionAttribute SysUser admin,
+            @RequestBody ReviewRequestParam param,
+            @PathVariable Long id,
+            HttpServletRequest request) throws JsonProcessingException {
+        service.first(request, site, admin, id, param);
+        return AjaxResponse.success(id);
+    }
+
+
+    /**
+     * @param site
+     * @param id
+     * @return view name
+     */
+    @Csrf
+    @RequestMapping("2t/{id}")
+    public AjaxResponse second(
+            @RequestAttribute SysSite site,
+            @SessionAttribute SysUser admin,
+            @RequestBody ReviewRequestParam param,
+            @PathVariable Long id,
+            HttpServletRequest request) throws JsonProcessingException {
+        service.second(request, site, admin, id, param);
+        return AjaxResponse.success(id);
+    }
 
     /**
      * @param site
@@ -175,13 +218,35 @@ public class ReviewRequestController {
             @RequestAttribute SysSite site,
             @RequestParam(value = "parentData", required = false) Long parentData) {
         CmsDictionary status = dictionaryService.getByCode(site.getId(), "REQUEST_STATUS");
-        CmsDictionary adminStatus = dictionaryService.getByCode(site.getId(), "REQUEST_ADMIN_STATUS");
 
         List<CmsDictionaryItem> list =  dictionaryItemService.getList(site.getId(), status.getId());
-        List<CmsDictionaryItem> adminList =  dictionaryItemService.getList(site.getId(), adminStatus.getId());
-        int index = Iterables.indexOf(list, u -> u.getValue().equals("REVIEWING"));
-        list.remove(index);
-        list.addAll(index, adminList);
+        return AjaxResponse.success(list);
+    }
+
+
+    /**
+     * @param site
+     * @return view name
+     */
+    @RequestMapping(value = "elementTypeList")
+    public AjaxResponse elementTypeList(
+            @RequestAttribute SysSite site) {
+        CmsDictionary elementType = dictionaryService.getByCode(site.getId(), "ELEMENT_TYPE");
+        List<CmsDictionaryItem> list =  dictionaryItemService.getList(site.getId(), elementType.getId());
+        return AjaxResponse.success(list);
+    }
+
+
+
+    /**
+     * @param site
+     * @return view name
+     */
+    @RequestMapping(value = "levelList")
+    public AjaxResponse levelList(
+            @RequestAttribute SysSite site) {
+        CmsDictionary level = dictionaryService.getByCode(site.getId(), "REVIEW_LEVEL");
+        List<CmsDictionaryItem> list =  dictionaryItemService.getList(site.getId(), level.getId());
         return AjaxResponse.success(list);
     }
 }

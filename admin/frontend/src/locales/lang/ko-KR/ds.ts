@@ -6,5 +6,3 @@ export default {
     deleted: 'Join Request Deleted',
   },
 };
-
-

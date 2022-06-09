@@ -72,10 +72,14 @@ public class ReviewRequestController {
         List<CmsDictionaryItem> type2ItemList = dictionaryItemService.getEntitys(type2IdList.toArray(new Long[0]));
 
         page.setList(reqList.stream().map(r -> new ReviewRequestData(r,
-                fileService.getList(ReviewRequestFileQuery.builder().reviewId(r.getId()).build()),
+                fileService.getList(ReviewRequestFileQuery.builder().reviewId(r.getId()).step(1).build()),
+                null,
+                null,
                 statusItemList.stream().filter(t -> t.getId().equals(r.getStatus())).findFirst().orElse(null),
                 type1ItemList.stream().filter(t -> t.getId().equals(r.getType1())).findFirst().orElse(null),
                 type2ItemList.stream().filter(t -> t.getId().equals(r.getType2())).findFirst().orElse(null),
+                null,
+                null,
                 null
         )).collect(Collectors.toList()));
 
@@ -112,6 +116,7 @@ public class ReviewRequestController {
             file.setSort(i);
             file.setUserId(user.getId());
             file.setReviewId(entity.getId());
+            file.setStep(1);
 
             fileService.save(file);
         }

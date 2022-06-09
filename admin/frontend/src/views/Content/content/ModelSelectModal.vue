@@ -16,7 +16,7 @@
   </BasicModal>
 </template>
 <script lang="ts">
-  import { computed, defineComponent, PropType, ref} from 'vue';
+  import { computed, defineComponent, PropType, ref } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { Select } from 'ant-design-vue';
@@ -31,13 +31,13 @@
     setup(_, { emit }) {
       const { t } = useI18n();
 
-      const modelId = ref(null as string|null);
+      const modelId = ref(null as string | null);
 
       const [registerModal, { setModalProps, closeModal }] = useModalInner(async () => {
         modelId.value = null;
       });
 
-      const getTitle = computed(() => t('Content.content.select_model') );
+      const getTitle = computed(() => t('Content.content.select_model'));
 
       async function handleSubmit() {
         try {

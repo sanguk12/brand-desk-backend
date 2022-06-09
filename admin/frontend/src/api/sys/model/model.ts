@@ -57,8 +57,6 @@ export type RoleModuleParams = {
   containChild?: boolean;
 };
 
-
-
 export type MenuParams = {
   menuName?: string;
   status?: string;

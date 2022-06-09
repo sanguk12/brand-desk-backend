@@ -21,6 +21,6 @@ export interface JoinItem {
 
 export type JoinDetailItem = JoinItem & {
   staffName: string;
-}
+};
 
 export type JoinSearchResultModel = BasicFetchResult<JoinItem>;

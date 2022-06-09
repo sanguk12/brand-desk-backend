@@ -197,13 +197,12 @@ export function useDataSource(
 
   function deleteTableDataRecordByQuery(query: any) {
     if (!dataSourceRef.value || dataSourceRef.value.length == 0) return;
-    dataSourceRef.value = dataSourceRef.value.filter( data => {
+    dataSourceRef.value = dataSourceRef.value.filter((data) => {
       let match = true;
-      for (let key of Object.keys(query)) {
-        let queryVal = query[key];
-        let dataVal = data[key];
-        if(queryVal !== dataVal)
-        {
+      for (const key of Object.keys(query)) {
+        const queryVal = query[key];
+        const dataVal = data[key];
+        if (queryVal !== dataVal) {
           match = false;
           break;
         }

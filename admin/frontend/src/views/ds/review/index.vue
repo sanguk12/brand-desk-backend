@@ -1,10 +1,10 @@
 <template>
   <div>
-    <BasicTable @register="registerTable"  :searchInfo="searchInfo">
+    <BasicTable @register="registerTable" :searchInfo="searchInfo">
       <template #action="{ record }">
         <TableAction
           :actions="[
-             {
+            {
               icon: 'clarity:info-standard-line',
               tooltip: 'View user',
               onClick: handleView.bind(null, record),
@@ -28,22 +28,22 @@
   </div>
 </template>
 <script lang="ts">
-  import {defineComponent, reactive} from 'vue';
+  import { defineComponent, reactive } from 'vue';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { BasicTable, TableAction, useTable } from '/@/components/Table';
 
   import { useModal } from '/@/components/Modal';
 
-  import {columns, getSearchFormSchema } from './review.data';
-  import {useGo} from "/@/hooks/web/usePage";
-  import {getReviewList} from "/@/api/ds/review";
-  import moment from "moment";
+  import { columns, getSearchFormSchema } from './review.data';
+  import { useGo } from '/@/hooks/web/usePage';
+  import { getReviewList } from '/@/api/ds/review';
+  import moment from 'moment';
 
   export default defineComponent({
     name: 'ReviewRequestManagement',
     components: { BasicTable, TableAction },
     setup: function () {
-      const {t} = useI18n();
+      const { t } = useI18n();
       const go = useGo();
 
       const searchInfo = reactive<Recordable>({
@@ -58,8 +58,8 @@
         text: null,
       });
 
-      const [registerModal, {openModal}] = useModal();
-      const [registerTable, {reload, expandAll, collapseAll}] = useTable({
+      const [registerModal, { openModal }] = useModal();
+      const [registerTable, { reload, expandAll, collapseAll }] = useTable({
         title: '요청 목록',
         isTreeTable: false,
         api: getReviewList,
@@ -87,7 +87,7 @@
           width: 100,
           title: t('common.action'),
           dataIndex: 'action',
-          slots: {customRender: 'action'},
+          slots: { customRender: 'action' },
           fixed: undefined,
         },
       });
@@ -112,7 +112,6 @@
       function handleView(record: Recordable) {
         go('/ds/request/reviewDetail/' + record.id);
       }
-
 
       function handleSuccess() {
         reload();

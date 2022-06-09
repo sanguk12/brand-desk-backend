@@ -16,7 +16,6 @@ public class RequestData {
     private Long writer;
     private String nickname;
     private String status;
-    private String adminStatus;
     private String title;
     private String content;
 

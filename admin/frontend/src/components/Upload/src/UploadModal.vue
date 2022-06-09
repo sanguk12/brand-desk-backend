@@ -61,7 +61,7 @@
   import { warn } from '/@/utils/log';
   import FileList from './FileList.vue';
   import { useI18n } from '/@/hooks/web/useI18n';
-  import { UploadApiResultProps} from "/@/api/sys/model/uploadModel";
+  import { UploadApiResultProps } from '/@/api/sys/model/uploadModel';
 
   export default defineComponent({
     components: { BasicModal, Upload, Alert, FileList },

@@ -21,10 +21,10 @@
   export default defineComponent({
     name: 'MenuDrawer',
     components: { BasicDrawer, BasicForm },
-    emits: ['success', 'register'],
     props: {
-      title: String
+      title: String,
     },
+    emits: ['success', 'register'],
     setup(_, { emit }) {
       const isUpdate = ref(true);
 

@@ -11,12 +11,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.beanutils.BeanUtils;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import java.util.Date;
 import java.util.List;
 
@@ -32,11 +27,10 @@ public class ReviewRequestData {
     private Long type1;
     private Long type2;
     private String content;
-    private Integer status;
-    private Integer adminStatus;
+    private Long status;
     private Integer survey;
     private String surveyComment;
-    private String level;
+    private Long level;
 
     private Boolean lettermark;
     private Boolean color;
@@ -45,12 +39,12 @@ public class ReviewRequestData {
     private Boolean imagery;
     private Boolean illustration;
 
-    private String review1st;
-    private String review1stDate;
+    private Long review1st;
+    private Date review1stDate;
     private String reviewComment11st;
     private String reviewComment21st;
-    private String review2st;
-    private String review2stDate;
+    private Long review2st;
+    private Date review2stDate;
     private String reviewComment12st;
     private String reviewComment22st;
     private Date createDate;
@@ -58,30 +52,42 @@ public class ReviewRequestData {
 
     private String username;
     private String nickname;
-    private String  email;
+    private String email;
 
     private String statusValue;
     private String statusText;
-
-
-    private String adminStatusValue;
-    private String adminStatusText;
-
 
     private String type1Value;
     private String type2Value;
     private String type1Text;
     private String type2Text;
+
+    private String username1st;
+    private String nickname1st;
+    private String email1st;
+
+    private String username2st;
+    private String nickname2st;
+    private String email2st;
+
     private List<DsReviewRequestFileEntity> files;
+
+    private List<DsReviewRequestFileEntity> files1st;
+    private List<DsReviewRequestFileEntity> files2st;
 
 
     public ReviewRequestData(
             DsReviewRequestEntity entity,
             List<DsReviewRequestFileEntity> files,
+            List<DsReviewRequestFileEntity> files1st,
+            List<DsReviewRequestFileEntity> files2st,
             CmsDictionaryItem status,
             CmsDictionaryItem type1,
             CmsDictionaryItem type2,
-            SysUser user)
+            SysUser user,
+            SysUser first,
+            SysUser second
+            )
     {
         try {
             BeanUtils.copyProperties(this, entity);
@@ -112,29 +118,21 @@ public class ReviewRequestData {
             this.nickname = user.getNickname();
             this.email = user.getEmail();
         }
+
+        if(first != null)
+        {
+            this.username1st = first.getUsername();
+            this.nickname1st = first.getNickname();
+            this.email1st = first.getEmail();
+        }
+
+        if(second != null)
+        {
+            this.username2st = second.getUsername();
+            this.nickname2st = second.getNickname();
+            this.email2st = second.getEmail();
+        }
         this.files = files;
     }
 
-    public ReviewRequestData(
-            DsReviewRequestEntity entity,
-            List<DsReviewRequestFileEntity> files,
-            CmsDictionaryItem status,
-            CmsDictionaryItem adminStatus,
-            CmsDictionaryItem type1,
-            CmsDictionaryItem type2,
-            SysUser user)
-    {
-        this( entity,
-                files,
-                status,
-                type1,
-                type2,
-                user);
-
-        if(adminStatus != null)
-        {
-            this.adminStatusValue = adminStatus.getValue();
-            this.adminStatusText = adminStatus.getText();
-        }
-    }
 }

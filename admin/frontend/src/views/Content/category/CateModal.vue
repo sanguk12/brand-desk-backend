@@ -7,7 +7,7 @@
   import { computed, defineComponent, ref, unref } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
-  import { getFormCodeSchema, getFormSchema} from './cate.data';
+  import { getFormCodeSchema, getFormSchema } from './cate.data';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { getManagerList } from '/@/api/sys/user';
   import { saveCate, getCategoryDetail } from '/@/api/cms/category';

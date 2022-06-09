@@ -13,4 +13,3 @@ export const moduleTypeTextMap: Map<ModuleTypeEnum, string> = (() => {
 
   return map;
 })();
-

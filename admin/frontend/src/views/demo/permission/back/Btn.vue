@@ -33,10 +33,8 @@
         <a-button color="error" class="mx-4">code ['1000','2000'] </a-button>
       </Authority>
 
-      <Divider></Divider>
-      <a-button v-if="hasPermission('1000')" type="primary" class="mx-4">
-        code ['1000']
-      </a-button>
+      <Divider />
+      <a-button v-if="hasPermission('1000')" type="primary" class="mx-4"> code ['1000'] </a-button>
 
       <a-button v-if="hasPermission('2000')" color="success" class="mx-4">
         code ['2000']������ ǥ��

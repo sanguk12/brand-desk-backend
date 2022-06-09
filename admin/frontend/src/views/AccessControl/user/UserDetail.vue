@@ -66,7 +66,7 @@
         user.value = res;
         avatar.value = res.avatar || headerImg;
 
-        await setTitle(t('AccessControl.user.detail_tab_title', {user: res.nickname}));
+        await setTitle(t('AccessControl.user.detail_tab_title', { user: res.nickname }));
       })();
 
       function getSchema() {

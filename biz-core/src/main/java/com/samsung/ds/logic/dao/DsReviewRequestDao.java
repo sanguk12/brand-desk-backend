@@ -88,7 +88,7 @@ public class DsReviewRequestDao extends BaseDao<DsReviewRequestEntity> {
 
         if(CommonUtils.notEmpty(query.getStatus()))
         {
-            queryHandler.condition(" ( bean.status = :status or bean.adminStatus = :status )").setParameter("status", query.getStatus());
+            queryHandler.condition(" bean.status = :status ").setParameter("status", query.getStatus());
         }
 
         queryHandler.order("bean.id desc");

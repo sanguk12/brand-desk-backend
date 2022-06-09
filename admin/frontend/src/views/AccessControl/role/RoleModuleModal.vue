@@ -134,7 +134,7 @@
       }
 
       function getTreeIcon({ icon }) {
-        console.log(icon)
+        console.log(icon);
         return icon;
       }
 

@@ -27,6 +27,10 @@ public class DsReviewRequestFileDao extends BaseDao<DsReviewRequestFileEntity> {
     public PageHandler getPage(ReviewRequestFileQuery query, Integer pageIndex, Integer pageSize) {
         QueryHandler queryHandler = getQueryHandler("from DsReviewRequestFileEntity bean");
         queryHandler.condition("bean.reviewId = :reviewId").setParameter("reviewId", query.getReviewId());
+        if(CommonUtils.notEmpty(query.getStep()))
+        {
+            queryHandler.condition("bean.step = :step").setParameter("step", query.getStep());
+        }
         queryHandler.order("bean.id desc");
         return getPage(queryHandler, pageIndex, pageSize);
     }

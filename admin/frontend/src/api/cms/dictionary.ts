@@ -33,7 +33,6 @@ export function getDictionaryChild(parentId: number, parentData: number) {
   });
 }
 
-
 export function getDictionaryTree(params: DictionarySearchParams) {
   return defHttp.get<DictionaryListGetResultModel>({ url: Api.DictionaryTree, params });
 }

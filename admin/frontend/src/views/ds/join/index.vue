@@ -1,10 +1,10 @@
 <template>
   <div>
-    <BasicTable @register="registerTable"  :searchInfo="searchInfo">
+    <BasicTable @register="registerTable" :searchInfo="searchInfo">
       <template #action="{ record }">
         <TableAction
           :actions="[
-             {
+            {
               icon: 'clarity:info-standard-line',
               tooltip: 'View user',
               onClick: handleView.bind(null, record),
@@ -28,7 +28,7 @@
   </div>
 </template>
 <script lang="ts">
-  import {defineComponent, reactive} from 'vue';
+  import { defineComponent, reactive } from 'vue';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { BasicTable, TableAction, useTable } from '/@/components/Table';
 
@@ -37,7 +37,7 @@
 
   import { columns, searchFormSchema } from './join.data';
   import { getJoinList } from '/@/api/ds/join';
-  import {useGo} from "/@/hooks/web/usePage";
+  import { useGo } from '/@/hooks/web/usePage';
 
   export default defineComponent({
     name: 'JoinRequestManagement',
@@ -106,7 +106,6 @@
       function handleView(record: Recordable) {
         go('/ds/request/joinDetail/' + record.id);
       }
-
 
       function handleSuccess() {
         reload();

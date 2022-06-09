@@ -8,6 +8,7 @@ import com.synccms.controller.web.event.LoginEvent;
 import com.synccms.controller.web.event.LogoutEvent;
 import com.synccms.entities.log.LogLogin;
 import com.synccms.entities.log.LogOperate;
+import com.synccms.entities.sys.SysRole;
 import com.synccms.entities.sys.SysSite;
 import com.synccms.entities.sys.BaseSysUser;
 import com.synccms.entities.sys.SysUserToken;
@@ -206,7 +207,7 @@ public class AdminLoginApiController {
             List<Integer> roleArray = Arrays.stream(StringUtils.split(roles, CommonConstants.COMMA)).map(a -> NumberUtils.toInt(a)).collect(Collectors.toList());
             builder.roles(
                     roleService.getEntitys(roleArray.toArray(new Integer[0]))
-                            .stream().map(r-> RoleData.builder().name(r.getName()).id(r.getId()).build()).collect(Collectors.toList())
+                            .stream().map(r-> new RoleData(r)).collect(Collectors.toList())
             );
 
         }

@@ -1,6 +1,6 @@
 import type { PropType } from 'vue';
 import { FileBasicColumn } from './typing';
-import {UploadApiResultProps} from "/@/api/sys/model/uploadModel";
+import { UploadApiResultProps } from '/@/api/sys/model/uploadModel';
 
 export const basicProps = {
   helpText: {

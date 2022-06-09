@@ -119,5 +119,3 @@ export default {
     go_parent: 'Return to Parent',
   },
 };
-
-

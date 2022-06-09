@@ -90,7 +90,7 @@
       }
 
       function handleDelete(record: Recordable) {
-        getTableAction().deleteTableDataRecordByQuery({uuid: record.uuid});
+        getTableAction().deleteTableDataRecordByQuery({ uuid: record.uuid });
       }
 
       function validate() {

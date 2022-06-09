@@ -1,7 +1,6 @@
 <template>
   <BasicModal v-bind="$attrs" @register="registerModal" :title="getTitle" @ok="handleSubmit">
-    <BasicForm @register="registerForm">
-    </BasicForm>
+    <BasicForm @register="registerForm" />
   </BasicModal>
 </template>
 <script lang="ts">
@@ -61,7 +60,7 @@
         registerModal,
         registerForm,
         getTitle,
-        handleSubmit
+        handleSubmit,
       };
     },
   });
