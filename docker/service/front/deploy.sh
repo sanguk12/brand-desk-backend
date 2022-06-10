@@ -2,11 +2,12 @@
 
 if [ ! -f .env ]
 then
-  export $(cat .env | xargs)
+  export $(grep -v '^#' .env | xargs)
 fi
 
 docker-compose --env-file ./.env -f docker-compose.yml -p web down
 docker system prune -f
+docker network create nexus
 docker rmi registry.basicit.co.kr/branddesk/web-backend-${BUILD_PROFILE}
 docker rmi registry.basicit.co.kr/branddesk/web-ui-${BUILD_PROFILE}
 

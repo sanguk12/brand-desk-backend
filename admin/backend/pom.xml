@@ -170,9 +170,6 @@
                                     <entrypoint>-Dcms.filePath=/data/synccms</entrypoint>
                                     <entrypoint>-Dcms.webFilePath=/webfile</entrypoint>
                                     <entrypoint>-server</entrypoint>
-                                    <entrypoint>-XX:+UnlockExperimentalVMOptions</entrypoint>
-                                    <entrypoint>-XX:+UseCGroupMemoryLimitForHeap</entrypoint>
-
                                     <!-- End of JVM flags -->
                                     <entrypoint>-cp</entrypoint>
                                     <entrypoint>/app:/app/WEB-INF/classes:/app/WEB-INF/lib/*</entrypoint>
