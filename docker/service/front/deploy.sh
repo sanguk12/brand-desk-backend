@@ -11,7 +11,7 @@ docker network create nexus
 docker rmi registry.basicit.co.kr/branddesk/web-backend-${BUILD_PROFILE}
 docker rmi registry.basicit.co.kr/branddesk/web-ui-${BUILD_PROFILE}
 
-docker login registry.basicit.co.kr --username $REGISTRY_USERNAME --password  $REGISTRY_PASSWORD
+docker login registry.basicit.co.kr --username $REGISTRY_USERNAME --password  '$REGISTRY_PASSWORD'
 for run in {1..10}; do
   if docker pull registry.basicit.co.kr/branddesk/web-backend-${BUILD_PROFILE}; then
       echo "success"
