@@ -38,7 +38,7 @@ services:
       - "traefik.http.routers.admin-ui.tls=true"
       - "traefik.http.routers.admin-ui.tls.certresolver=myresolver"
       - "traefik.http.routers.admin-ui.service=admin-ui-service"
-      - "traefik.http.services.admin-ui-service.loadBalancer.server.port=8081"
+      - "traefik.http.services.admin-ui-service.loadBalancer.server.port=8080"
 
   backend:
     image: registry.basicit.co.kr/branddesk/admin-backend-${BUILD_PROFILE}:latest
