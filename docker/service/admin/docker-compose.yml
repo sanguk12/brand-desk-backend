@@ -1,0 +1,74 @@
+version: '3'
+services:
+  traefik:
+    image: traefik:v2.2
+    container_name: traefik
+    restart: always
+    command:
+      - "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=true"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
+      - "--certificatesresolvers.myresolver.acme.email=qudansdl@gmail.com"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - nexus
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/data/letsencrypt:/letsencrypt"
+
+  ui:
+    image: registry.basicit.co.kr/branddesk/admin-ui-${BUILD_PROFILE}:latest
+    restart: always
+    volumes:
+      - /data:/data
+    networks:
+      - nexus
+    labels:
+      - "traefik.http.routers.admin-ui.rule=Host(`branddesk-admin.basicit.co.kr`)"
+      - "traefik.http.routers.admin-ui.tls=true"
+      - "traefik.http.routers.admin-ui.tls.certresolver=myresolver"
+      - "traefik.http.routers.admin-ui.service=admin-ui-service"
+      - "traefik.http.services.admin-ui-service.loadBalancer.server.port=8081"
+
+  backend:
+    image: registry.basicit.co.kr/branddesk/admin-backend-${BUILD_PROFILE}:latest
+    restart: always
+    volumes:
+      - /data:/data
+    networks:
+      - nexus
+    labels:
+      - "traefik.http.routers.admin-backend.rule=Host(`branddesk-admin.basicit.co.kr`) && PathPrefix(`/api/`)"
+      - "traefik.http.routers.admin-backend.tls=true"
+      - "traefik.http.routers.admin-backend.tls.certresolver=myresolver"
+      - "traefik.http.routers.admin-backend.service=admin-backend-service"
+      - "traefik.http.services.admin-backend-service.loadBalancer.server.port=8080"
+
+
+  publish:
+    image: registry.basicit.co.kr/branddesk/publish-${BUILD_PROFILE}:latest
+    restart: always
+    volumes:
+      - /data:/data
+    networks:
+      - nexus
+    labels:
+      - "traefik.http.routers.publish.rule=Host(`branddesk-publ.basicit.co.kr`)"
+      - "traefik.http.routers.publish.tls=true"
+      - "traefik.http.routers.publish.tls.certresolver=myresolver"
+      - "traefik.http.routers.publish.service=publish-service"
+      - "traefik.http.services.publish-service.loadBalancer.server.port=8080"
+
+networks:
+  nexus:
+    external: true
