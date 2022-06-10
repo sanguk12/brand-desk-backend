@@ -20,3 +20,5 @@ node_modules/
 /spy.log
 /data/synccms/web/content/
 /data/synccms/web/upload/
+/admin/frontend/node/
+/admin/frontend/dist/

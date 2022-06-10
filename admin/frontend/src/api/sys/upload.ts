@@ -2,7 +2,7 @@ import { UploadApiResult } from './model/uploadModel';
 import { defHttp } from '/@/utils/http/axios';
 import { UploadFileParams } from '/#/axios';
 import { useGlobSetting } from '/@/hooks/setting';
-import {getCsrf} from "/@/api/sys/csrf";
+import { getCsrf } from '/@/api/sys/csrf';
 
 const { uploadUrl = '' } = useGlobSetting();
 
@@ -14,10 +14,10 @@ export async function uploadApi(
   onUploadProgress: (progressEvent: ProgressEvent) => void,
 ) {
   const _csrf = await getCsrf();
-  if(params.data) {
+  if (params.data) {
     params.data._csrf = _csrf;
-  }else{
-    params.data = {_csrf};
+  } else {
+    params.data = { _csrf };
   }
   return defHttp.uploadFile<UploadApiResult>(
     {

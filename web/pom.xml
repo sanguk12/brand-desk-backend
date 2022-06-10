@@ -58,10 +58,18 @@
                         <configuration>
                             <skip>false</skip>
                             <from>
-                                <image>amazoncorretto:11</image>
+                                <image>${docker.group.registry}/amazoncorretto:17</image>
+                                <auth>
+                                    <username>${env.REGISTRY_USERNAME}</username>
+                                    <password>${env.REGISTRY_PASSWORD}</password>
+                                </auth>
                             </from>
                             <to>
-                                <image>${docker.registry}/${docker.image.prefix}/synccms-backend-${profiles.active}</image>
+                                <image>${docker.registry}/${docker.image.prefix}/web-backend-${profiles.active}</image>
+                                <auth>
+                                    <username>${env.REGISTRY_USERNAME}</username>
+                                    <password>${env.REGISTRY_PASSWORD}</password>
+                                </auth>
                                 <tags>
                                     <tag>${project.version}</tag>
                                     <tag>latest</tag>

@@ -152,7 +152,7 @@ public class LoginServiceImpl implements LoginService {
                 List<SysRoleUser> roleList =  roleUserService.getList(SysRoleUserQuery.builder().userId(user.getId()).build());
                 List<RoleInfo> roles = roleService.getEntitys(
                         roleList.stream().map(ru -> ru.getId().getRoleId()).collect(Collectors.toList()).toArray(new Integer[0])
-                ).stream().map(r-> RoleInfo.builder().id(r.getId()).name(r.getName()).build()).collect(Collectors.toList());
+                ).stream().map(r-> RoleInfo.builder().id(r.getId()).name(r.getCode()).build()).collect(Collectors.toList());
 
                 return UserData.builder()
                         .id(user.getId())

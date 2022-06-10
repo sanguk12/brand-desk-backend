@@ -26,10 +26,15 @@
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <docker.image.prefix>sync</docker.image.prefix>
+
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <version.synccms>4.0.0-SNAPSHOT</version.synccms>
+
+
+        <docker.group.registry>registry-group.basicit.co.kr</docker.group.registry>
+        <docker.registry>registry.basicit.co.kr</docker.registry>
+        <docker.image.prefix>branddesk</docker.image.prefix>
     </properties>
 
 

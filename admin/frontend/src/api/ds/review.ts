@@ -14,7 +14,6 @@ enum Api {
   ReviewStatusList = '/api/review/statusList',
   ReviewElementTypeList = '/api/review/elementTypeList',
   ReviewLevelList = '/api/review/levelList',
-
 }
 
 export const getReviewList = (data?: ReviewSearchParams) =>
@@ -37,7 +36,6 @@ export async function secondReviewApply(id: number, data) {
   const _csrf = await getCsrf();
   return defHttp.post<number>({ url: Api.ReviewSecondApply + id, data, params: { _csrf } });
 }
-
 
 export async function reviewReject(id: number) {
   const _csrf = await getCsrf();
@@ -63,10 +61,8 @@ export function getStatusList(params) {
 }
 
 export function getElementTypeList() {
-  return defHttp.get<DictionaryItem[]>({ url: Api.ReviewElementTypeList});
+  return defHttp.get<DictionaryItem[]>({ url: Api.ReviewElementTypeList });
 }
 export function getLevelList() {
-  return defHttp.get<DictionaryItem[]>({ url: Api.ReviewLevelList});
+  return defHttp.get<DictionaryItem[]>({ url: Api.ReviewLevelList });
 }
-
-

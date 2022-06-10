@@ -129,30 +129,62 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy Vue.js frontend content</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>src/main/resources/public</outputDirectory>
-                            <overwrite>true</overwrite>
-                            <resources>
-                                <resource>
-                                    <directory>${project.parent.basedir}/frontend/dist</directory>
-                                    <includes>
-                                        <include>**</include>
-                                    </includes>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>buildDocker</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.google.cloud.tools</groupId>
+                        <artifactId>jib-maven-plugin</artifactId>
+                        <configuration>
+                            <skip>false</skip>
+                            <from>
+                                <image>${docker.group.registry}/amazoncorretto:17</image>
+                                <auth>
+                                    <username>${env.REGISTRY_USERNAME}</username>
+                                    <password>${env.REGISTRY_PASSWORD}</password>
+                                </auth>
+                            </from>
+                            <to>
+                                <image>${docker.registry}/${docker.image.prefix}/admin-backend-${profiles.active}</image>
+                                <auth>
+                                    <username>${env.REGISTRY_USERNAME}</username>
+                                    <password>${env.REGISTRY_PASSWORD}</password>
+                                </auth>
+                                <tags>
+                                    <tag>${project.version}</tag>
+                                    <tag>latest</tag>
+                                </tags>
+                            </to>
+                            <container>
+                                <appRoot>/app</appRoot>
+                                <entrypoint>
+                                    <entrypoint>java</entrypoint>
+                                    <!-- Start of JVM flags -->
+                                    <entrypoint>-Dspring.profiles.active=${profiles.active}</entrypoint>
+                                    <entrypoint>-Dcms.contextPath=</entrypoint>
+                                    <entrypoint>-Dcms.filePath=/data/synccms</entrypoint>
+                                    <entrypoint>-Dcms.webFilePath=/webfile</entrypoint>
+                                    <entrypoint>-server</entrypoint>
+                                    <entrypoint>-XX:+UnlockExperimentalVMOptions</entrypoint>
+                                    <entrypoint>-XX:+UseCGroupMemoryLimitForHeap</entrypoint>
+
+                                    <!-- End of JVM flags -->
+                                    <entrypoint>-cp</entrypoint>
+                                    <entrypoint>/app:/app/WEB-INF/classes:/app/WEB-INF/lib/*</entrypoint>
+                                    <!-- use your actual main class, not the spring.boot.WarLauncher -->
+                                    <entrypoint>boot.SpringBootApplication</entrypoint>
+                                </entrypoint>
+                            </container>
+                            <allowInsecureRegistries>true</allowInsecureRegistries>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

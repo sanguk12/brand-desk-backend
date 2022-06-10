@@ -1,16 +1,25 @@
 import { BasicColumn, FormSchema } from '/@/components/Table';
 import { DescItem } from '/@/components/Description';
-import {computed, h, Ref} from 'vue';
-import {ApiRadioGroup, ApiSelect} from '/@/components/Form';
-import {CheckboxGroup, Input, List, ListItem, RadioGroup, Row, Space, Upload} from 'ant-design-vue';
+import { computed, h, Ref } from 'vue';
+import { ApiRadioGroup, ApiSelect } from '/@/components/Form';
+import {
+  CheckboxGroup,
+  Input,
+  List,
+  ListItem,
+  RadioGroup,
+  Row,
+  Space,
+  Upload,
+} from 'ant-design-vue';
 import { getLevelList, getStatusList, getType2List, getTypeList } from '/@/api/ds/review';
 import { getFilename } from '/@/utils/filename';
 import { DictionaryItem } from '/@/api/cms/model/dictionary';
 import { ReviewDetailItem } from '/@/api/ds/model/review';
 import { Tinymce } from '/@/components/Tinymce';
-import {BasicUpload} from "/@/components/Upload";
-import {uploadApi} from "/@/api/sys/upload";
-import dayjs from "dayjs";
+import { BasicUpload } from '/@/components/Upload';
+import { uploadApi } from '/@/api/sys/upload';
+import dayjs from 'dayjs';
 export const columns: BasicColumn[] = [
   {
     title: '아이디',
@@ -332,10 +341,7 @@ export function getElements(data: any, elementTypeList: DictionaryItem[]) {
 
   return elements;
 }
-export function getDetailSchema(
-  reviewResult: any,
-  elementTypeList: DictionaryItem[],
-) {
+export function getDetailSchema(reviewResult: any, elementTypeList: DictionaryItem[]) {
   const detailSchema: DescItem[] = [
     {
       field: 'status',
@@ -373,7 +379,7 @@ export function getDetailSchema(
       span: 2,
       render: (val, data) => {
         const defaultValue: number[] = getElements(data, elementTypeList);
-        console.log(defaultValue)
+        console.log(defaultValue);
         const options = elementTypeList.map((et) => {
           return { label: et.text, value: et.id };
         });
@@ -392,7 +398,7 @@ export function getDetailSchema(
 }
 
 export function getFirstReviewSchema(reviewData: ReviewDetailItem, reviewResult: any) {
-  const uploadPath = `/request/${reviewData.userId}/${dayjs().format('YYYYMMDDHHmm')}`
+  const uploadPath = `/request/${reviewData.userId}/${dayjs().format('YYYYMMDDHHmm')}`;
 
   const schema: DescItem[] = [
     {
@@ -401,14 +407,14 @@ export function getFirstReviewSchema(reviewData: ReviewDetailItem, reviewResult:
       span: 4,
       render: (val, data) => {
         return h(ApiRadioGroup, {
-            options: [
-              { label: '검수 완료', value: 'FIRST_REVIEW' },
-              { label: '반려', value: 'REJECT' },
-            ],
-            onChange: async (value) => {
-              reviewResult.status1st = value;
-            },
-          });
+          options: [
+            { label: '검수 완료', value: 'FIRST_REVIEW' },
+            { label: '반려', value: 'REJECT' },
+          ],
+          onChange: async (value) => {
+            reviewResult.status1st = value;
+          },
+        });
       },
     },
     {
@@ -417,14 +423,14 @@ export function getFirstReviewSchema(reviewData: ReviewDetailItem, reviewResult:
       span: 4,
       render: (val, data) => {
         return h(Input, {
-            style: 'width: 500px',
-            placeholder: '반려사유를 입력하세요',
-            value: data.reviewComment11st,
-            onChange: (e) => {
-              data.reviewComment11st = e.target.value;
-              reviewResult.reviewComment11st = e.target.value;
-            },
-          });
+          style: 'width: 500px',
+          placeholder: '반려사유를 입력하세요',
+          value: data.reviewComment11st,
+          onChange: (e) => {
+            data.reviewComment11st = e.target.value;
+            reviewResult.reviewComment11st = e.target.value;
+          },
+        });
       },
     },
     {
@@ -449,15 +455,19 @@ export function getFirstReviewSchema(reviewData: ReviewDetailItem, reviewResult:
         return h(BasicUpload, {
           api: uploadApi,
           emptyHidePreview: true,
-          uploadParams: {path: uploadPath},
+          uploadParams: { path: uploadPath },
           value: [],
           onChange: (list: any[]) => {
-            if(data.files1st == null)
-            {
+            if (data.files1st == null) {
               data.files1st = [];
             }
-            list.forEach(f=> {
-              data.files1st.push({step: 2, filePath: f.filePath, fileType: 'Other', sort: data.files1st.length+1});
+            list.forEach((f) => {
+              data.files1st.push({
+                step: 2,
+                filePath: f.filePath,
+                fileType: 'Other',
+                sort: data.files1st.length + 1,
+              });
             });
           },
         });
@@ -499,9 +509,7 @@ export function getFirstReviewSchema(reviewData: ReviewDetailItem, reviewResult:
   return schema;
 }
 
-
 export function getFirstReviewReadonlySchema(reviewData: ReviewDetailItem, reviewResult: any) {
-
   const schema: DescItem[] = [
     {
       field: 'reviewComment11st',
@@ -550,7 +558,7 @@ export function getFirstReviewReadonlySchema(reviewData: ReviewDetailItem, revie
 }
 
 export function getSecondReviewSchema(reviewData: ReviewDetailItem, reviewResult: any) {
-  const uploadPath = `/request/${reviewData.userId}/${dayjs().format('YYYYMMDDHHmm')}`
+  const uploadPath = `/request/${reviewData.userId}/${dayjs().format('YYYYMMDDHHmm')}`;
 
   const schema: DescItem[] = [
     {
@@ -607,15 +615,19 @@ export function getSecondReviewSchema(reviewData: ReviewDetailItem, reviewResult
         return h(BasicUpload, {
           api: uploadApi,
           emptyHidePreview: true,
-          uploadParams: {path: uploadPath},
+          uploadParams: { path: uploadPath },
           value: [],
           onChange: (list: any[]) => {
-            if(data.files2st == null)
-            {
+            if (data.files2st == null) {
               data.files2st = [];
             }
-            list.forEach(f=> {
-              data.files2st.push({step: 2, filePath: f.filePath, fileType: 'Other', sort: data.files2st.length+1});
+            list.forEach((f) => {
+              data.files2st.push({
+                step: 2,
+                filePath: f.filePath,
+                fileType: 'Other',
+                sort: data.files2st.length + 1,
+              });
             });
           },
         });
@@ -657,12 +669,11 @@ export function getSecondReviewSchema(reviewData: ReviewDetailItem, reviewResult
   return schema;
 }
 
-
 export function getSecondReviewReadonlySchema(reviewData: ReviewDetailItem, reviewResult: any) {
   const schema: DescItem[] = [
     {
       field: 'reviewComment12st',
-      label: "반려 사유",
+      label: '반려 사유',
       span: 4,
     },
     {
