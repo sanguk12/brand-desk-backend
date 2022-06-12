@@ -2,10 +2,13 @@ package com.synccms.controller.api.admin.cms;
 
 import com.synccms.common.annotation.Csrf;
 import com.synccms.common.constants.CommonConstants;
+import com.synccms.common.handler.PageHandler;
+import com.synccms.common.handler.RenderHandler;
 import com.synccms.common.tools.CommonUtils;
 import com.synccms.common.tools.ControllerUtils;
 import com.synccms.common.tools.JsonUtils;
 import com.synccms.common.tools.RequestUtils;
+import com.synccms.entities.cms.CmsCategory;
 import com.synccms.entities.cms.CmsComment;
 import com.synccms.entities.cms.CmsContent;
 import com.synccms.entities.log.LogOperate;
@@ -17,18 +20,23 @@ import com.synccms.logic.service.cms.CmsCommentService;
 import com.synccms.logic.service.cms.CmsContentService;
 import com.synccms.logic.service.log.LogLoginService;
 import com.synccms.logic.service.log.LogOperateService;
+import com.synccms.views.pojo.entities.CmsCategoryData;
+import com.synccms.views.pojo.query.CmsCategoryQuery;
+import com.synccms.views.pojo.query.CmsCommentQuery;
+import com.synccms.views.pojo.query.CmsContentQuery;
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -43,12 +51,27 @@ public class CmsCommentAdminController {
     @Autowired
     protected SiteComponent siteComponent;
     @Autowired
-    private TemplateComponent templateComponent;
-    @Autowired
     private CmsContentService contentService;
 
-    private String[] ignoreProperties = new String[] { "siteId", "userId", "createDate", "checkUserId", "checkDate", "status",
-            "replyId", "replyUserId", "replies", "disabled" };
+
+
+    /**
+     * @param site
+     * @param admin
+     * @param query
+     * @return view name
+     */
+    @RequestMapping("list")
+    @ResponseBody
+    public PageHandler list(@RequestAttribute SysSite site,
+                            @SessionAttribute BaseSysUser admin,
+                            @RequestBody CmsCommentQuery query,
+                            @RequestParam(value = "pageIndex", required = false, defaultValue = "0") Integer pageIndex,
+                            @RequestParam(value = "pageSize", required = false, defaultValue = "" + PageHandler.DEFAULT_PAGE_SIZE) Integer pageSize) {
+        PageHandler page = service.getPage(query, pageIndex, pageSize);
+        return page;
+    }
+
 
     /**
      * @param site
@@ -68,7 +91,7 @@ public class CmsCommentAdminController {
                 return CommonConstants.TEMPLATE_ERROR;
             }
             entity.setUpdateDate(CommonUtils.getDate());
-            entity = service.update(entity.getId(), entity, ignoreProperties);
+            entity = service.update(entity.getId(), entity, CmsContentService.ignoreProperties);
             logOperateService.save(
                     LogOperate.builder()
                             .siteId(site.getId())
