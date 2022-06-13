@@ -1,0 +1,49 @@
+{
+  "id" : "QNA",
+  "parentId" : null,
+  "name" : "Q&A And FAQ",
+  "description" : null,
+  "templatePath" : null,
+  "editorType" : null,
+  "hasChild" : false,
+  "onlyUrl" : false,
+  "hasImages" : false,
+  "hasFiles" : false,
+  "searchable" : false,
+  "fieldList" : null,
+  "requiredFieldList" : null,
+  "fieldTextMap" : {
+    "title" : "제목"
+  },
+  "extendList" : [ {
+    "createDate" : null,
+    "updateDate" : null,
+    "id" : {
+      "code" : "CONTENT"
+    },
+    "required" : false,
+    "searchable" : false,
+    "maxlength" : null,
+    "name" : " 내용",
+    "description" : "",
+    "inputType" : "textarea",
+    "defaultValue" : "",
+    "dictionaryId" : null,
+    "sort" : 1
+  }, {
+    "createDate" : null,
+    "updateDate" : null,
+    "id" : {
+      "code" : "HAS_REPLY"
+    },
+    "required" : false,
+    "searchable" : false,
+    "maxlength" : null,
+    "name" : "답변 작성됨",
+    "description" : "",
+    "inputType" : "boolean",
+    "defaultValue" : "",
+    "dictionaryId" : null,
+    "sort" : 2
+  } ]
+}
